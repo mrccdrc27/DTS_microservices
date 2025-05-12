@@ -4,7 +4,7 @@ from django.shortcuts import render
 from rest_framework.generics import GenericAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import *
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -16,6 +16,25 @@ class HelloView(APIView):
     def get(self, request):
         content = {'message': 'Hello'}
         return Response(content)
+    
+class AdminView(APIView):
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, request):
+        if not request.user.is_staff:
+            return Response("invalid credentials", status= status.HTTP_401_UNAUTHORIZED)
+        content = {'message': 'Hello Admin'}
+        return Response(content)
+
+class Verify(APIView):
+    # checks if there are any tampering done to the jwt
+    permission_classes = (IsAuthenticated, )
+    def get(self, request):
+        content = {'is_staff': request.user.is_staff}
+        if not request.user.is_staff:
+            return Response(content, status= status.HTTP_200_OK)
+        return Response(content, status= status.HTTP_200_OK)
+
 
 class UserRegistrationAPIView(GenericAPIView):
     permission_classes = (AllowAny,)
@@ -25,7 +44,10 @@ class UserRegistrationAPIView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+
+        # token create
         token = RefreshToken.for_user(user)
+        token['is_staff'] = user.is_staff
         data = serializer.data
         data["tokens"] = {"refresh":str(token),
                           "access": str(token.access_token)}
@@ -40,10 +62,13 @@ class UserLoginAPIView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
         serializer = CustomUserSerializer(user)
+
+        # token create
         token = RefreshToken.for_user(user)
         data = serializer.data
         data["tokens"] = {"refresh":str(token),  
                           "access": str(token.access_token)}
+        data["is_staff"] = user.is_staff
         return Response(data, status=status.HTTP_200_OK)
     
 class UserLogoutAPIView(GenericAPIView):

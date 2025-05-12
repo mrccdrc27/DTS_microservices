@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from './agent-login.module.css';
+import { jwtDecode } from "jwt-decode";
+
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -13,13 +15,17 @@ function Login() {
     e.preventDefault();
     try {
       // send credentials to API
-      const response = await axios.post('http://127.0.0.1:8000/api/token', { email, password });
-      console.log("Success!", response.data)
-      localStorage.setItem("accessToken", response.data.access);
-      localStorage.setItem("refreshToken", response.data.refresh)
-      console.log(response)
+      const response = await axios.post('http://127.0.0.1:8000/api/login/', { email, password });
+      localStorage.setItem("accessToken", response.data.tokens.access);
+      localStorage.setItem("refreshToken", response.data.tokens.refresh)
+      console.log('login response', response)
       // navigate to protected route
-      navigate('/agent');
+      if(response.data.is_staff === true ){
+        navigate('/admin');
+      }
+      else{
+        navigate('/agent');
+      }
     } catch (err) {
       console.error('Login failed', err);
       setError('Invalid email or password');
