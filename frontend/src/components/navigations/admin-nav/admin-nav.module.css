@@ -1,0 +1,132 @@
+
+.navBar {
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  position: relative; /* Needed for hamburger positioning */
+  top: 0; 
+  left: 0;
+  width: 100%; 
+  z-index: 9999; 
+  padding-top: 10px; 
+}
+
+.logoSection {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.logoSection span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+} 
+
+.logoImg {
+  width: 25px;
+  height: 25px;
+  background-color: black;
+  border-radius: 50%;
+}
+
+.navLinks {
+  display: flex;
+  gap: 15px;
+}
+
+.navLink {
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: var(--default-font-size);
+  transition: color 0.2s ease;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.navLink:hover {
+  color: var(--admin-color);
+}
+
+.navLink.active {
+  color: var(--background-color);
+  background-color: var(--admin-color);
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;  
+}
+
+.userSection p {
+  font-size: var(--default-font-size);
+}
+
+.notifBell {
+  font-size: var(--default-font-size);
+  color: #333;
+  cursor: pointer;
+}
+
+.userAvatar {
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.hamburger .bar {
+  width: 30px;
+  height: 4px;
+  background-color: #333;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  /* Hide nav links */
+  .navLinks {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    padding-top: 10px;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: var(--background-color);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  }
+  
+  .active {
+    display: flex;
+  }
+
+  .navLink {
+    font-size: var(--default-font-size);
+    padding: 8px;
+    margin: 0 20px;
+  }
+
+  .userSection {
+    display: none; 
+  }
+}
+

@@ -1,0 +1,13 @@
+.button {
+    font-size: var(--table-font-size);
+}
+
+.button {
+    height: 40px;
+    min-width: 150px;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+}

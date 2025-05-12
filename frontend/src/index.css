@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); 
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+:root {
+  /* Color */
+    --primary-color: #780000;
+    --secondary-color: #063A84;
+    --background-color: #fcfcfc;
+    --text-color: #242424;
+    --label-color: #666;
+    --accent-color: #FFB800;
+    --success-color: #49C564;
+    --error-color: #AE131B;
+    --information-color: #063A84; 
+    --warning-color: #FFEB38;
+    --neutral-color: #424242;
+    --alert-color: #FF9800;
+    --button-color: #3498DB;
+    --border-color: #e0e0e0;
+    --admin-color: #3498DB;
+
+    /* Font sizes */
+    --default-font-size: 0.875rem; /* 14 */
+    --table-head-size: 0.8125rem; /* 13 */
+    --table-font-size: 0.75rem; /* 12 */
+    --h2-font-size: 1.25rem;
+    --h1-font-size: 1.5rem; /* 24 */ 
+    --title-font-size: 1rem; /* 16 */
+  
+    /* pages */
+    --mainpagewidth: 0 12vw;
+    --mainpageminWidth: 0 10vw;
+
+    /* Design */
+    --border-bottom: 1px solid #ddd;
+
+    /* admin stuff */
+    --borderColor: #424242;
+    --adminColor: #1E4379;
+    --tableShade: #c2c2c2;
+}

@@ -1,0 +1,210 @@
+.ticketDetailPage {
+  margin: 0px 10vw;
+}
+
+.topTicketDetail {
+  padding-top: 15px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.backButton {
+  background-color: var(--primary-color);
+  border: 1px solid #ccc;
+  color: white;
+  font-size: 1rem;
+  padding: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  gap: 8px;
+  transition: all 0.2s ease-in-out;
+  margin: 20px 0;
+  font-size: var(--table-font-size);
+  width: 10%;
+}
+
+.botTicketDetail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.leftTicketDetails {
+  flex: 2;
+}
+
+.tdTitleCont {
+  margin-bottom: 10px;
+}
+
+.tdTitle,
+.tdSubject {
+  font-size: 22px;
+}
+
+.tdMeta {
+  font-size: var(--table-head-size);
+}
+
+.tdDescription {
+  margin-bottom: 10px;
+}
+
+.tdDescription h3 {
+  font-size: var(--title-font-size);
+}
+
+.tdDescription p {
+  font-size: var(--table-head-size);
+}
+
+.tdAttachment {
+  margin-bottom: 10px;
+}
+
+.tdAttachment h3 {
+  font-size: var(--title-font-size);
+}
+
+.tdComment {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.tdCommenterAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #3498db;
+  flex-shrink: 0;
+}
+
+.commentInput {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+}
+
+.tdCommentSection {
+  display: flex;
+  gap: 10px;
+}
+
+.commenterAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #3498db;
+  flex-shrink: 0;
+}
+
+.commentContent {
+  flex-grow: 1;
+  padding-left: 10px;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.commenterName {
+  font-weight: bold;
+  font-size: var(--table-head-size);
+}
+
+.commentDate {
+  font-size: 12px;
+}
+
+.commentText {
+  font-size: var(--table-font-size);
+}
+
+.commentAction {
+  padding-right: 10px;
+  font-size: var(--table-font-size);
+}
+
+.rightTicketDetails {
+  flex: 1;
+}
+
+.actionButton {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 12px;
+  width: 100%;
+  font-size: var(--table-head-size);
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.tdStatusCard {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+  padding: 10px;
+}
+
+.tdStatusLabel,
+.tdStatusBadge {
+  font-size: var(--table-head-size);
+}
+
+.tdStatusBadge {
+  background-color: var(--alert-color);
+  color: var(--background-color);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: var(--table-head-size);
+}
+
+.tdInfoItem {
+  padding: 10px;
+  border: 0.5px solid gray;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.tdInfoLabelValue {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tdInfoLabel,
+.tdInfoValue {
+  font-size: var(--table-head-size);
+}
+
+.tdActivityLog {
+  padding: 10px;
+  border: 0.5px solid gray;
+  border-radius: 4px;
+}
+
+.tdActivityLogTitle {
+  font-size: var(--table-head-size);
+  font-weight: bold;
+}
+
+.tdActivityLogContent {
+  font-size: var(--table-head-size);
+}
+
+@media (max-width: 768px) {
+  .leftTicketDetails,
+  .rightTicketDetails {
+    flex: 1 1 100%;
+    min-width: unset;
+  }
+}

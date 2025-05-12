@@ -1,0 +1,67 @@
+.dashboardPage {
+    margin: var(--mainpagewidth);
+  }
+  
+  .dashboardTopSection {
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .dbHeroSection {
+    height: 100px;
+    background-image: url('https://officesnapshots.com/wp-content/uploads/2020/04/lr-distributors-offices-new-york-city-3-1536x1025.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    height: 100px;  
+    position: relative;
+    display: flex;
+    align-items: end;
+    padding-left: 15px;
+  }
+  
+
+.main {
+    margin: var(--mainpagewidth);
+    padding: 20px 0px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.whole{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    gap: 12px;
+}
+
+.left {
+    width: 75%;
+    height: 100%;
+}
+
+.right {
+    width: 25%;
+    height: 100%;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 12px;
+  }
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}

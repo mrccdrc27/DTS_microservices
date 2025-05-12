@@ -1,0 +1,43 @@
+
+
+  .StatContainer {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: var(--table-font-size);
+    padding: 12px 24px 12px 24px;
+  }
+
+  .wrapper {
+    /* gap: 12px; */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .wrapper2 {
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .bar {
+    height: 12px;
+    width: 100%;
+  }

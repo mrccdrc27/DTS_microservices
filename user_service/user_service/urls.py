@@ -16,8 +16,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
+    # Django Admin default
     path('admin/', admin.site.urls),
-    path('' , include('accounts.urls'))
+
+    # this issues Access JWT token 
+    path('api/token',
+         jwt_views.TokenObtainPairView.as_view(),
+         name='token_obtain_pair'),
+
+    # this issues refresh JWT token 
+    path('api/token/refresh/',
+         jwt_views.TokenRefreshView.as_view(),
+         name = 'token_refresh'),
+
+    # this route takes all from accounts/urls.py under the /api endpoint
+    path("api/", include("accounts.urls"))
 ]
