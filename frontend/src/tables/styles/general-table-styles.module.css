@@ -127,6 +127,28 @@
   width: 100%;
 }
 
+.searchBar:hover, .searchBar:focus {
+  border-color: var(--button-color);       
+  outline: none;      
+}
+
+/* DATETIME */
+.dateTime {
+  font-size: var(--table-font-size);
+  border-radius: 5px;
+  border: 1px solid #ccc;  
+  padding: 5px 15px;
+  width: 100%;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dateTime:hover, .dateTime:focus {
+  border-color: var(--button-color);       
+  outline: none;      
+}
+
 /* TABLE */
 .ticketTableWrapper {
   width: 100%;
@@ -154,6 +176,10 @@
 
 tr:hover {
   background-color: #f5f5f5;
+}
+
+.header {
+   border-bottom: var(--border-bottom);
 }
 
 .header .th {

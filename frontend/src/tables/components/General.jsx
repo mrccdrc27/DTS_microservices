@@ -26,9 +26,15 @@ export function Dropdown({ name, value, onChange, options = [], placeholder = "P
   );
 }
 
-
-export function Datetime() {
+export function Datetime({ name = "datetime", value, onChange, type = "date"}) {
   return(
-    <div></div>
+    <input 
+    className={general.dateTime}
+    type={type}
+    name={name}
+    value={value}
+    onChange={onChange}
+    >
+    </input>
   );
 }

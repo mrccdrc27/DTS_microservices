@@ -1,5 +1,4 @@
 import AgentNav from "../../../components/navigations/agent-nav/AgentNav"
-
 // styles
 import styles from './track.module.css'
 
@@ -51,8 +50,8 @@ export default function Track() {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  // if (loading) return <div>Loading...</div>;
+  // if (error) return <div>{error}</div>;
 
   return(
     <>
@@ -71,11 +70,23 @@ export default function Track() {
           </form>
         </div>    {/* search */}
 
+ 
+
         {notFound && (
-            <div className={styles.errorMessage}>
+            <div className={styles.SearchImageContainer}>
               <p>Sorry, we couldn't find a ticket with that ID. Please check and try again.</p>
+              <img src= "../../../../public/notfound.svg" alt="Search placeholder" className={styles.SearchImage}/>
             </div>
           )}
+
+        
+
+        {!matchedTicket && !notFound && searchTerm.trim() === '' && (
+          <div className={styles.SearchImageContainer}>
+            <img src= "../../../../public/searching.svg" alt="Search placeholder" className={styles.SearchImage}/>
+            <p>Enter a ticket number to start tracking.</p>
+          </div>
+        )}
 
         {matchedTicket && (
                   <div className={styles.resultsContainer}>
@@ -136,7 +147,6 @@ export default function Track() {
                   </div>
         
                 </div>
-                
         )}
 
       </section>

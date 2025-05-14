@@ -40,6 +40,29 @@
   margin-bottom: 40px;
 }
 
+.filterWrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.filterIcon {
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 2px 5px;
+  font-size: var(--title-font-size);
+  border: var(--border-bottom);
+  border-radius: 4px;
+}
+
+.filterIcon:hover {
+  background-color: #ddd;
+}
+
+.searchBar {
+  width: 100%;
+}
+
 .archiveTicketTableRight {
   flex: 3;
   display: flex;
@@ -48,10 +71,9 @@
 }
 
 @media screen and (max-width: 768px) {
-  .ticketTable {
+  .archiveTicketTable {
     flex-direction: column;
   }
-
 }
 
 

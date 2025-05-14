@@ -10,7 +10,7 @@ import React, { useState, useEffect } from 'react';
 import axios, { all } from 'axios';
 
 // comp
-import { Dropdown, SearchBar } from '../components/General';
+import { Dropdown, SearchBar, Datetime } from '../components/General';
 
 export function TicketHeader() {
   return(
@@ -50,6 +50,9 @@ export default function ArchiveTicketTable() {
   // Searcbar
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Filter
+  const [showFilter, setShowFilter] = useState(false);
+
   useEffect(() => {
     axios
       .get(ticketURL)
@@ -69,7 +72,7 @@ export default function ArchiveTicketTable() {
   return(
     <div className={table.archiveTicketTable}>
 
-    <div className={table.archiveTicketTableLeft}>
+    {showFilter && (<div className={table.archiveTicketTableLeft}>
       <div className={table.headerSection}>
         <div className={table.title}>Filter</div>
         <div>
@@ -83,15 +86,17 @@ export default function ArchiveTicketTable() {
       <div className={table.filterSection}>
         <div className={table.title}>Status</div>
       </div>
-    </div>
+    </div>)}
 
     <div className={table.archiveTicketTableRight}>
-      <div className={table.searchBar}>
-        <SearchBar
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-
+      <div className={table.filterWrapper}>
+        <div className={table.filterIcon} onClick={() => setShowFilter(prev => !prev)} title={showFilter ? 'Hide Filter' : 'Show Filter'}><i className="fa-solid fa-filter"></i></div>
+        <div className={table.searchBar}>
+          <SearchBar
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
       </div>
       <div className={general.ticketTableWrapper}>
         <table className={general.ticketPageTable}>

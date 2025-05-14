@@ -6,12 +6,12 @@ import general from '../styles/general-table-styles.module.css'
 const ticketURL = import.meta.env.VITE_TICKET_API;
 
 // react 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios, { all } from 'axios';
 import { Link } from 'react-router-dom';
 
 // comp
-import { Dropdown, SearchBar } from '../components/General';
+import { Dropdown, SearchBar, Datetime } from '../components/General';
 
 export function TicketHeader() {
   return(
@@ -49,7 +49,7 @@ export function TicketItem({ ticket }) {
       </td> 
     </tr>
   );
-}
+} 
 
 export default function TicketTable() {
   const [tickets, setTickets] = useState([]);
@@ -67,6 +67,22 @@ export default function TicketTable() {
   // Searcbar
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Datetime
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+
+  // Filter Section
+  const [showFilter, setShowFilter] = useState(false);
+
+  // warning for date
+  useEffect(() => {
+  if (startDate && endDate && startDate > endDate) {
+    alert("Start date should not be after end date");
+  }
+  }, [startDate, endDate]);
+
+
+  // Fetching Data
   useEffect(() => {
     axios
       .get(ticketURL)
@@ -101,8 +117,7 @@ export default function TicketTable() {
 
   return(
     <div className={table.ticketTable}>
-
-      <div className={table.ticketTableLeft}>
+      { showFilter && (<div className={table.ticketTableLeft}>
         <div className={table.headerSection}>
           <div className={table.title}>Filter</div>
           <div>
@@ -111,10 +126,12 @@ export default function TicketTable() {
             onClick={() => {
             setSelectedPriority('');
             setSelectedStatus('');
+            setStartDate('');
+            setEndDate('');
             // alert('Filter Reset!'); 
             }}>
             Reset
-          </button> 
+            </button> 
           </div>
         </div>
         <div className={table.filterSection}>
@@ -139,15 +156,38 @@ export default function TicketTable() {
             placeholder="Filter by Status"
           />
         </div>
-      </div>
+        <div className={table.filterSection}>
+          <div className={table.dateTime}>
+            <div className={table.title}>Start Date</div>
+            <Datetime 
+              className={table.dateTime}
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              name="start-date"
+            />
+            </div>
+          <div className={table.dateTime}>
+            <div className={table.title}>End Date</div>
+            <Datetime 
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              name="end-date"
+            />
+          </div>
+        </div>
+
+      </div> )}
+      
 
       <div className={table.ticketTableRight}>
-        <div className={table.searchBar}>
-          <SearchBar
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-
+        <div className={table.filterWrapper}>
+          <div className={table.filterIcon} onClick={() => setShowFilter(prev => !prev)} title={showFilter ? 'Hide Filter' : 'Show Filter'}><i className="fa-solid fa-filter"></i></div>
+          <div className={table.searchBar}>
+            <SearchBar
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
         <div className={general.ticketTableWrapper}>
           <table className={general.ticketPageTable}>
@@ -160,12 +200,14 @@ export default function TicketTable() {
                   const priorityMatch = !selectedPriority || ticket.priority === selectedPriority;
                   const statusMatch = !selectedStatus || ticket.status === selectedStatus;
                   const searchMatch = !searchTerm || (
-                    ticket.ticket_id.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
-                    ticket.subject.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
-                    ticket.customer.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()) 
+                    ticket.ticket_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    ticket.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    ticket.customer.toLowerCase().includes(searchTerm.toLowerCase()) 
                   )
-                  // const dateMatch = !selectedDate || ticket.opened_on === selectedDate;
-                  return priorityMatch && statusMatch && searchMatch;;
+                  const dateMatch =
+                    (!startDate || ticket.opened_on >= startDate) &&
+                    (!endDate || ticket.opened_on <= endDate);
+                  return priorityMatch && statusMatch && searchMatch && dateMatch;
                 })
                 .map(ticket => (
                   <TicketItem key={ticket.ticket_id} ticket={ticket} />

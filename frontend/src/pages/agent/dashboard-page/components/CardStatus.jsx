@@ -13,7 +13,6 @@ export default function CardStatus(props) {
     <div className={styles.statCard}>
       <div className={styles.statNumber}>{props.number}</div>
       <div className={`${styles.underline} ${statusClassMap[props.label] || ''}`}></div>
-      {/* <div className={styles.underline}></div> */}
       <div className={styles.label}>{props.label}</div>
     </div>
   );

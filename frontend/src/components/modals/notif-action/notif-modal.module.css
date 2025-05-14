@@ -36,6 +36,10 @@
   margin-bottom: 20px;
 }
 
+.nmItem:hover{
+  background-color: #ddd;
+}
+
 .nmImage {
   width: 40px;
   height: 40px;
@@ -52,4 +56,22 @@
   word-wrap: break-word;
   max-width: 100%;
   cursor: pointer;
+}
+
+@media (max-width: 500px) {
+  .notifModalPage {
+    position: absolute;
+    top: 120px;
+    right: 20px;
+    left: 20px;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 10;
+    width: 90vw;
+    height: 600px;
+    overflow-y: auto;
+    border: #ddd;
+  }
 }

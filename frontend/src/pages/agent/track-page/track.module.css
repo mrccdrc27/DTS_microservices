@@ -1,3 +1,16 @@
+.SearchImageContainer {
+  text-align: center;
+  margin-top: 2rem;
+  opacity: 0.6;
+}
+
+.SearchImage {
+  width: 250px;
+  max-width: 80%;
+  margin-bottom: 1rem;
+}
+
+
 .trackPage {
   margin: var(--mainpageminWidth);
 }

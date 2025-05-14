@@ -1,7 +1,12 @@
 import styles from './upcoming-ticket-table.module.css'
 import general from '../styles/general-table-styles.module.css'
 
+// react
 import { useEffect, useState } from 'react';
+import axios, { all } from 'axios';
+
+// api
+const ticketURL = import.meta.env.VITE_UPCOMING_TICKETS_API;
 
 function UpcomingTicketItem({ticket}) {
   return(
@@ -22,49 +27,41 @@ function UpcomingTicketItem({ticket}) {
 export default function UpcomingTicketTable() {
 
   const [tickets, setTickets] = useState([]);
+  const [loading, setLoading] = useState(true);  
+  const [error, setError] = useState('');  
 
   useEffect(() => {
-    const mockData = [
-      {
-        id: 1,
-        date: '2025-05-03',
-        ticketNumber: 'TK-001',
-        avatar: 'https://i.pravatar.cc/30?img=1',
-        userName: 'Juan Dela Cruz',
-        priority: 'High',
-        subject: 'Unable to log in to my account',
-      }, 
-      {
-        id: 2,
-        date: '2025-05-03',
-        ticketNumber: 'TK-002',
-        avatar: 'https://i.pravatar.cc/30?img=1',
-        userName: 'Jessa Dela Cruz',
-        priority: 'Medium',
-        subject: 'Incorrect total showing in invoice summary',
-      }, 
-      {
-        id: 3,
-        date: '2025-05-03',
-        ticketNumber: 'TK-003',
-        avatar: 'https://i.pravatar.cc/30?img=1',
-        userName: 'Yuta Mae Oligark',
-        priority: 'Low',
-        subject: 'Fix the printer',
-      }, 
-    ];
-    setTickets(mockData);
-  }, []);
+    axios
+      .get(ticketURL)
+      .then((response) => {
+        const allTickets = response.data;
+        setTickets(allTickets);
 
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError('No upcoming data');
+        setLoading(false);
+      });
+  }, [])
+  
   return(
     <div className={styles.ticketTableWrapper}>
-      <table className={styles.ticketTable}>
+     {loading ? <p>Loading...</p> : error ? <p>{error}</p> : tickets.length === 0 ? <p>No upcoming ticket.</p> : (
+        <table className={styles.ticketTable}>
+          <tbody>
+            {tickets.map(ticket => <UpcomingTicketItem key={ticket.id} ticket={ticket} />)}
+          </tbody>
+        </table>
+      )}
+      
+      {/* <table className={styles.ticketTable}>
         <tbody>
         {tickets.map(ticket => (
             <UpcomingTicketItem key={ticket.id} ticket={ticket} />
           ))}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 }

@@ -36,8 +36,12 @@ export default function AgentDashboard() {
         </div> {/* left */}
         <div className={styles.dbRightSection}>
           <div className={styles.dbTicketSection}>
-           <h3>Recent Updates</h3>
-           <RecentUpdates />
+            <h3>Recent Updates</h3>
+            <RecentUpdates />
+            <RecentUpdates />
+            <RecentUpdates />
+            <RecentUpdates />
+            <RecentUpdates />
           </div>
         </div> {/* right */}
       </section> {/* bot */}

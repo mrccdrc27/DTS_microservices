@@ -40,8 +40,8 @@ function Login() {
           <div className={styles.loginTopHeader}>
             <div className={styles.loginLogo}></div>
             <div className={styles.loginTitle}>
-              <h3>Docu<span>Flow</span></h3>
-              <p>Document & Ticket Tracking System</p>
+              <h3>Ticket<span>Flow</span></h3>
+              <p>Flow-based Assignment & Ticket Tracking System</p>
             </div>
           </div>
           <div className={styles.loginBotInputs}>
