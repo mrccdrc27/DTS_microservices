@@ -19,6 +19,7 @@ import WorkflowEditor from '../pages/admin/workflow-page/WorkflowCreator';
 
 import ProtectedRoute from './ProtectedRoute'; // 👈 import this
 import Unauthorized from '../pages/error/Unauthorized';
+import NotFound from '../pages/error/NotFound';
 
 function MainRoutes() {
   return (
@@ -49,6 +50,9 @@ function MainRoutes() {
 
       {/* Optional Unauthorized Page */}
       <Route path="/unauthorized" element={<Unauthorized/>} />
+
+      {/* Not Found */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

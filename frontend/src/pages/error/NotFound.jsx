@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Unauthorized() {
+export default function NotFound() {
   return (
     <div style={{ 
       textAlign: 'center', 
@@ -9,18 +9,19 @@ export default function Unauthorized() {
       color: '#ff4d4f', 
       fontSize: '1.5rem' 
     }}>
-      <h1 style={{ marginBottom: '1rem' }}>403 - Unauthorized</h1>
+      <h1 style={{ marginBottom: '1rem' }}>404 - Not Found</h1>
       <p style={{ marginBottom: '1.5rem' }}>
-        You do not have permission to view this page.
+        The place you are looking for does not exist
       </p>
 
-      {/* Corrected image path and size */}
+      {/* Image placeholder */}
       <img 
-        src="/warning.svg" 
-        alt="Warning" 
-        style={{ width: '300px', height: '300px', marginBottom: '1.5rem' }} 
+        src="../../../public/404.svg" // Make sure this exists in /public
+        alt="Not Found Illustration" 
+        style={{ width: '300px', height: '300px', marginBottom: '2rem' }} 
       />
-      
+
+      {/* Styled link as a button */}
       <br />
       <Link 
         to="/" 

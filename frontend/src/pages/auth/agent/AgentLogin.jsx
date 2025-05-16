@@ -68,12 +68,12 @@ function Login() {
                   required
                 />
               </div>
-              {error && <p className={styles.errorMessage}>{error}</p>}
+              {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
               <div className={styles.forgotPassword}>
-                <a href="#">Forgot password?</a>
+                {/* <a href="#">Forgot password?</a> */}
               </div>
               <button type="submit" className={styles.loginBtn}>Log In</button>
-              <a href="/admin">Login as admin</a>
+              {/* <a href="/admin">Login as admin</a> */}
             </form>
           </div>
         </div>
