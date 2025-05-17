@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from './agent-login.module.css';
 import { jwtDecode } from "jwt-decode";
 
+const ticketURL = import.meta.env.VITE_LOGIN_API;
+
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -15,7 +17,7 @@ function Login() {
     e.preventDefault();
     try {
       // send credentials to API
-      const response = await axios.post('http://127.0.0.1:8000/api/login/', { email, password });
+      const response = await axios.post(`${ticketURL}`, { email, password });
       localStorage.setItem("accessToken", response.data.tokens.access);
       localStorage.setItem("refreshToken", response.data.tokens.refresh)
       console.log('login response', response)

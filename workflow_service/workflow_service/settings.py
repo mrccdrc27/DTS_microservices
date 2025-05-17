@@ -9,19 +9,18 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 from datetime import timedelta
-# from decouple import config
+from dotenv import load_dotenv
 
-# DATABASE_NAME = config('DATABASE_NAME')
-# DATABASE_USER = config('DATABASE_USER')
-# DATABASE_PASSWORD = config('DATABASE_PASSWORD')
-# DATABASE_HOST = config('DATABASE_HOST')
-# DATABASE_PORT = config('DATABASE_PORT')
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-
+# locate .env root
 BASE_DIR = Path(__file__).resolve().parent.parent
+ROOT_ENV = BASE_DIR.parent / '.env'      # project-root/.env
+LOCAL_ENV = BASE_DIR / '.env'            # app1/.env
+
+
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 
 # Quick-start development settings - unsuitable for production
@@ -32,9 +31,6 @@ SECRET_KEY = 'django-insecure-$6412+n(t#!#4zo%akvxla5cub-u-i8!ulxck68_+97g_z066^
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 

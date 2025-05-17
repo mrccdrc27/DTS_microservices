@@ -1,11 +1,13 @@
-# Ignore Python virtual environment
+# Ignore Python virtual environments and env files
 venv/
+env/
 .env
-env
-db.sqlite3
+
+# Ignore test directory
+test/
+
+# Ignore all db.sqlite3 files anywhere
 **/db.sqlite3
 
-__pycache__
-*__pycache__
-**__pycache__
+# Ignore all __pycache__ directories anywhere
 __pycache__/

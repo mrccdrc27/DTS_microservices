@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
+const ticketURL = import.meta.env.VITE_VERIFY_API;
 
 const ProtectedRoute = ({ requiredRole }) => {
   const [authorized, setAuthorized] = useState(null); // null: loading, false: deny, true: allow
@@ -11,7 +12,7 @@ const ProtectedRoute = ({ requiredRole }) => {
     console.log('verify token get', token)
     if (!token) return setAuthorized(false);
 
-    axios.get('http://127.0.0.1:8000/api/verify/', {
+    axios.get(`${ticketURL}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => {
