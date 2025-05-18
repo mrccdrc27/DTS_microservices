@@ -22,12 +22,14 @@ cd ../..
 # Start user_service
 echo "Starting user_service..."
 cd user_service
+python manage.py migrate
 python manage.py runserver 0.0.0.0:3000 &
 cd ..
 
 # Start workflow_service
 echo "Starting workflow_service..."
 cd workflow_service
+python manage.py migrate
 python manage.py runserver 0.0.0.0:2000 &
 cd ..
 
