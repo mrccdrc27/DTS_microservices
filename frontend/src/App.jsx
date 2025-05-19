@@ -9,7 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       {/* <MainRoutes/> */}
-      <MainRoutes2 />
+      <MainRoutes />
     </BrowserRouter>
   )
 }
