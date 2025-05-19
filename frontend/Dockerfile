@@ -8,7 +8,7 @@ RUN npm install -g serve
 RUN npm install -g json-server
 
 COPY start.sh .
-RUN chmod +x /start.sh
+RUN chmod +x start.sh
 
 EXPOSE 5000 1000
 
