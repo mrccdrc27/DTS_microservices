@@ -1,6 +1,11 @@
 # Ignore Python virtual environments and env files
 venv/
 env/
+comment_service/
+history_log_service/
+task_service/
+user_service/
+workflow_service/
 .env
 
 # Ignore test directory
@@ -11,3 +16,5 @@ test/
 
 # Ignore all __pycache__ directories anywhere
 __pycache__/
+
+
