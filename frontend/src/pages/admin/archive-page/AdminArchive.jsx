@@ -1,7 +1,7 @@
 
 import AdminNav from "../../../components/navigations/admin-nav/AdminNav";
 import TitleCard from "../../../components/TitleCard";
-import AgentInvitation from "../../../tables/admin/Archive/AgentInvitation";
+import AgentInvitation from "../../../tables/admin/archive/AgentInvitation";
 import { useNavigate } from "react-router-dom";
 
 
