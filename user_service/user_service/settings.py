@@ -20,7 +20,7 @@ ROOT_ENV = BASE_DIR / '.env'
 # ✅ Load the environment variables from the .env file
 load_dotenv(dotenv_path=ROOT_ENV)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS',  'localhost,127.0.0.1').split(',')
 
 # ✅ Now this will work
 JWT_KEY = os.getenv("DJANGO_JWT_KEY")
