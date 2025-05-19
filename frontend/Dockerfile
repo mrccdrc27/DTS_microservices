@@ -12,4 +12,4 @@ RUN chmod +x start.sh
 
 EXPOSE 5000 1000
 
-CMD ["node", "start.sh"]
+CMD ["sh", "start.sh"]
