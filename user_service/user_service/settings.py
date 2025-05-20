@@ -14,14 +14,16 @@ from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
 
-# locate .env root
-BASE_DIR = Path(__file__).resolve().parent.parent
-ROOT_ENV = BASE_DIR.parent / '.env'      # project-root/.env
-LOCAL_ENV = BASE_DIR / '.env'            # app1/.env
+BASE_DIR = Path(__file__).resolve().parent.parent  # Usually your settings.py is in BASE_DIR / project_name
+ROOT_ENV = BASE_DIR / '.env'
+
+# ✅ Load the environment variables from the .env file
+load_dotenv(dotenv_path=ROOT_ENV)
 
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS',  'localhost,127.0.0.1').split(',')
 
-
+# ✅ Now this will work
+JWT_KEY = os.getenv("DJANGO_JWT_KEY")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -161,7 +163,7 @@ SIMPLE_JWT = {
     "UPDATE_LAST_LOGIN": False,
 
     "ALGORITHM": "HS256",
-    "SIGNING_KEY": SECRET_KEY,
+    "SIGNING_KEY": JWT_KEY,
     "VERIFYING_KEY": "",
     "AUDIENCE": None,
     "ISSUER": None,
