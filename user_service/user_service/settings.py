@@ -14,7 +14,7 @@ from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
 
-BASE_DIR = Path(__file__).resolve().parent.parent  # Usually your settings.py is in BASE_DIR / project_name
+BASE_DIR = Path(__file__).resolve().parent.parent.parent  # Usually your settings.py is in BASE_DIR / project_name
 ROOT_ENV = BASE_DIR / '.env'
 
 # ✅ Load the environment variables from the .env file
