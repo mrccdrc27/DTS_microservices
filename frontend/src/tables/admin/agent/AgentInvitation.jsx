@@ -48,7 +48,7 @@ function TableRow(props) {
         display: 'table-cell',
         textAlign: 'center'
       }}>
-        <i class="fa-solid fa-user-pen"></i>
+        <i className="fa-solid fa-user-pen"></i>
       </td>
 
     </tr>
@@ -80,20 +80,17 @@ function Filters() {
         </div>
 
         <div>
-          <p>Name</p>
-          <input type="text"
-          className={layout.forminput}/>
+          <p>Department</p>
+          <select 
+          className={layout.forminput}
+          name=""
+          id=""></select>
         </div>
-
-        <b>
-            <p>Department Model</p>
-        </b>
+        <br/>
         <hr/>
-        
-        <Dropdown title='Department'/>
-        <Dropdown title='Position'/>
+        <br/>
         <button className={layout.button}>
-            submit
+            Invite
         </button>
     </div>
     </>

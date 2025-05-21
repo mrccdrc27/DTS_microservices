@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import style from "./Agent.module.css"
 import forms from "../../../forms.module.css"
+import AgentPosition from "../../../tables/admin/agent/AgentPosition";
 
 export default function AgentInvite() {
     const navigate = useNavigate();
@@ -20,24 +21,20 @@ export default function AgentInvite() {
             fontSize:'30px',
             color:'blue'
         }}
-        onClick={() => navigate("/admin/agent")}
+        onClick={() => navigate("/admin/agent/invite")}
         >
         </i>
 
         <div className={style.title}>
           <TitleCard 
-          title="Agent Invitation"
+          title="Agent Position"
           name="jessa"/>
-          <button className={forms.button}
-          onClick={() => navigate("/admin/agent/position")}>
-            create new agent
-          </button>
         </div>
 
         <hr/>
       </section>
       <section>
-        <AgentInvitation/>
+        <AgentPosition/>
       </section>
     </main>
     </>

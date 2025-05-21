@@ -16,7 +16,7 @@ setup_env
 # Start JSON Server
 echo "Starting JSON server..."
 cd frontend/public
-npx json-server --watch db.json --port 5000 &
+npx json-server --watch db.json --port 5000 --host 0.0.0.0 &
 cd ../..
 
 # Start user_service
