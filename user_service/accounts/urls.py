@@ -23,7 +23,13 @@ urlpatterns = [
 
     # Invite register agents routes
     path('invite/', InviteUserView.as_view(), name='invite-user'),
+
+
+
     path('api/register/<uuid:token>/', RegisterUserView.as_view(), name='register-user'),
+    path('api/validate-token/', validate_registration_token),
+
+    
 
     # Change password route 
     path('auth/change-password/', ChangePasswordAPIView.as_view(), name='change-password'),

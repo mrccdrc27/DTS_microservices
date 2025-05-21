@@ -24,6 +24,8 @@ import AgentPosition from '../pages/admin/agent-page/AgentPosition';
 
 // test
 import Test from '../pages/agent/ticket-details-page/TicketDetail';
+import UserRegistration from '../pages/auth/UserRegistration';
+import ProtectedRegister from './ProtectedRegister';
 
 function MainRoutes() {
   return (
@@ -88,6 +90,7 @@ function MainRoutes() {
         {/* <Route path="/test" element={<Test />} /> */}
 
         <Route path="/unauthorized" element={<Unauthorized/>} />
+        <Route path="/register" element={<ProtectedRegister />} />
 
       {/* Not Found */}
       <Route path="*" element={<NotFound />} />
