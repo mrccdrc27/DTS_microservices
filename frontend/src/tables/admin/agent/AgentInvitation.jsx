@@ -48,7 +48,7 @@ function TableRow(props) {
         display: 'table-cell',
         textAlign: 'center'
       }}>
-        <i class="fa-solid fa-user-pen"></i>
+        <i className="fa-solid fa-user-pen"></i>
       </td>
 
     </tr>

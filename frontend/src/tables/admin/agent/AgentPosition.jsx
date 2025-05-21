@@ -7,158 +7,181 @@ import table from "../../styles/general-table.module.css";
 import layout from "./AgentInvitation.module.css";
 
 // Api Import
-const ticketURL = import.meta.env.VITE_AGENTS_API;
+const ticketURL = import.meta.env.VITE_POSITION_API;
+const createPositionURL = import.meta.env.VITE_POSITIONCREATE_API;
 
 // component import
-import { Pagination } from "../../components/tableforms";
-import { SearchBar, Dropdown, AgentStatus } from "../../components/tableforms";
-
+import { Pagination, SearchBar, AgentStatus } from "../../components/tableforms";
 
 function TableHeader() {
-  // Inline styles for the width of each rows
-  return(
-      <tr className={table.tr}>
-        <th className={table.th} style={{ width: '20%' }}>Name</th>
-        <th className={table.th} style={{ width: '20%' }}>Email</th>
-        <th className={table.th} style={{ width: '20%' }}>Department</th>
-        <th className={table.th} style={{ width: '10%' }}>Role</th>
-        <th className={table.th} style={{ width: '10%' }}>Status</th>
-        <th className={table.th} style={{ width: '10%',
-           display: 'table-cell', 
-           textAlign: 'center', 
-           verticalAlign: 'middle'  
-           }}>Action</th>
-      </tr>
-  )
-}
-
-function TableRow(props) {
-  return(
+  return (
     <tr className={table.tr}>
-      <td className={table.td}>{props.Name}</td>
-      <td className={table.td}>{props.Email}</td>
-      <td className={table.td}>Department</td>
-      <td className={table.td}>{props.Role}</td>
-      <td className={table.td}>
-        <AgentStatus status={props.Status}/>
-      </td>
-
-      <td className={table.td}
-      style={{
-        display: 'table-cell',
-        textAlign: 'center'
-      }}>
-        <i class="fa-solid fa-user-pen"></i>
-      </td>
-
+      <th className={table.th} style={{ width: '30%' }}>Name</th>
+      <th className={table.th} style={{ width: '50%' }}>Description</th>
+      <th className={table.th} style={{ width: '10%' }}>Status</th>
+      <th className={table.th} style={{ width: '10%',
+        textAlign: "center" }}>Action</th>
     </tr>
-  )
+  );
 }
 
-function Filters() {
-  return(
-    <>
+function TableRow({ ID, Name, Description, Status, onManage }) {
+  return (
+    <tr className={table.tr}>
+      <td className={table.td}>{Name}</td>
+      <td className={table.td}>{Description}</td>
+      <td className={table.td}><AgentStatus status={Status} /></td>
+      <td className={table.td} style={{ textAlign: "center" }}>
+        <i className="fa-solid fa-user-pen" onClick={() => onManage(ID)} style={{ cursor: "pointer" }}></i>
+      </td>
+    </tr>
+  );
+}
+
+function PositionForm({ onSuccess }) {
+  const [formData, setFormData] = useState({
+    userID: 1,
+    positionName: "",
+    description: ""
+  });
+
+  const [errors, setErrors] = useState({});
+  const [message, setMessage] = useState({ type: "", content: "" });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.positionName.trim()) newErrors.positionName = "Name is required.";
+    if (!formData.description.trim()) newErrors.description = "Description is required.";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage({ type: "", content: "" });
+
+    if (!validate()) return;
+
+    try {
+      const response = await axios.post(createPositionURL, formData);
+      setMessage({ type: "success", content: "Position created successfully!" });
+      setFormData({ userID: 1, positionName: "", description: "" });
+      onSuccess(); // Refresh parent list
+    } catch (error) {
+      const msg = error.response?.data?.message || "An unexpected error occurred.";
+      setMessage({ type: "error", content: msg });
+    }
+  };
+
+  return (
     <div className={layout.filters}>
-        <div className={layout.title}>
-            <b>
-                <p>Create Invitation</p>
-            </b>
-                <p
-                style={{color: 'red'}}
-                >Reset</p>
-        </div>
-        <hr/>
+      <form onSubmit={handleSubmit}>
+        <div className={layout.title}><b><p>Create a position</p></b></div>
+        <hr />
 
-        <b>
-            <p>Information</p>
-        </b>
+        <b><p>Position</p></b>
 
         <div>
-          <p>Email</p>
-          <input type="text"
-          className={layout.forminput}/>
+          <p>Name</p>
+          <input
+            type="text"
+            name="positionName"
+            value={formData.positionName}
+            onChange={handleChange}
+            className={layout.forminput}
+          />
+          {errors.positionName && <span style={{ color: "red" }}>{errors.positionName}</span>}
         </div>
 
         <div>
-          <p>Department</p>
-          <select 
-          className={layout.forminput}
-          name=""
-          id=""></select>
+          <p>Description</p>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            rows="5"
+            className={layout.forminput}
+            style={{ height: "200px", resize: "vertical", maxHeight: "300px", minWidth: "100px" }}
+          ></textarea>
+          {errors.description && <span style={{ color: "red" }}>{errors.description}</span>}
         </div>
-        <br/>
-        <hr/>
-        <br/>
-        <button className={layout.button}>
-            Invite
-        </button>
+
+        {message.content && (
+          <p style={{ color: message.type === "success" ? "green" : "red" }}>{message.content}</p>
+        )}
+
+        <br />
+        <hr />
+        <br />
+        <button type="submit" className={layout.button}>Create</button>
+      </form>
     </div>
-    </>
-  )
+  );
 }
 
-export default function AgentInvitation() {
+export default function AgentPosition() {
   const [agents, setAgents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 7; // rows per page
+  const itemsPerPage = 7;
 
-  useEffect(() => {
-    axios
-      .get(`${ticketURL}`)
+  const fetchAgents = () => {
+    axios.get(ticketURL)
       .then((response) => {
-        const data = response.data;
-        setAgents(Array.isArray(data) ? data : data.agents || []);
+        const data = Array.isArray(response.data) ? response.data : response.data.agents || [];
+        setAgents(data);
       })
       .catch((error) => {
         console.error("Failed to fetch agents", error);
       });
+  };
+
+  useEffect(() => {
+    fetchAgents();
   }, []);
 
-  // pagination calculations
   const totalPages = Math.ceil(agents.length / itemsPerPage);
-  const start = (currentPage - 1) * itemsPerPage;
-  const pagedAgents = agents.slice(start, start + itemsPerPage);
-
-  const handleManage = (id) => {
-    console.log("Manage agent", id);
-  };
+  const pagedAgents = agents.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
     <div className={layout.whole}>
-        <Filters/>
-        <div className={layout.right}>
-            <SearchBar/>
-            <div className={table.tableborder}>
-              <div className={table.tablewrapper}>
-                <div style={{ maxHeight: '400px', overflowY: 'auto', display: 'block' }}>
-                    <table className={table.tablecontainer}>
-                        <thead style={{ position: 'sticky', top: 0, background: 'white', zIndex: 100 }}>
-                            <TableHeader />
-                        </thead>
-                        <tbody>
-                            {pagedAgents.map((agent) => (
-                                <TableRow
-                                    key={agent.ID}
-                                    ID={agent.ID}
-                                    Name={agent.Name}
-                                    Email={agent.Email}
-                                    Role={agent.Role}
-                                    Status={agent.Status}
-                                    LastLogin={agent.LastLogin}
-                                    onManage={handleManage}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+      <div className={layout.right}>
+        <SearchBar />
+        <div className={table.tableborder}>
+          <div className={table.tablewrapper}>
+            <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+              <table className={table.tablecontainer} style={{ width: "100%" }}>
+                <thead style={{ position: "sticky", top: 0, background: "white", zIndex: 100 }}>
+                  <TableHeader />
+                </thead>
+                <tbody>
+                  {pagedAgents.map((agent) => (
+                    <TableRow
+                      key={agent.id}
+                      ID={agent.id}
+                      Name={agent.positionName}
+                      Description={agent.description}
+                      Status={agent.Status}
+                      onManage={() => console.log("Manage", agent.id)}
+                    />
+                  ))}
+                </tbody>
+              </table>
             </div>
-                <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                setCurrentPage={setCurrentPage}
-                />
-            </div>
+          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
+      </div>
+      <PositionForm onSuccess={fetchAgents} />
     </div>
   );
 }

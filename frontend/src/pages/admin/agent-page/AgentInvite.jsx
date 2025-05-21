@@ -15,7 +15,7 @@ export default function AgentInvite() {
     <AdminNav />
     <main className={style.main}>
       <section>
-        <i class="fa-solid fa-angle-left"
+        <i className="fa-solid fa-angle-left"
         style={{
             fontSize:'30px',
             color:'blue'
