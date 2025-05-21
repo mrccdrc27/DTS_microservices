@@ -101,18 +101,60 @@ class InviteUserSerializer(serializers.ModelSerializer):
         validated_data['expires_at'] = timezone.now() + timedelta(hours=24)
         return PendingRegistration.objects.create(**validated_data)
     
-class CompleteRegistrationSerializer(serializers.Serializer):
-    token = serializers.UUIDField()
-    password = serializers.CharField(write_only=True)
-    first_name = serializers.CharField(required=True)
-    last_name = serializers.CharField(required=True)
+# class CompleteRegistrationSerializer(serializers.Serializer):
+#     token = serializers.UUIDField()
+#     password = serializers.CharField(write_only=True)
+#     first_name = serializers.CharField(required=True)
+#     last_name = serializers.CharField(required=True)
 
-    def validate_password(self, value):
-        try:
-            validate_password(value)
-        except DjangoValidationError as e:
-            raise serializers.ValidationError(e.messages)
-        return value
+#     def validate_password(self, value):
+#         try:
+#             validate_password(value)
+#         except DjangoValidationError as e:
+#             raise serializers.ValidationError(e.messages)
+#         return value
+    
+#     def validate_token(self, token):
+#         try:
+#             invite = PendingRegistration.objects.get(token=token)
+#         except PendingRegistration.DoesNotExist:
+#             raise serializers.ValidationError("Invalid token.")
+#         if invite.is_expired():
+#             raise serializers.ValidationError("Token expired.")
+#         return token
+
+#     def create(self, validated_data):
+#         invite = PendingRegistration.objects.get(token=validated_data['token'])
+
+#         user = User.objects.create_user(
+#             username=invite.email,
+#             email=invite.email,
+#             password=validated_data['password'],
+#             first_name=validated_data.get('first_name'),
+#             last_name=validated_data.get('last_name'),
+#             is_staff=invite.role == 'admin'  # or customize this logic
+#         )
+
+        
+#         invite.delete()
+#         return user
+
+from rest_framework import serializers
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError as DjangoValidationError
+from django.contrib.auth import get_user_model
+from .models import PendingRegistration  # adjust this import as needed
+
+User = get_user_model()
+
+class CompleteRegistrationSerializer(serializers.ModelSerializer):
+    token = serializers.UUIDField(write_only=True)
+    password = serializers.CharField(write_only=True)
+    password2 = serializers.CharField(write_only=True)
+    
+    class Meta:
+        model = User
+        fields = ['token', 'first_name', 'last_name', 'password', 'password2']
     
     def validate_token(self, token):
         try:
@@ -123,21 +165,37 @@ class CompleteRegistrationSerializer(serializers.Serializer):
             raise serializers.ValidationError("Token expired.")
         return token
 
-    def create(self, validated_data):
-        invite = PendingRegistration.objects.get(token=validated_data['token'])
+    def validate_password(self, value):
+        try:
+            validate_password(value)
+        except DjangoValidationError as e:
+            raise serializers.ValidationError(e.messages)
+        return value
 
+    def validate(self, data):
+        if data['password'] != data['password2']:
+            raise serializers.ValidationError({"password2": "Passwords do not match."})
+        return data
+
+    def create(self, validated_data):
+        token = validated_data.pop('token')
+        password = validated_data.pop('password')
+        validated_data.pop('password2')
+
+        invite = PendingRegistration.objects.get(token=token)
+        
         user = User.objects.create_user(
             username=invite.email,
             email=invite.email,
-            password=validated_data['password'],
+            password=password,
             first_name=validated_data.get('first_name'),
             last_name=validated_data.get('last_name'),
-            is_staff=invite.role == 'admin'  # or customize this logic
+            is_staff=(invite.role == 'admin')  # adjust based on your logic
         )
-
         
         invite.delete()
         return user
+
 
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)

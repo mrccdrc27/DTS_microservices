@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 ROOT_ENV = BASE_DIR.parent / '.env'      # project-root/.env
 LOCAL_ENV = BASE_DIR / '.env'            # app1/.env
-
+load_dotenv(dotenv_path=ROOT_ENV)
 
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 

@@ -1,4 +1,6 @@
 # Create your views here.
+from rest_framework import generics
+
 from rest_framework.views import APIView
 from django.shortcuts import render
 from rest_framework.generics import GenericAPIView, RetrieveAPIView
@@ -218,7 +220,7 @@ class PasswordResetCompleteAPIView(APIView):
         
 
 class InviteUserView(CreateAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
     serializer_class = InviteUserSerializer
 
     def perform_create(self, serializer):
@@ -244,15 +246,22 @@ class InviteUserView(CreateAPIView):
 
     
 
-class RegisterUserView(APIView):
-    def post(self, request, token):
-        data = request.data.copy()
-        data['token'] = token
-        serializer = CompleteRegistrationSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"message": "Registration complete."})
-        return Response(serializer.errors, status=400)
+# class RegisterUserView(generics.CreateAPIView):
+#     def post(self, request, token):
+#         data = request.data.copy()
+#         data['token'] = token
+#         serializer = CompleteRegistrationSerializer(data=data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({"message": "Registration complete."})
+#         return Response(serializer.errors, status=400)
+
+# from rest_framework import generics
+# from .serializers import CompleteRegistrationSerializer
+
+class RegisterUserView(generics.CreateAPIView):
+    serializer_class = CompleteRegistrationSerializer
+
 
 class ChangePasswordAPIView(APIView):
     permission_classes = [IsAuthenticated]
