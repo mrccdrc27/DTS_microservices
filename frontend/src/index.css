@@ -8,7 +8,7 @@
 }
 
 body {
-  background-color: var(--background-color);
+  background-color: var(--bg-color);
 }
 
 :root {
@@ -16,6 +16,8 @@ body {
     --primary-color: #780000;
     --secondary-color: #063A84;
     --background-color: #fcfcfc;
+    --bg-color: #F1F1F1;
+    --bg2-color: #FEFEFE;
     --text-color: #242424;
     --label-color: #666;
     --accent-color: #FFB800;
@@ -33,6 +35,7 @@ body {
     --default-font-size: 0.875rem; /* 14 */
     --table-head-size: 0.8125rem; /* 13 */
     --table-font-size: 0.75rem; /* 12 */
+    --table-desc-size: 0.65rem;
     --h2-font-size: 1.25rem;
     --h1-font-size: 1.5rem; /* 24 */ 
     --title-font-size: 1rem; /* 16 */

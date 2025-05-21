@@ -21,6 +21,9 @@ import ProtectedRoute from './ProtectedRoute'; // 👈 import this
 import Unauthorized from '../pages/error/Unauthorized';
 import NotFound from '../pages/error/NotFound';
 
+// test
+import Test from '../pages/agent/ticket-details-page/TicketDetail';
+
 function MainRoutes() {
   return (
     <Routes>
@@ -61,16 +64,17 @@ function MainRoutes() {
   return (
     <Routes>
 
+      {/* Agent */}
         <Route path="/" element={<AgentLogin />} />
-      {/* Agent Protected Routes */}
         <Route path="/agent" element={<AgentDashboard />} />
         <Route path="/agent/ticket" element={<Ticket />} />
         <Route path="/agent/track" element={<Track />} />
         <Route path="/agent/archive" element={<AgentArchive />} />
         <Route path="/agent/ticket/:id" element={<TicketDetail />} />
-        <Route path="/agent/profile" element={<AgentProfile />} />
+        <Route path="/agent/profile" element={<Profile />} />
         <Route path="/profile" element={<Profile />} />
 
+      {/* Admin */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/agent/invite" element={<AgentInvite />} />
         <Route path="/admin/agent" element={<Agent />} />
@@ -78,8 +82,10 @@ function MainRoutes() {
         <Route path="/admin/workflow/create" element={<WorkflowEditor />} />
         <Route path="/admin/archive" element={<AdminArchive />} />
 
+        {/* Test */}
+        {/* <Route path="/test" element={<Test />} /> */}
 
-      <Route path="/unauthorized" element={<Unauthorized/>} />
+        <Route path="/unauthorized" element={<Unauthorized/>} />
 
       {/* Not Found */}
       <Route path="*" element={<NotFound />} />

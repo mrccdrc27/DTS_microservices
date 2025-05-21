@@ -13,6 +13,7 @@ setup_env() {
 }
 setup_env
 
+# not in public folder anymore
 # Start JSON Server
 echo "Starting JSON server..."
 cd frontend/public

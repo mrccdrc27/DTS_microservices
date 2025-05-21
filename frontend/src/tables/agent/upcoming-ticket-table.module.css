@@ -10,6 +10,7 @@
   overflow-x: auto; 
   overflow-y: auto;
   border: var(--border-bottom);
+  background-color: var(--background-color);
 }
 
 .ticketRow {

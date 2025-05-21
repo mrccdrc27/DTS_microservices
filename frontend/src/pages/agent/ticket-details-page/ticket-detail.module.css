@@ -1,142 +1,203 @@
+
 .ticketDetailPage {
-  margin: 0px 10vw;
+  margin: var(--mainpagewidth);
 }
 
-.topTicketDetail {
-  padding-top: 15px;
+.tdTopSection {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
   margin-bottom: 20px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: var(--border-bottom);
 }
 
-.backButton {
-  background-color: var(--primary-color);
-  border: 1px solid #ccc;
-  color: white;
-  font-size: 1rem;
-  padding: 5px;
-  border-radius: 6px;
+.tdBack, .tdLabel p {
+  font-size: var(--title-font-size);
+  color: var(--text-color);
+  margin-bottom: 15px;
   cursor: pointer;
-  text-align: center;
-  gap: 8px;
-  transition: all 0.2s ease-in-out;
-  margin: 20px 0;
-  font-size: var(--table-font-size);
-  width: 10%;
+  font-weight: bold;
 }
 
-.botTicketDetail {
+.tdBotSection {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 15px;
 }
 
-.leftTicketDetails {
+.tdLeftSection {
   flex: 2;
+  background-color: var(--background-color);
+  border-radius: 4px;
+  padding: 20px;
 }
 
-.tdTitleCont {
-  margin-bottom: 10px;
+.tdHeader {
+  color: var(--text-color);
+  margin-bottom: 40px;
 }
 
-.tdTitle,
-.tdSubject {
-  font-size: 22px;
+.tdTitle, .tdSubject {
+  font-size: var(--h1-font-size);
 }
 
-.tdMeta {
-  font-size: var(--table-head-size);
+.tdMetaData {
+  margin-top: 5px;
+}
+
+.tdDateOpened, .tdDateResolution {
+  font-size: var(--table-font-size);
+  color: var(--text-color);
 }
 
 .tdDescription {
-  margin-bottom: 10px;
-}
-
-.tdDescription h3 {
-  font-size: var(--title-font-size);
-}
-
-.tdDescription p {
-  font-size: var(--table-head-size);
+  font-size: var(--table-font-size);
+  color: var(--text-color);
+  margin-bottom: 20px;
 }
 
 .tdAttachment {
-  margin-bottom: 10px;
+  font-size: var(--table-font-size);
+  color: var(--text-color);
+  margin-bottom: 20px;
+  /* margin-bottom: 50px; */
 }
 
-.tdAttachment h3 {
-  font-size: var(--title-font-size);
+.tdAttached {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tdAttached i {
+  color: #007bff;
 }
 
 .tdComment {
   display: flex;
   gap: 20px;
-  margin-bottom: 20px;
+  align-items: center;
+  padding-bottom: 50px;
+  border-bottom: var(--border-bottom);
 }
 
-.tdCommenterAvatar {
-  width: 36px;
-  height: 36px;
+.tdCommentHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tdCSHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tdCSButton {
+  cursor: pointer;
+}
+
+.tdUserProfile img{
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
   border-radius: 50%;
-  background-color: #3498db;
-  flex-shrink: 0;
 }
 
-.commentInput {
-  border: 1px solid #ddd;
+.tdCommentInput {
+  border: var(--border-bottom);
   border-radius: 4px;
   padding: 10px;
   width: 100%;
 }
 
 .tdCommentSection {
-  display: flex;
-  gap: 10px;
+  /* background-color: pink; */
+  margin-top: 20px;
 }
 
-.commenterAvatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: #3498db;
-  flex-shrink: 0;
+.tdCommentSection h3 {
+  margin-bottom: 20px;
+  color: var(--information-color);
 }
 
-.commentContent {
-  flex-grow: 1;
-  padding-left: 10px;
+.tdCommentSection {
+  font-size: var(--table-font-size);
+  color: var(--text-color);
+  background-color: white;
+  border: var(--border-bottom);
+  border-radius: 4px;
+  padding: 10px 20px;
 }
 
-.commentHeader {
+.tdCommentItem {
   display: flex;
   justify-content: space-between;
+  gap: 5px;
+  margin-bottom: 20px;
+  /* background-color: red; */
+}
+
+.tdUserProfile {
+  flex: 0.3;
+}
+
+.tdCommentContent {
+  flex: 5;
   margin-bottom: 5px;
 }
 
-.commenterName {
+.tdCommentContent p {
+  word-break: break-word; 
+  white-space: pre-wrap;  
+  max-height: 120px; 
+  overflow-y: auto;    
+  padding-right: 10px;   
+}
+
+.tdCommentContent p::-webkit-scrollbar {
+  width: 5px; 
+}
+
+.tdCommentContent p::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+.tdCommentContent p::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); 
+  border-radius: 10px;
+}
+
+.tdCommentContent p::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.4); 
+}
+
+.tdCommentHeader {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.tdCommentDate {
+  font-size: var(--table-desc-size);
+}
+
+.tdCommentActions {
+  display: flex;
   font-weight: bold;
-  font-size: var(--table-head-size);
+  gap: 10px;
 }
 
-.commentDate {
-  font-size: 12px;
-}
+/* RIGHT */
 
-.commentText {
-  font-size: var(--table-font-size);
-}
-
-.commentAction {
-  padding-right: 10px;
-  font-size: var(--table-font-size);
-}
-
-.rightTicketDetails {
+.tdRightSection {
   flex: 1;
+  background-color: var(--background-color);
+  border-radius: 4px;
+  padding: 20px;
 }
 
 .actionButton {
-  background-color: #27ae60;
+  background-color: var(--success-color);
   color: white;
   border: none;
   border-radius: 4px;
@@ -156,24 +217,50 @@
   padding: 10px;
 }
 
-.tdStatusLabel,
-.tdStatusBadge {
+.tdStatusLabel{
   font-size: var(--table-head-size);
+  font-weight: bold;
 }
 
-.tdStatusBadge {
-  background-color: var(--alert-color);
-  color: var(--background-color);
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: var(--table-head-size);
+.tdProgressTrack {
+  margin-bottom: 20px;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.progressBar {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background-color: #ddd;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.progressStep {
+  position: relative;
+  z-index: 2;
+}
+
+.stepIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--background-color);
+  border: 3px solid #ccc;
 }
 
 .tdInfoItem {
-  padding: 10px;
-  border: 0.5px solid gray;
+  margin-bottom: 20px;
+  border: var(--border-bottom);
   border-radius: 4px;
-  margin-bottom: 10px;
+  padding: 10px;
 }
 
 .tdInfoLabelValue {
@@ -184,27 +271,88 @@
 .tdInfoLabel,
 .tdInfoValue {
   font-size: var(--table-head-size);
-}
-
-.tdActivityLog {
-  padding: 10px;
-  border: 0.5px solid gray;
-  border-radius: 4px;
+  color: var(--text-color);
 }
 
 .tdActivityLogTitle {
+  margin-bottom: 5px;
+  color: var(--text-color);
   font-size: var(--table-head-size);
+  font-weight: bold;
+}  
+
+.tdALHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.tdCSButton {
+  font-size: var(--table-desc-size);
+}
+
+.tdALWrapper {
+  position: relative;
+  border: var(--border-bottom);
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.tdALProgressBar {
+  position: absolute;
+  top: 0;
+  left: 27px; 
+  width: 2px;
+  height: 100%;
+  background-color: #ddd;
+  z-index: 1;
+}
+
+.tdALRow {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.tdALProgressStep {
+  margin-right: 40px;
+}
+
+.tdALProgressIcon {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--information-color);
+  border: 3px solid #ccc;
+  position: relative;
+}
+
+.activityTitle,
+.activityText,
+.activityFooter {
+  font-size: var(--table-desc-size);
+  color: var(--text-color);
+}
+
+.activityTitle {
   font-weight: bold;
 }
 
-.tdActivityLogContent {
-  font-size: var(--table-head-size);
-}
-
 @media (max-width: 768px) {
-  .leftTicketDetails,
-  .rightTicketDetails {
+  .tdLeftSection,
+  .tdRightSection {
     flex: 1 1 100%;
     min-width: unset;
   }
+
+.tdUserProfile {
+  flex: 1;
+}
+
+.tdCommentContent {
+  flex: 6;
+  margin-bottom: 5px;
+}
 }
