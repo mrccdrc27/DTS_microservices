@@ -8,7 +8,7 @@ Step #3: go to the email messages of the agent
 
 Step #4: click the link sent by daylily750@gmail.com (if not received, check spam)
 
-Step #5: after clicking, use the following format and put it in the content input field:
+Step #5: after clicking, use the following json format and put it in the content input field:
 
 {
   "token": "Enter your token which is on the URL",
@@ -20,3 +20,22 @@ Step #5: after clicking, use the following format and put it in the content inpu
 Step #6: Click Post and see the magic in the database
 
 Warning! Can only register an email once, IntegrityError will occur if you try to register twice
+
+
+
+
+
+
+CHANGE PASS STEPS
+
+Step #1 Go to this url (authenticated needed):
+http://127.0.0.1:8000/api/auth/change-password/
+
+
+Step #2
+Change password json format:
+{
+  "old_password": "oldpass123",
+  "new_password": "newpass456",
+  "confirm_password": "newpass456"
+}

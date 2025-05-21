@@ -16,10 +16,15 @@ urlpatterns = [
     path("token/refresh/", TokenRefreshView.as_view(), name="token-refresh"),
     path("user/", UserInfoAPIView.as_view(), name="user-info"),
 
+    # Forgot password routes
     path('password/reset/', RequestPasswordResetAPIView.as_view(), name='password_reset'),
     path('password/reset/confirm/', PasswordResetConfirmAPIView.as_view(), name='password_reset_confirm'),
     path('api/password/reset-complete/', PasswordResetCompleteAPIView.as_view(), name='password_reset_complete'),
 
+    # Invite register agents routes
     path('invite/', InviteUserView.as_view(), name='invite-user'),
     path('api/register/<uuid:token>/', RegisterUserView.as_view(), name='register-user'),
+
+    # Change password route 
+    path('auth/change-password/', ChangePasswordAPIView.as_view(), name='change-password'),
 ]

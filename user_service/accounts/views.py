@@ -28,6 +28,11 @@ from django.urls import reverse
 
 from rest_framework.generics import CreateAPIView
 
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import update_session_auth_hash
+
+
+
 
 # Is a protected Route, must put token to validate and get request
 class HelloView(APIView):
@@ -144,7 +149,7 @@ class RequestPasswordResetAPIView(GenericAPIView):
             send_mail(
                 'Reset Your Password',
                 message,
-                None,
+                'Gensys Support Team',
                 [email],
             )
 
@@ -226,14 +231,14 @@ class InviteUserView(CreateAPIView):
         message=(
             f"Dear Agent!,\n\n"
             f"You have been invited to complete your account registration.\n"
-            f"Please click the link below to set your password and activate your account:\n\n"
+            f"Please click the link below to set your credentials and activate your account:\n\n"
             f"{url}\n\n"
             f"Note: This link will expire in 24 hours for security purposes.\n\n"
             f"If you did not request this invitation, you may safely ignore this email.\n\n"
             f"Best regards,\n"
             f"Gensys Support Team"
         ),
-        from_email="noreply@example.com",
+        from_email='Gensys Support Team',
         recipient_list=[registration.email],
     )
 
@@ -247,4 +252,14 @@ class RegisterUserView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response({"message": "Registration complete."})
+        return Response(serializer.errors, status=400)
+
+class ChangePasswordAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = ChangePasswordSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Password changed successfully."}, status=200)
         return Response(serializer.errors, status=400)

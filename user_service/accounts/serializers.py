@@ -89,6 +89,7 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
     uid = serializers.CharField()
     token = serializers.CharField()
     new_password = serializers.CharField(min_length=8)
+    
 
 
 class InviteUserSerializer(serializers.ModelSerializer):
@@ -137,4 +138,35 @@ class CompleteRegistrationSerializer(serializers.Serializer):
         
         invite.delete()
         return user
+
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+    confirm_password = serializers.CharField(required=True)
+
+    def validate_password(self, value):
+        try:
+            validate_password(value)
+        except DjangoValidationError as e:
+            raise serializers.ValidationError(e.messages)
+        return value
     
+    def validate(self, attrs):
+        user = self.context['request'].user
+
+        if not user.check_password(attrs['old_password']):
+            raise serializers.ValidationError({"old_password": "Old password is not correct"})
+
+        if attrs['new_password'] != attrs['confirm_password']:
+            raise serializers.ValidationError({"confirm_password": "Passwords do not match"})
+
+        if len(attrs['new_password']) < 8:
+            raise serializers.ValidationError({"new_password": "Password must be at least 8 characters"})
+
+        return attrs
+
+    def save(self, **kwargs):
+        user = self.context['request'].user
+        user.set_password(self.validated_data['new_password'])
+        user.save()
+        
