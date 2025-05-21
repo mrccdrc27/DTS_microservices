@@ -39,7 +39,7 @@ const UserRegistration = ({ token }) => {
 
     try {
       const response = await axios.post(
-        `http://192.168.100.6:3000/api/authapi/register/${token}/`,
+        `http://localhost:3000/api/authapi/register/${token}/`,
         {
           token,
           first_name,
