@@ -123,10 +123,25 @@ class RequestPasswordResetAPIView(GenericAPIView):
             reset_link = f"http://localhost:8000/api/password/reset/confirm/?uid={uid}&token={token}"
   # Change to your frontend URL
 
+            message = f"""
+            Hi,
+
+            We received a request to reset your password. You can reset it by clicking the link below:
+
+            {reset_link}
+
+            If you did not request a password reset, you can safely ignore this email.
+
+            This link will expire in 24 hours for your security.
+
+            Thank you,  
+            GenSys Support Team
+            """
+            
             # Send email
             send_mail(
                 'Reset Your Password',
-                f'Click the link to reset your password: {reset_link}',
+                message,
                 None,
                 [email],
             )

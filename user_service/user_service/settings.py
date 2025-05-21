@@ -61,7 +61,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'daylily750@gmail.com'  # Replace with your Gmail
 EMAIL_HOST_PASSWORD = 'kggo imds arul onxx'  # Use App Password (not your normal Gmail password)
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'daylily750@gmail.com'
+DEFAULT_FROM_EMAIL = 'gensysteam@map.com'
 
 
 REST_FRAMEWORK = {

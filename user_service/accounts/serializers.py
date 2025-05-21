@@ -1,7 +1,9 @@
+from django.contrib.auth.password_validation import validate_password
 from .models import CustomUser
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
+from django.core.exceptions import ValidationError as DjangoValidationError
 # Serializers, is what converts the datastructure of an object to much more readable format (json)
 # Acts as a Controller in MVC structure, you can enfore rules that bridge the view and the model
 
@@ -12,35 +14,42 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
-
-    # Data not really comes from the model (table), defined for internal logic
-    # within the serializer, i.e. to add password-confirmpassword logic
     password1 = serializers.CharField(write_only=True)
     password2 = serializers.CharField(write_only=True)
+
     class Meta:
         model = CustomUser
-        # Add a column for registration
-        fields = ("id", 
-                  "username", 
-                  "first_name",
-                  "is_staff",
-                  "email", 
-                  "password1", 
-                  "password2")
-        extra_kwargs = {"password": {"write_only": True}}
+        fields = (
+            "id", 
+            "username", 
+            "first_name",
+            "is_staff",
+            "email", 
+            "password1", 
+            "password2"
+        )
 
-
-    # Validation logic
     def validate(self, attrs):
         if attrs['password1'] != attrs['password2']:
             raise serializers.ValidationError("Passwords do not match!")
 
-        password = attrs.get("password1", "")
-        if len(password) < 8:
-            raise serializers.ValidationError(
-                "Passwords must be at least 8 characters!")
+        # Run Django's built-in password validators
+        try:
+            validate_password(attrs['password1'], user=self.instance or None)
+        except DjangoValidationError as e:
+            raise serializers.ValidationError({'password1': e.messages})
 
         return attrs
+
+    def create(self, validated_data):
+        # Remove password fields from validated data
+        password = validated_data.pop("password1")
+        validated_data.pop("password2")
+
+        user = CustomUser(**validated_data)
+        user.set_password(password)
+        user.save()
+        return user
     
     # Creates the mode;
     def create(self, validated_data):
