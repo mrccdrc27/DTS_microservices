@@ -20,6 +20,7 @@ import WorkflowEditor from '../pages/admin/workflow-page/WorkflowCreator';
 import ProtectedRoute from './ProtectedRoute'; // 👈 import this
 import Unauthorized from '../pages/error/Unauthorized';
 import NotFound from '../pages/error/NotFound';
+import AgentPosition from '../pages/admin/agent-page/AgentPosition';
 
 function MainRoutes() {
   return (
@@ -73,6 +74,7 @@ function MainRoutes() {
 
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/agent/invite" element={<AgentInvite />} />
+        <Route path="/admin/agent/position" element={<AgentPosition />} />
         <Route path="/admin/agent" element={<Agent />} />
         <Route path="/admin/workflow" element={<Workflow />} />
         <Route path="/admin/workflow/create" element={<WorkflowEditor />} />

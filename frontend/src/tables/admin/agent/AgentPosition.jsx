@@ -97,7 +97,7 @@ function Filters() {
   )
 }
 
-function AgentInvitation() {
+export default function AgentInvitation() {
   const [agents, setAgents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7; // rows per page
@@ -129,26 +129,28 @@ function AgentInvitation() {
         <div className={layout.right}>
             <SearchBar/>
             <div className={table.tableborder}>
-            <div className={table.tablewrapper}>
-                <table className={table.tablecontainer}>
-                <thead>
-                    <TableHeader />
-                </thead>
-                <tbody>
-                    {pagedAgents.map((agent) => (
-                    <TableRow
-                        key={agent.ID}
-                        ID={agent.ID}
-                        Name={agent.Name}
-                        Email={agent.Email}
-                        Role={agent.Role}
-                        Status={agent.Status}
-                        LastLogin={agent.LastLogin}
-                        onManage={handleManage}
-                    />
-                    ))}
-                </tbody>
-                </table>
+              <div className={table.tablewrapper}>
+                <div style={{ maxHeight: '400px', overflowY: 'auto', display: 'block' }}>
+                    <table className={table.tablecontainer}>
+                        <thead style={{ position: 'sticky', top: 0, background: 'white', zIndex: 100 }}>
+                            <TableHeader />
+                        </thead>
+                        <tbody>
+                            {pagedAgents.map((agent) => (
+                                <TableRow
+                                    key={agent.ID}
+                                    ID={agent.ID}
+                                    Name={agent.Name}
+                                    Email={agent.Email}
+                                    Role={agent.Role}
+                                    Status={agent.Status}
+                                    LastLogin={agent.LastLogin}
+                                    onManage={handleManage}
+                                />
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
                 <Pagination
                 currentPage={currentPage}
@@ -160,5 +162,3 @@ function AgentInvitation() {
     </div>
   );
 }
-
-export default AgentInvitation;
