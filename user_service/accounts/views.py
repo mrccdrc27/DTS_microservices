@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import *
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -15,17 +15,19 @@ from django.core.mail import send_mail
 from .models import CustomUser
 from .serializers import RequestPasswordResetSerializer, PasswordResetConfirmSerializer
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
-from rest_framework import status
+
 
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.views import APIView
+
+from .serializers import InviteUserSerializer
+from .models import PendingRegistration
+from django.urls import reverse
+
+from rest_framework.generics import CreateAPIView
+
 
 # Is a protected Route, must put token to validate and get request
 class HelloView(APIView):
@@ -208,3 +210,41 @@ class PasswordResetCompleteAPIView(APIView):
                 return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"error": "Invalid request"}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class InviteUserView(CreateAPIView):
+    permission_classes = [permissions.IsAdminUser]
+    serializer_class = InviteUserSerializer
+
+    def perform_create(self, serializer):
+        registration = serializer.save()
+        token = str(registration.token)
+        url = self.request.build_absolute_uri(reverse('register-user', args=[token]))
+        
+        send_mail(
+        subject="Action Required: Complete Your Registration",
+        message=(
+            f"Dear Agent!,\n\n"
+            f"You have been invited to complete your account registration.\n"
+            f"Please click the link below to set your password and activate your account:\n\n"
+            f"{url}\n\n"
+            f"Note: This link will expire in 24 hours for security purposes.\n\n"
+            f"If you did not request this invitation, you may safely ignore this email.\n\n"
+            f"Best regards,\n"
+            f"Gensys Support Team"
+        ),
+        from_email="noreply@example.com",
+        recipient_list=[registration.email],
+    )
+
+    
+
+class RegisterUserView(APIView):
+    def post(self, request, token):
+        data = request.data.copy()
+        data['token'] = token
+        serializer = CompleteRegistrationSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Registration complete."})
+        return Response(serializer.errors, status=400)

@@ -4,6 +4,18 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 
 from django.core.exceptions import ValidationError as DjangoValidationError
+
+from django.contrib.auth.models import User
+
+from .models import PendingRegistration
+from django.utils import timezone
+from datetime import timedelta
+
+from django.contrib.auth import get_user_model
+from rest_framework import serializers
+from .models import PendingRegistration
+
+User = get_user_model()
 # Serializers, is what converts the datastructure of an object to much more readable format (json)
 # Acts as a Controller in MVC structure, you can enfore rules that bridge the view and the model
 
@@ -77,3 +89,52 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
     uid = serializers.CharField()
     token = serializers.CharField()
     new_password = serializers.CharField(min_length=8)
+
+
+class InviteUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PendingRegistration
+        fields = ['email', 'role']
+
+    def create(self, validated_data):
+        validated_data['expires_at'] = timezone.now() + timedelta(hours=24)
+        return PendingRegistration.objects.create(**validated_data)
+    
+class CompleteRegistrationSerializer(serializers.Serializer):
+    token = serializers.UUIDField()
+    password = serializers.CharField(write_only=True)
+    first_name = serializers.CharField(required=True)
+    last_name = serializers.CharField(required=True)
+
+    def validate_password(self, value):
+        try:
+            validate_password(value)
+        except DjangoValidationError as e:
+            raise serializers.ValidationError(e.messages)
+        return value
+    
+    def validate_token(self, token):
+        try:
+            invite = PendingRegistration.objects.get(token=token)
+        except PendingRegistration.DoesNotExist:
+            raise serializers.ValidationError("Invalid token.")
+        if invite.is_expired():
+            raise serializers.ValidationError("Token expired.")
+        return token
+
+    def create(self, validated_data):
+        invite = PendingRegistration.objects.get(token=validated_data['token'])
+
+        user = User.objects.create_user(
+            username=invite.email,
+            email=invite.email,
+            password=validated_data['password'],
+            first_name=validated_data.get('first_name'),
+            last_name=validated_data.get('last_name'),
+            is_staff=invite.role == 'admin'  # or customize this logic
+        )
+
+        
+        invite.delete()
+        return user
+    
