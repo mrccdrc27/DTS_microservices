@@ -9,21 +9,13 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-import os
+
 from pathlib import Path
 from datetime import timedelta
-from dotenv import load_dotenv
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent  # Usually your settings.py is in BASE_DIR / project_name
-ROOT_ENV = BASE_DIR / '.env'
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ✅ Load the environment variables from the .env file
-load_dotenv(dotenv_path=ROOT_ENV)
-
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS',  'localhost,127.0.0.1').split(',')
-
-# ✅ Now this will work
-JWT_KEY = os.getenv("DJANGO_JWT_KEY")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -33,6 +25,9 @@ SECRET_KEY = 'django-insecure-aqvze*zup3p1_dfz81d8nh-rq6-31)!1t2j9y7=d%!839=07l_
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+ALLOWED_HOSTS = []
+
 
 # Application definition
 
@@ -59,9 +54,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
+# For dev only
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'daylily750@gmail.com'  # Replace with your Gmail
+EMAIL_HOST_PASSWORD = 'kggo imds arul onxx'  # Use App Password (not your normal Gmail password)
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'gensysteam@map.com'
+
+
 REST_FRAMEWORK = {
  'DEFAULT_AUTHENTICATION_CLASSES': (
     'rest_framework_simplejwt.authentication.JWTAuthentication',
+    'rest_framework.authentication.SessionAuthentication',
  )
 }
 
@@ -163,7 +169,7 @@ SIMPLE_JWT = {
     "UPDATE_LAST_LOGIN": False,
 
     "ALGORITHM": "HS256",
-    "SIGNING_KEY": JWT_KEY,
+    "SIGNING_KEY": SECRET_KEY,
     "VERIFYING_KEY": "",
     "AUDIENCE": None,
     "ISSUER": None,

@@ -6,3 +6,5 @@ for frontend: `cd frontend`, `npm install`
 in powershell: `bash ./start_servers.sh`
 or
 in git bash: `./start_servers.sh`
+
+git rm -r --cached <folder>
