@@ -6,6 +6,7 @@ STATUS_CHOICES = [
     ("draft", "Draft"),
     ("deployed", "Deployed"),
     ("paused", "Paused"),
+    ("initialized", "Initialized"),
 ]
 class Workflows(models.Model):
     # used to track who creates the workflow
@@ -27,6 +28,7 @@ class Steps(models.Model):
     position = models.ForeignKey(Positions, on_delete=models.PROTECT)
     stepName = models.CharField(max_length=64, unique=True)
     description = models.CharField(max_length=256, null=True)
+    isInitialized = models.BooleanField(default=False)
 
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
