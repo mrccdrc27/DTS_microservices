@@ -1,0 +1,50 @@
+name: Deploy Service 1 to Azure WebApp
+
+on:
+  push:
+    branches:
+      - PreProduction  # or your deployment branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: user_service   # <-- Set working dir to service1
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: python manage.py test
+
+      - name: Collect static files
+        run: python manage.py collectstatic --noinput
+
+      - name: Run migrations
+        run: python manage.py migrate --noinput
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: your-app-name
+          slot-name: production
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: service1   # <-- deploy service1 folder only
