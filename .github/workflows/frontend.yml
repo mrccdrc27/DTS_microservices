@@ -5,7 +5,7 @@ on:
     branches:
       - PreProduction
     paths:
-      - 'fronend/**'
+      - 'frontend/**'
   workflow_dispatch:
 
 jobs:
