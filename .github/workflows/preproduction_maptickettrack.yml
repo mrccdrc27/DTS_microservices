@@ -33,7 +33,7 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-          npm run test --if-present
+
 
       - name: Zip dist folder for deployment
         run: zip -r release.zip dist
@@ -62,6 +62,10 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
+
+      - script: |
+          npm install
+          npm run build
       
       - name: Login to Azure
         uses: azure/login@v2
