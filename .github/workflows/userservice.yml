@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - PreProduction
+    paths:
+      - 'user_service/**'
   workflow_dispatch:
 
 jobs:

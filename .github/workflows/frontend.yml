@@ -1,0 +1,17 @@
+name: Deploy frontend
+
+on:
+  push:
+    branches:
+      - PreProduction
+    paths:
+      - 'fronend/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend
