@@ -7,20 +7,13 @@ on:
   push:
     branches:
       - PreProduction
-    paths:
-      - 'frontend/**'
   workflow_dispatch:
-
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: read #This is required for actions/checkout
-      
-  defaults:
-    run:
-      working-directory: frontend
 
     steps:
       - uses: actions/checkout@v4
@@ -67,9 +60,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_41F1B148214C4615B6DB7C6F4165FC45 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_692E912016B144038AEB0F2CCFBD0FA6 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_51E207753B5F4813A43065E24F7EECC0 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1DCC190C345D4D41A69869828A50C730 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C9A205E541B9490D95D7BF874A766077 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B4D3DE86321A48608070E6337A373A2A }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
