@@ -17,7 +17,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: user_service
+        working-directory: frontend
 
     steps:
       - uses: actions/checkout@v4
