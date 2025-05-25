@@ -10,9 +10,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-// components
+// comp
 import { Dropdown, SearchBar, Datetime } from "../components/General";
-import Pagination from "../components/Pagination"; // Import Pagination component
 
 export function TicketHeader() {
   return (
@@ -85,41 +84,12 @@ export default function TicketTable() {
   // Filter Section
   const [showFilter, setShowFilter] = useState(false);
 
-  // Pagination State
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // Define how many items per page
-  const [totalPages, setTotalPages] = useState(1);
-
-  // Filtered tickets based on search and filters
-  const filteredTickets = tickets.filter((ticket) => {
-    const priorityMatch =
-      !selectedPriority || ticket.priority === selectedPriority;
-    const statusMatch = !selectedStatus || ticket.status === selectedStatus;
-    const searchMatch =
-      !searchTerm ||
-      ticket.ticket_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.customer.toLowerCase().includes(searchTerm.toLowerCase());
-    const dateMatch =
-      (!startDate || ticket.opened_on >= startDate) &&
-      (!endDate || ticket.opened_on <= endDate);
-    return priorityMatch && statusMatch && searchMatch && dateMatch;
-  });
-
-  // PAGINATION STUFF START
-
-  // Calculate the total pages
+  // warning for date
   useEffect(() => {
-    setTotalPages(Math.ceil(filteredTickets.length / itemsPerPage));
-  }, [filteredTickets]);
-
-  // Slice the tickets based on current page
-  const currentTickets = filteredTickets.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
-  // PAGINATION STUFF END
+    if (startDate && endDate && startDate > endDate) {
+      alert("Start date should not be after end date");
+    }
+  }, [startDate, endDate]);
 
   // Fetching Data
   useEffect(() => {
@@ -134,6 +104,7 @@ export default function TicketTable() {
         const priorities = [
           ...new Set(allTickets.map((ticket) => ticket.priority)),
         ];
+
         setPriorityOptions(priorities);
 
         // fetct status
@@ -149,11 +120,11 @@ export default function TicketTable() {
   }, []);
 
   // if (loading) {
-  //   return <div>Loading...</div>;
+  // return <div>Loading...</div>;
   // }
 
   // if (error) {
-  //   return <div>{error}</div>;
+  // return <div>{error}</div>;
   // }
 
   return (
@@ -243,20 +214,36 @@ export default function TicketTable() {
               <TicketHeader />
             </thead>
             <tbody>
-              {currentTickets.map((ticket) => (
-                <TicketItem key={ticket.ticket_id} ticket={ticket} />
-              ))}
+              {tickets
+                .filter((ticket) => {
+                  const priorityMatch =
+                    !selectedPriority || ticket.priority === selectedPriority;
+                  const statusMatch =
+                    !selectedStatus || ticket.status === selectedStatus;
+                  const searchMatch =
+                    !searchTerm ||
+                    ticket.ticket_id
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase()) ||
+                    ticket.subject
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase()) ||
+                    ticket.customer
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase());
+                  const dateMatch =
+                    (!startDate || ticket.opened_on >= startDate) &&
+                    (!endDate || ticket.opened_on <= endDate);
+                  return (
+                    priorityMatch && statusMatch && searchMatch && dateMatch
+                  );
+                })
+                .map((ticket) => (
+                  <TicketItem key={ticket.ticket_id} ticket={ticket} />
+                ))}
             </tbody>
           </table>
         </div>
-
-        {/* Pagination Component */}
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-          itemsPerPage={itemsPerPage}
-        />
       </div>
     </div>
   );

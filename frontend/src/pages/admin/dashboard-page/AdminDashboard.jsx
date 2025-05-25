@@ -1,67 +1,61 @@
 import AdminNav from "../../../components/navigations/admin-nav/AdminNav";
 import TitleCard from "../../../components/TitleCard";
 import DashboardTable from "../../../tables/admin/dashboard/dashboardTable";
-import {Reporting, Stats, VotingDonutChart} from "./components/Graphs.jsx"
-import style from "./AdminDashboard.module.css"
+import { Reporting, Stats, VotingDonutChart } from "./components/Graphs.jsx";
+import style from "./AdminDashboard.module.css";
 import QuickAction from "./components/QuickAction";
 
-
 export default function AgentDashboard() {
-  return(
-    <>    
-    <AdminNav />
+  return (
+    <>
+      <AdminNav />
       <main className={style.main}>
         <section className={style.dashboardTopSection}>
-          <div className={style.dbHeroSection}>
-          </div>
-        </section> {/* top */}
+          <div className={style.dbHeroSection}></div>
+        </section>{" "}
+        {/* top */}
         <section>
           <div className={style.title}>
-            <TitleCard 
-              title="Dashboard"
-              name="jessa"
-            />
+            <TitleCard title="Dashboard" name="jessa" />
           </div>
           <hr />
         </section>
-
-        <section>
+        <section className={style.topContainer}>
           <div className={style.whole}>
             <div className={style.left}>
-              <h2>Recent</h2>
-              <DashboardTable/>
+              <h2 className={style.title}>Recent</h2>
+              <DashboardTable />
             </div>
             <div className={style.right}>
-              <h2>Quick Actions</h2>
-              <QuickAction/>
+              <h2 className={style.title}>Quick Actions</h2>
+              <QuickAction />
             </div>
           </div>
         </section>
-
-        <section>
+        <section className={style.botContainer}>
           <div className={style.column}>
             <div>
-              <h2>Monitor</h2>
+              <h2 className={style.title}>Monitor</h2>
             </div>
             <div className={style.row}>
-              <Stats/>
-              <Stats/>
+              <Stats />
+              <Stats />
             </div>
             <div className={style.row}>
-              <Reporting 
-              title='Ticket Cancelled Per Day'
-              content='3'
-              description='Resolved Tickets'/>
-              <Reporting 
-              title='Ticket Resolution Per Day'
-              content='12'
-              description='Resolved Tickets'/>
+              <Reporting
+                title="Ticket Cancelled Per Day"
+                content="3"
+                description="Resolved Tickets"
+              />
+              <Reporting
+                title="Ticket Resolution Per Day"
+                content="12"
+                description="Resolved Tickets"
+              />
             </div>
-            
           </div>
         </section>
-    </main>
+      </main>
     </>
   );
 }
-

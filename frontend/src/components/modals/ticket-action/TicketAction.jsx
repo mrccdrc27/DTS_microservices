@@ -1,34 +1,40 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import styles from "./ticket-action.module.css";
-import axios from 'axios';
+import axios from "axios";
 
 const ticketURL = import.meta.env.VITE_TICKET_API;
 
-export default function TicketAction({ ticket, closeTicketAction, refreshTicket}) {
-  const [status, setStatus] = useState('');
+export default function TicketAction({
+  ticket,
+  closeTicketAction,
+  refreshTicket,
+}) {
+  const [status, setStatus] = useState("");
 
   // add comment
-  const [newComment, setNewComment] = useState('');
+  const [newComment, setNewComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // submit comment
   const handleAddComment = async () => {
-  if (!newComment.trim()) return;
+    if (!newComment.trim()) return;
 
-  const updatedComments = [
-    ...(ticket.comments || []),
-    {
-      id: Date.now(),
-      user_id: 1, // or dynamic
-      message: newComment,
-      created_at: new Date().toISOString()
-    }
-  ];
+    const updatedComments = [
+      ...(ticket.comments || []),
+      {
+        id: Date.now(),
+        user_id: 1, // or dynamic
+        message: newComment,
+        created_at: new Date().toISOString(),
+      },
+    ];
 
-  setIsSubmitting(true);
+    setIsSubmitting(true);
 
-  try {
-    await axios.patch(`${ticketURL}/${ticket.id}`, {comments: updatedComments});
+    try {
+      await axios.patch(`${ticketURL}/${ticket.id}`, {
+        comments: updatedComments,
+      });
 
       alert("Comment added!");
       await refreshTicket();
@@ -77,7 +83,9 @@ export default function TicketAction({ ticket, closeTicketAction, refreshTicket}
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
-              <option value="" disabled>Please select an option</option>
+              <option value="" disabled>
+                Please select an option
+              </option>
               <option value="approved">Approved</option>
               <option value="rejected">Rejected</option>
               <option value="on-hold">On Hold</option>
@@ -98,8 +106,6 @@ export default function TicketAction({ ticket, closeTicketAction, refreshTicket}
               onChange={(e) => setNewComment(e.target.value)}
             />
           </div>
-
-          
 
           <div className={styles.ticketActionUpload}>
             <input type="file" />
