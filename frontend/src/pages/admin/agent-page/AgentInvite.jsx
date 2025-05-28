@@ -30,7 +30,7 @@ export default function AgentInvite() {
           name="jessa"/>
           <button className={forms.button}
           onClick={() => navigate("/admin/agent/position")}>
-            create new agent
+            manage roles
           </button>
         </div>
 
