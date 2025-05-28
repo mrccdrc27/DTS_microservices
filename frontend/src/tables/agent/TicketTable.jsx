@@ -87,7 +87,7 @@ export default function TicketTable() {
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // Define how many items per page
+  const itemsPerPage = 7; // Define how many items per page
   const [totalPages, setTotalPages] = useState(1);
 
   // Filtered tickets based on search and filters

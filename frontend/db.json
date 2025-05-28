@@ -1,6 +1,31 @@
 {
   "comments": [],
-  "activity_log": [],
+  "activity_log": [
+    {
+      "id": "6b61",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "content": "Status changed to \"Rejected\" on 2025-05-28T17:56:26.738Z",
+      "created_at": "2025-05-28T17:56:26.738Z"
+    },
+    {
+      "id": "dd2b",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "content": "Status changed to \"In Progress\" on 2025-05-28T17:56:36.428Z",
+      "created_at": "2025-05-28T17:56:36.428Z"
+    },
+    {
+      "id": "fb83",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "content": "Status changed to \"Rejected\" on 2025-05-28T17:58:49.473Z",
+      "created_at": "2025-05-28T17:58:49.473Z"
+    }
+  ],
   "tickets": [
     {
       "id": "1",
@@ -8,7 +33,7 @@
       "subject": "Account Login Issue",
       "customer": "John Doe",
       "priority": "Low",
-      "status": "Approved",
+      "status": "Rejected",
       "opened_on": "2025-04-06",
       "sla": "72 hours",
       "description": "Customer unable to log into account using correct credentials.",

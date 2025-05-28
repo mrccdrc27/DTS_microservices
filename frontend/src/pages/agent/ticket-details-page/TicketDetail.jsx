@@ -1,4 +1,3 @@
-
 // style
 import styles from "./ticket-detail.module.css";
 import general from "../../../tables/styles/general-table-styles.module.css";
@@ -20,12 +19,10 @@ const commentURL = import.meta.env.VITE_COMMENTS_API;
 const activityLogURL = import.meta.env.VITE_ACTIVITY_LOG_API;
 
 export default function TicketDetail() {
-  const [status, setStatus] = useState('');
-  const [error, setError] = useState(null);
-
   const location = useLocation();
   const { id } = useParams();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   // const [ticket, setTicket] = useState(location.state?.ticket || null);
   const [ticket, setTicket] = useState(null);
@@ -160,16 +157,21 @@ export default function TicketDetail() {
   useEffect(() => {
     if (location.state?.ticket) {
       setTicket(location.state.ticket);
-    } else {
-      fetchTicket();
     }
+    fetchTicket();
   }, [id]);
 
   useEffect(() => {
-    if (ticket?.status) {
-      setStatus(ticket.status.toLowerCase());
+    if (ticket?.id) {
+      fetchComments();
     }
-  }, [ticket]);
+  }, [ticket?.id, fetchComments]);
+
+  useEffect(() => {
+    if (ticket) {
+      fetchActivityLogs();
+    }
+  }, [ticket, fetchActivityLogs]);
 
   const fetchTicket = async () => {
     try {
@@ -182,21 +184,13 @@ export default function TicketDetail() {
     }
   };
 
-    setIsSubmitting(true);
-    try {
-      await axios.patch(`${ticketURL}/${ticket.id}`, { comments: updatedComments });
-      setNewComment('');
-      await fetchTicket();
-      setOpenTicketAction(false);
-    } catch (error) {
-      console.error("Failed to add comment:", error.message);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  if (error) {
+    return <div style={{ color: "red" }}>{error}</div>;
+  }
 
-  if (error) return <div style={{ color: "red" }}>{error}</div>;
-  if (!ticket) return <div>Loading ticket data for ID: {id}...</div>;
+  if (!ticket) {
+    return <div>Loading ticket data for ID: {id}...</div>;
+  }
 
   return (
     <>
@@ -212,8 +206,6 @@ export default function TicketDetail() {
             />
           </div>
         )}
-
-        {/* Header */}
         <section className={styles.tdTopSection}>
           <div className={styles.tdBack} onClick={() => navigate(-1)}>
             <i className="fa fa-chevron-left"></i>
@@ -223,63 +215,90 @@ export default function TicketDetail() {
           </div>
         </section>
 
-        {/* Main Content */}
         <section className={styles.tdBotSection}>
-          {/* Left Side */}
           <div className={styles.tdLeftSection}>
-            {/* Header Info */}
             <div className={styles.tdHeader}>
-              <h3 className={styles.tdTitle}>Ticket No. {ticket.ticket_id}</h3>
-              <p className={styles.tdSubject}><strong>Subject: </strong>{ticket.subject}</p>
+              <h3 className={styles.tdTitle}>Ticket No.{ticket.ticket_id}</h3>
+              <p className={styles.tdSubject}>
+                <strong>Subject: </strong>
+                {ticket.subject}
+              </p>
               <div className={styles.tdMetaData}>
-                <p>Opened On: {ticket.opened_on}</p>
-                <p>Expected Resolution: </p>
+                <p className={styles.tdDateOpened}>
+                  Opened On: {ticket.opened_on}
+                </p>
+                <p className={styles.tdDateResolution}>Expected Resolution: </p>
               </div>
             </div>
 
-            {/* Description */}
             <div className={styles.tdDescription}>
               <h3>Description</h3>
               <p>{ticket.description}</p>
             </div>
 
-            {/* Attachment */}
             <div className={styles.tdAttachment}>
               <h3>Attachment</h3>
               <div className={styles.tdAttached}>
                 <i className="fa fa-upload"></i>
-                <span>No file attached</span>
+                <span className={styles.placeholderText}>No file attached</span>
+                <input
+                  type="file"
+                  id="file-upload"
+                  accept=".pdf, .jpg, .jpeg, .docx"
+                  style={{ display: "none" }}
+                />
               </div>
             </div>
 
-            {/* Comment Input */}
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <textarea
-                style={{ width: "100%", maxHeight: "200px", resize: "vertical" }}
-                placeholder="Add a comment here..."
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-              />
-              <button onClick={handleAddComment} disabled={isSubmitting || !newComment.trim()}>
-                Send comment
+            <div className={styles.tdComment}>
+              <div className={styles.commentWrapper}>
+                <div className={styles.tdUserProfile}>
+                  <img
+                    src="https://i.pinimg.com/736x/e6/50/7f/e6507f42d79520263d8d952633cedcf2.jpg"
+                    alt="Profile"
+                  />
+                </div>
+                <div className={styles.tdCommentInput}>
+                  <textarea
+                    placeholder="Add a comment here..."
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                  />
+                </div>
+              </div>
+              <button
+                className={styles.tdCommentBtn}
+                onClick={handleAddComment}
+                disabled={isSubmitting}
+              >
+                Add comment
               </button>
             </div>
 
-            {/* Comment Section */}
             <div className={styles.tdCommentSection}>
               <div className={styles.tdCSHeader}>
                 <h3>Comment</h3>
-                <p
-                  className={styles.tdCSButton}
-                  onClick={() => setHideCommentSection(!hideCommentSection)}
-                >
-                  {hideCommentSection ? "Show" : "Hide"}
-                </p>
+                {hideCommentSection ? (
+                  <p
+                    className={styles.tdCSButton}
+                    onClick={() => setHideCommentSection(false)}
+                  >
+                    Hide
+                  </p>
+                ) : (
+                  <p
+                    className={styles.tdCSButton}
+                    onClick={() => setHideCommentSection(true)}
+                  >
+                    Show
+                  </p>
+                )}
               </div>
-              {!hideCommentSection &&
-                (ticket.comments?.length > 0 ? (
-                  [...ticket.comments]
-                    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+              {hideCommentSection && comments && comments.length > 0
+                ? [...comments]
+                    .sort(
+                      (a, b) => new Date(b.created_at) - new Date(a.created_at)
+                    )
                     .map((comment) => (
                       <div key={comment.id} className={styles.tdCommentItem}>
                         <div className={styles.tdUserProfile}>
@@ -290,14 +309,45 @@ export default function TicketDetail() {
                         </div>
                         <div className={styles.tdCommentContent}>
                           <div className={styles.tdCommentHeader}>
-                            <strong>User {comment.user_id}</strong>
-                            <div>{new Date(comment.created_at).toLocaleString()}</div>
+                            <div className={styles.tdUserName}>
+                              <strong>User {comment.user_id}</strong>
+                            </div>
+                            <div className={styles.tdCommentDate}>
+                              {new Date(comment.created_at).toLocaleString()}
+                            </div>
                           </div>
-                          <p>{comment.message}</p>
+                          <div className={styles.tdCommentContent}>
+                            <p>{comment.message}</p>
+                          </div>
                           <div className={styles.tdCommentActions}>
-                            <span>Reply</span>
-                            <span>Edit</span>
-                            <span>Delete</span>
+                            <div className={styles.tdCommentAction}>
+                              <i className="fa-regular fa-thumbs-up"></i>
+                            </div>
+                            {/* <span className={styles.tdCommentAction}>Reply</span> */}
+                            <span
+                              className={styles.tdCommentAction}
+                              onClick={() => {
+                                setReplyingTo(comment.id);
+                                setReplyMessage("");
+                              }}
+                            >
+                              Reply
+                            </span>
+                            <span
+                              className={styles.tdCommentAction}
+                              onClick={() => {
+                                setEditingCommentId(comment.id);
+                                setEditMessage(comment.message);
+                              }}
+                            >
+                              Edit
+                            </span>
+                            <span
+                              className={styles.tdCommentAction}
+                              onClick={() => handleDeleteComment(comment.id)}
+                            >
+                              Delete
+                            </span>
                           </div>
                           <div className={styles.tdActionCont}>
                             {replyingTo === comment.id && (
@@ -338,13 +388,14 @@ export default function TicketDetail() {
                         </div>
                       </div>
                     ))
-                ) : (
-                  <p className={styles.noCommentMessage}>No comments available.</p>
-                ))}
+                : hideCommentSection && (
+                    <p className={styles.noCommentMessage}>
+                      No comments available.
+                    </p>
+                  )}
             </div>
           </div>
 
-          {/* Right Side */}
           <div className={styles.tdRightSection}>
             <button
               className={styles.actionButton}
