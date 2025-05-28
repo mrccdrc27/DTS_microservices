@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import styles from './agent-nav.module.css';
 
@@ -55,10 +55,43 @@ export default function AgentNav() {
     setOpenNotifModal(false);
   };  
 
+  // Click outside the modal
+  const notifRef = useRef(null);
+  const profileRef = useRef(null);
+ 
+  useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (openNotifModal && notifRef.current && !notifRef.current.contains(event.target)) {
+      setOpenNotifModal(false);
+    }
+    if (openProfileModal && profileRef.current && !profileRef.current.contains(event.target)) {
+      setOpenProfileModal(false);
+    }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [openNotifModal, openProfileModal]);
+
+
   return (
     <>
-      {openProfileModal && <ProfileModal />}
-      {openNotifModal && <NotifModal />}
+      {/* {openProfileModal && <ProfileModal />}
+      {openNotifModal && <NotifModal />} */}
+
+      {openNotifModal && (
+        <div ref={notifRef}>
+          <NotifModal />
+        </div>
+      )}
+
+      {openProfileModal && (
+        <div ref={profileRef}>
+          <ProfileModal />
+        </div>
+      )}
 
       <nav className={styles.navBar}>
         <div className={styles.logoSection}>
@@ -107,15 +140,20 @@ export default function AgentNav() {
         </div>
 
          <div className={`${styles.userSection} ${userMenuOpen ? styles.userSectionOpen : ''}`}> {/* className={styles.userSection} */}
-            <div className={styles.notifBell} onClick={handleNotifClick}>
+            <div 
+              className={styles.notifBell} 
+              onClick={handleNotifClick} 
+            >
               <i className="fa fa-bell"></i>
-            </div>
+            </div> 
+
             <img
               className={styles.userAvatar}
               src="https://i.pinimg.com/736x/e6/50/7f/e6507f42d79520263d8d952633cedcf2.jpg"
               alt="Anime Avatar"
               onClick={handleAvatarClick}
             />
+            
             <div className={styles.nameSection}>
               <p className={styles.name}>Username</p>
               <p className={styles.role}>Agent Account</p>

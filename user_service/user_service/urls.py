@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
+from accounts import views
+
 
 urlpatterns = [
     # Django Admin default
@@ -33,5 +35,7 @@ urlpatterns = [
          name = 'token_refresh'),
 
     # this route takes all from accounts/urls.py under the /api endpoint
-    path("api/", include("accounts.urls"))
+    path("api/", include("accounts.urls")),
+    path("api/auth", include("accounts.urls")),
+     path('reset-password/<uidb64>/<token>/', views.PasswordTokenCheckAPI.as_view(), name='password-reset-confirm'),
 ]

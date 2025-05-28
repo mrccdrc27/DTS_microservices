@@ -13,11 +13,12 @@ setup_env() {
 }
 setup_env
 
+# not in public folder anymore
 # Start JSON Server
 echo "Starting JSON server..."
-cd frontend/public
+cd frontend
 npx json-server --watch db.json --port 5000 --host 0.0.0.0 &
-cd ../..
+cd ..
 
 # Start user_service
 echo "Starting user_service..."

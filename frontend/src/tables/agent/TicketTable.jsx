@@ -7,7 +7,7 @@ const ticketURL = import.meta.env.VITE_TICKET_API;
 
 // react 
 import { useState, useEffect } from 'react';
-import axios, { all } from 'axios';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 // comp
@@ -43,7 +43,7 @@ export function TicketItem({ ticket }) {
         <div className={general[`status-${ticket.status.replace(/\s+/g, '-').toLowerCase()}`]}>{ticket.status}</div>
       </td>
       <td className={general.ticketButton}>
-        <Link to={`/agent/ticket/${ticket.ticket_id}`} state={{ ticket }}>
+        <Link to={`/agent/ticket/${ticket.id}`} state={{ ticket }}>
           <button className={general.viewButton}>View</button>
         </Link>
       </td> 

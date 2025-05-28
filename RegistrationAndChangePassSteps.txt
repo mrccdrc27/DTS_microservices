@@ -1,0 +1,41 @@
+Step #1: login to: http://127.0.0.1:2000/admin/ using this:
+email: wendhlascine@gmail.com 
+password: pogiako123
+
+Step #2: go to: http://127.0.0.1:2000/api/invite/ and input the email and the position/role of the agent you want to invite.
+
+Step #3: go to the email messages of the agent
+
+Step #4: click the link sent by daylily750@gmail.com (if not received, check spam)
+
+Step #5: after clicking, use the following json format and put it in the content input field:
+
+{
+  "token": "Enter your token which is on the URL",
+  "password": " Enter password ",
+  "first_name": " Enter first name",
+  "last_name": "Enter last name"
+}
+
+Step #6: Click Post and see the magic in the database
+
+Warning! Can only register an email once, IntegrityError will occur if you try to register twice
+
+
+
+
+
+
+CHANGE PASS STEPS
+
+Step #1 Go to this url (authenticated needed):
+http://127.0.0.1:8000/api/auth/change-password/
+
+
+Step #2
+Change password json format:
+{
+  "old_password": "oldpass123",
+  "new_password": "newpass456",
+  "confirm_password": "newpass456"
+}

@@ -8,6 +8,9 @@ import layout from "./AgentInvitation.module.css";
 
 // Api Import
 const ticketURL = import.meta.env.VITE_AGENTS_API;
+const positionListURL = import.meta.env.VITE_POSITION_API;
+const agentInviteURL = import.meta.env.VITE_AGENTINVITE_API;
+
 
 // component import
 import { Pagination } from "../../components/tableforms";
@@ -56,46 +59,140 @@ function TableRow(props) {
 }
 
 function Filters() {
-  return(
-    <>
-    <div className={layout.filters}>
-        <div className={layout.title}>
-            <b>
-                <p>Create Invitation</p>
-            </b>
-                <p
-                style={{color: 'red'}}
-                >Reset</p>
-        </div>
-        <hr/>
+  const [positions, setPositions] = useState([]);
+  const [email, setEmail] = useState('');
+  const [selectedPosition, setSelectedPosition] = useState('');
+  const [errors, setErrors] = useState({});
+  const [statusMessage, setStatusMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-        <b>
-            <p>Information</p>
-        </b>
+  // Fetch positions
+  useEffect(() => {
+    axios.get(positionListURL)
+      .then(response => {
+        setPositions(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching positions:', error);
+      });
+  }, []);
+
+  const validateForm = () => {
+    const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email.trim()) {
+      newErrors.email = 'Email is required.';
+    } else if (!emailRegex.test(email)) {
+      newErrors.email = 'Invalid email format.';
+    } else if (!email.endsWith('@gmail.com')) {
+      newErrors.email = 'Only Gmail addresses are allowed.';
+    }
+
+    if (!selectedPosition) {
+      newErrors.position = 'Please select a position.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+    setStatusMessage('');
+    
+    axios.post(agentInviteURL, {
+      email: email,
+      role: selectedPosition
+    })
+    .then(response => {
+      setStatusMessage('✅ Invitation sent successfully!');
+      setEmail('');
+      setSelectedPosition('');
+      setErrors({});
+    })
+    .catch(error => {
+      console.error('Error sending invitation:', error);
+      setStatusMessage('❌ Failed to send invitation. Please try again.');
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
+  };
+
+  const handleReset = () => {
+    setEmail('');
+    setSelectedPosition('');
+    setErrors({});
+    setStatusMessage('');
+  };
+
+  return (
+    <div className={layout.filters}>
+      <form onSubmit={handleSubmit}>
+        <div className={layout.title}>
+          <b><p>Create Invitation</p></b>
+          <p
+            style={{ color: 'red', cursor: 'pointer' }}
+            onClick={handleReset}
+          >
+            Reset
+          </p>
+        </div>
+        <hr />
+
+        <b><p>Information</p></b>
 
         <div>
           <p>Email</p>
-          <input type="text"
-          className={layout.forminput}/>
+          <input
+            type="text"
+            className={layout.forminput}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
         </div>
 
         <div>
-          <p>Department</p>
-          <select 
-          className={layout.forminput}
-          name=""
-          id=""></select>
+          <p>Position</p>
+          <select
+            className={layout.forminput}
+            value={selectedPosition}
+            onChange={(e) => setSelectedPosition(e.target.value)}
+          >
+            <option value="">Select a position</option>
+            {positions.map(pos => (
+              <option key={pos.id} value={pos.positionName}>
+                {pos.positionName}
+              </option>
+            ))}
+          </select>
+          {errors.position && <p style={{ color: 'red' }}>{errors.position}</p>}
         </div>
-        <br/>
-        <hr/>
-        <br/>
-        <button className={layout.button}>
-            Invite
+
+        <br />
+        <hr />
+        <br />
+
+        <button type="submit" className={layout.button} disabled={isLoading}>
+          {isLoading ? 'Sending...' : 'Invite'}
         </button>
+
+        {statusMessage && (
+          <div style={{ marginTop: '1rem', color: statusMessage.startsWith('✅') ? 'green' : 'red' }}>
+            {statusMessage}
+          </div>
+        )}
+      </form>
     </div>
-    </>
-  )
+  );
 }
+
 
 function AgentInvitation() {
   const [agents, setAgents] = useState([]);

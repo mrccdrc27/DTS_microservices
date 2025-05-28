@@ -3,7 +3,7 @@ import general from '../styles/general-table-styles.module.css'
 
 // react
 import { useEffect, useState } from 'react';
-import axios, { all } from 'axios';
+import axios from 'axios';
 
 // api
 const ticketURL = import.meta.env.VITE_UPCOMING_TICKETS_API;

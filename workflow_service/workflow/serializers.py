@@ -5,17 +5,37 @@ from django.contrib.auth import authenticate
 
 #displays all
 # should displays all the step associated with that workflow
+from rest_framework import serializers
+from .models import Workflows, Steps, StepActions
+
 class WorkflowSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workflows
         fields = (
-            "id",
+            "status",
             "userID",
             "workflowName",
             "description",
             "mainCategory",
             "subCategory",
+        )
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        # Get all steps related to the workflow
+        steps = Steps.objects.filter(workflow=instance)
+
+        # Consider a step initialized if it has at least one StepAction
+        if steps.exists():
+            all_steps_initialized = all(
+                StepActions.objects.filter(step=step).exists() for step in steps
             )
+            if all_steps_initialized:
+                data["status"] = "initialized"
+
+        return data
+
         
 class WorkflowRegister(serializers.ModelSerializer):
     class Meta:
@@ -31,7 +51,7 @@ class WorkflowRegister(serializers.ModelSerializer):
     
     def create(self, validated_data):
         return Workflows.objects.create(**validated_data)
-    
+   
 
 class StepRegister(serializers.ModelSerializer):
 
@@ -66,15 +86,22 @@ class StepRegister(serializers.ModelSerializer):
 
     
 class StepSerializer(serializers.ModelSerializer):
+    isInitialized = serializers.SerializerMethodField()
+
     class Meta:
         model = Steps
         fields = (
             "id",
+            "isInitialized",
             "workflow",
             "position",
             "stepName",
             "description",
-            )
+        )
+
+    def get_isInitialized(self, obj):
+        # Check if there are any StepAction records associated with this step
+        return StepActions.objects.filter(step=obj).exists()
 
 class StepActionsSerializer(serializers.ModelSerializer):
     class Meta:
