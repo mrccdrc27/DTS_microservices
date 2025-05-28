@@ -21,6 +21,7 @@ class Workflows(models.Model):
 
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
+    isInitialized = models.BooleanField(default=False)
     
 class Steps(models.Model):
     # ensure to delete the Steps table when parent is gone

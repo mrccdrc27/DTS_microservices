@@ -1,6 +1,8 @@
 from .models import *
 from rest_framework import serializers
 from django.contrib.auth import authenticate
+from django.db import transaction
+
 
 
 #displays all
@@ -115,14 +117,27 @@ class StepActionsSerializer(serializers.ModelSerializer):
 class StepActionRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = StepActions
-        fields = (
-            "id",
-            "step",
-            "action"
-        )
+        fields = ("id", "step", "action")
 
     def create(self, validated_data):
-        return StepActions.objects.create(**validated_data)
+        with transaction.atomic():
+            step_action = StepActions.objects.create(**validated_data)
+
+            # Step gets initialized if it wasn't already
+            step = step_action.step
+            if not step.isInitialized:
+                step.isInitialized = True
+                step.save()
+
+            # Check if all steps of the workflow are initialized
+            workflow = step.workflow
+            all_steps_initialized = not Steps.objects.filter(workflow=workflow, isInitialized=False).exists()
+            if all_steps_initialized:
+                workflow.isInitialized = True
+                workflow.status = "initialized"
+                workflow.save()
+
+            return step_action
 
 
 # create workflow changestatus:
