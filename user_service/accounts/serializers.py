@@ -63,6 +63,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             "password1",
             "password2",
             "profile_picture",
+            "is_active",
+            "last_login",
+            "date_joined",
         )
 
 

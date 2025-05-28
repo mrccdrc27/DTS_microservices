@@ -6,59 +6,42 @@ import { useEffect, useState } from "react";
 import table from "../../styles/general-table.module.css";
 import layout from "./AgentInvitation.module.css";
 
-// Api Import
-const ticketURL = import.meta.env.VITE_AGENTS_API;
+// API URLs
+const ticketURL = import.meta.env.VITE_PENDING_API;
 const positionListURL = import.meta.env.VITE_POSITION_API;
 const agentInviteURL = import.meta.env.VITE_AGENTINVITE_API;
 
-
-// component import
+// component imports
 import { Pagination } from "../../components/tableforms";
 import { SearchBar, Dropdown, AgentStatus } from "../../components/tableforms";
 
-
 function TableHeader() {
-  // Inline styles for the width of each rows
-  return(
-      <tr className={table.tr}>
-        <th className={table.th} style={{ width: '20%' }}>Name</th>
-        <th className={table.th} style={{ width: '20%' }}>Email</th>
-        <th className={table.th} style={{ width: '20%' }}>Department</th>
-        <th className={table.th} style={{ width: '10%' }}>Role</th>
-        <th className={table.th} style={{ width: '10%' }}>Status</th>
-        <th className={table.th} style={{ width: '10%',
-           display: 'table-cell', 
-           textAlign: 'center', 
-           verticalAlign: 'middle'  
-           }}>Action</th>
-      </tr>
-  )
+  return (
+    <tr className={table.tr}>
+      <th className={table.th} style={{ width: '50%' }}>Email</th>
+      <th className={table.th} style={{ width: '30%' }}>Role</th>
+      <th className={table.th} style={{ width: '10%' }}>Status</th>
+      <th className={table.th} style={{ width: '10%', textAlign: 'center', verticalAlign: 'middle' }}>Action</th>
+    </tr>
+  );
 }
 
 function TableRow(props) {
-  return(
+  return (
     <tr className={table.tr}>
-      <td className={table.td}>{props.Name}</td>
       <td className={table.td}>{props.Email}</td>
-      <td className={table.td}>Department</td>
       <td className={table.td}>{props.Role}</td>
       <td className={table.td}>
-        <AgentStatus status={props.Status}/>
+        <AgentStatus status={props.Status} />
       </td>
-
-      <td className={table.td}
-      style={{
-        display: 'table-cell',
-        textAlign: 'center'
-      }}>
+      <td className={table.td} style={{ textAlign: 'center' }}>
         <i className="fa-solid fa-user-pen"></i>
       </td>
-
     </tr>
-  )
+  );
 }
 
-function Filters() {
+function Filters({ onSuccess }) {
   const [positions, setPositions] = useState([]);
   const [email, setEmail] = useState('');
   const [selectedPosition, setSelectedPosition] = useState('');
@@ -66,15 +49,10 @@ function Filters() {
   const [statusMessage, setStatusMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Fetch positions
   useEffect(() => {
     axios.get(positionListURL)
-      .then(response => {
-        setPositions(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching positions:', error);
-      });
+      .then(response => setPositions(response.data))
+      .catch(error => console.error('Error fetching positions:', error));
   }, []);
 
   const validateForm = () => {
@@ -99,29 +77,29 @@ function Filters() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!validateForm()) return;
 
     setIsLoading(true);
     setStatusMessage('');
-    
+
     axios.post(agentInviteURL, {
       email: email,
       role: selectedPosition
     })
-    .then(response => {
-      setStatusMessage('✅ Invitation sent successfully!');
-      setEmail('');
-      setSelectedPosition('');
-      setErrors({});
-    })
-    .catch(error => {
-      console.error('Error sending invitation:', error);
-      setStatusMessage('❌ Failed to send invitation. Please try again.');
-    })
-    .finally(() => {
-      setIsLoading(false);
-    });
+      .then(() => {
+        setStatusMessage('✅ Invitation sent successfully!');
+        setEmail('');
+        setSelectedPosition('');
+        setErrors({});
+        if (onSuccess) onSuccess(); // <-- Refresh agent list
+      })
+      .catch(error => {
+        console.error('Error sending invitation:', error);
+        setStatusMessage('❌ Failed to send invitation. Please try again.');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const handleReset = () => {
@@ -136,17 +114,11 @@ function Filters() {
       <form onSubmit={handleSubmit}>
         <div className={layout.title}>
           <b><p>Create Invitation</p></b>
-          <p
-            style={{ color: 'red', cursor: 'pointer' }}
-            onClick={handleReset}
-          >
-            Reset
-          </p>
+          <p style={{ color: 'red', cursor: 'pointer' }} onClick={handleReset}>Reset</p>
         </div>
         <hr />
 
         <b><p>Information</p></b>
-
         <div>
           <p>Email</p>
           <input
@@ -193,15 +165,13 @@ function Filters() {
   );
 }
 
-
 function AgentInvitation() {
   const [agents, setAgents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 7; // rows per page
+  const itemsPerPage = 7;
 
-  useEffect(() => {
-    axios
-      .get(`${ticketURL}`)
+  const fetchAgents = () => {
+    axios.get(ticketURL)
       .then((response) => {
         const data = response.data;
         setAgents(Array.isArray(data) ? data : data.agents || []);
@@ -209,9 +179,12 @@ function AgentInvitation() {
       .catch((error) => {
         console.error("Failed to fetch agents", error);
       });
+  };
+
+  useEffect(() => {
+    fetchAgents();
   }, []);
 
-  // pagination calculations
   const totalPages = Math.ceil(agents.length / itemsPerPage);
   const start = (currentPage - 1) * itemsPerPage;
   const pagedAgents = agents.slice(start, start + itemsPerPage);
@@ -222,38 +195,38 @@ function AgentInvitation() {
 
   return (
     <div className={layout.whole}>
-        <Filters/>
-        <div className={layout.right}>
-            <SearchBar/>
-            <div className={table.tableborder}>
-            <div className={table.tablewrapper}>
-                <table className={table.tablecontainer}>
-                <thead>
-                    <TableHeader />
-                </thead>
-                <tbody>
-                    {pagedAgents.map((agent) => (
-                    <TableRow
-                        key={agent.ID}
-                        ID={agent.ID}
-                        Name={agent.Name}
-                        Email={agent.Email}
-                        Role={agent.Role}
-                        Status={agent.Status}
-                        LastLogin={agent.LastLogin}
-                        onManage={handleManage}
-                    />
-                    ))}
-                </tbody>
-                </table>
-            </div>
-                <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                setCurrentPage={setCurrentPage}
-                />
-            </div>
+      <Filters onSuccess={fetchAgents} />
+      <div className={layout.right}>
+        <SearchBar />
+        <div className={table.tableborder}>
+          <div className={table.tablewrapper}>
+            <table className={table.tablecontainer}>
+              <thead>
+                <TableHeader />
+              </thead>
+              <tbody>
+                {pagedAgents.map((agent) => (
+                  <TableRow
+                    key={agent.id}
+                    ID={agent.id}
+                    Name={agent.Name}
+                    Email={agent.email}
+                    Role={agent.role}
+                    Status='pending'
+                    LastLogin={agent.LastLogin}
+                    onManage={handleManage}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
+      </div>
     </div>
   );
 }

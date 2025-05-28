@@ -6,7 +6,10 @@ const UserRegistration = ({ token }) => {
   const navigate = useNavigate(); // Initialize navigation hook
   const [formData, setFormData] = useState({
     first_name: '',
+    middle_name: '',
     last_name: '',
+    phone_number: '',
+    profile_picture: null,
     password: '',
     password2: ''
   });
@@ -18,15 +21,19 @@ const UserRegistration = ({ token }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.type === 'file') {
+      setFormData({ ...formData, [e.target.name]: e.target.files[0] });
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const { first_name, last_name, password, password2 } = formData;
+    const { first_name, middle_name, last_name, phone_number, profile_picture, password, password2 } = formData;
 
-    if (!first_name || !last_name || !password || !password2) {
-      setMessage('All fields are required');
+    if (!first_name || !last_name || !phone_number || !password || !password2) {
+      setMessage('First name, last name, phone number, and passwords are required');
       return;
     }
 
@@ -38,14 +45,27 @@ const UserRegistration = ({ token }) => {
     setLoading(true);
 
     try {
+      // Create FormData for file upload
+      const submitData = new FormData();
+      submitData.append('token', token);
+      submitData.append('first_name', first_name);
+      submitData.append('middle_name', middle_name);
+      submitData.append('last_name', last_name);
+      submitData.append('phone_number', phone_number);
+      submitData.append('password', password);
+      submitData.append('password2', password2);
+      
+      if (profile_picture) {
+        submitData.append('profile_picture', profile_picture);
+      }
+
       const response = await axios.post(
         `http://localhost:3000/api/authapi/register/${token}/`,
+        submitData,
         {
-          token,
-          first_name,
-          last_name,
-          password,
-          password2
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         }
       );
       setMessage('Registration successful! Redirecting to login...');
@@ -59,6 +79,7 @@ const UserRegistration = ({ token }) => {
       const errMsg = error?.response?.data?.detail ||
                      error?.response?.data?.password2?.[0] ||
                      error?.response?.data?.password?.[0] ||
+                     error?.response?.data?.phone_number?.[0] ||
                      error?.response?.data?.non_field_errors?.[0] ||
                      error?.response?.data?.token?.[0] ||
                      'Registration failed';
@@ -120,12 +141,28 @@ const UserRegistration = ({ token }) => {
       position: 'relative',
       flex: '1',
     },
+    fullWidthContainer: {
+      position: 'relative',
+      width: '100%',
+    },
     label: {
       display: 'block',
       marginBottom: '6px',
       fontSize: '14px',
       fontWeight: '500',
       color: '#555',
+    },
+    optionalLabel: {
+      display: 'block',
+      marginBottom: '6px',
+      fontSize: '14px',
+      fontWeight: '500',
+      color: '#555',
+    },
+    optionalText: {
+      fontSize: '12px',
+      color: '#888',
+      fontWeight: 'normal',
     },
     input: {
       width: '100%',
@@ -137,6 +174,18 @@ const UserRegistration = ({ token }) => {
       transition: 'all 0.2s ease',
       boxSizing: 'border-box',
       outline: 'none',
+    },
+    fileInput: {
+      width: '100%',
+      padding: '8px 16px',
+      fontSize: '14px',
+      borderRadius: '8px',
+      border: `1px solid ${colors.border}`,
+      backgroundColor: colors.lightGray,
+      transition: 'all 0.2s ease',
+      boxSizing: 'border-box',
+      outline: 'none',
+      cursor: 'pointer',
     },
     passwordContainer: {
       position: 'relative',
@@ -240,7 +289,7 @@ const UserRegistration = ({ token }) => {
       <form onSubmit={handleSubmit} style={styles.form}>
         <div style={styles.fieldGroup}>
           <div style={styles.inputContainer}>
-            <label style={styles.label} htmlFor="first_name">First Name</label>
+            <label style={styles.label} htmlFor="first_name">First Name *</label>
             <input
               id="first_name"
               style={styles.input}
@@ -250,7 +299,6 @@ const UserRegistration = ({ token }) => {
               value={formData.first_name}
               onChange={handleChange}
               required
-            //   onFocus={(e) => e.target.style.borderColor = colors.primary}
               onFocus={(e) => {
                 e.target.style.borderColor = colors.primary;
                 e.target.style.backgroundColor = colors.background;
@@ -263,16 +311,17 @@ const UserRegistration = ({ token }) => {
           </div>
           
           <div style={styles.inputContainer}>
-            <label style={styles.label} htmlFor="last_name">Last Name</label>
+            <label style={styles.optionalLabel} htmlFor="middle_name">
+              Middle Name <span style={styles.optionalText}>(optional)</span>
+            </label>
             <input
-              id="last_name"
+              id="middle_name"
               style={styles.input}
               type="text"
-              name="last_name"
-              placeholder="Doe"
-              value={formData.last_name}
+              name="middle_name"
+              placeholder="Michael"
+              value={formData.middle_name}
               onChange={handleChange}
-              required
               onFocus={(e) => {
                 e.target.style.borderColor = colors.primary;
                 e.target.style.backgroundColor = colors.background;
@@ -284,9 +333,75 @@ const UserRegistration = ({ token }) => {
             />
           </div>
         </div>
+
+        <div style={styles.fullWidthContainer}>
+          <label style={styles.label} htmlFor="last_name">Last Name *</label>
+          <input
+            id="last_name"
+            style={styles.input}
+            type="text"
+            name="last_name"
+            placeholder="Doe"
+            value={formData.last_name}
+            onChange={handleChange}
+            required
+            onFocus={(e) => {
+              e.target.style.borderColor = colors.primary;
+              e.target.style.backgroundColor = colors.background;
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = colors.border;
+              e.target.style.backgroundColor = colors.lightGray;
+            }}
+          />
+        </div>
+
+        <div style={styles.fullWidthContainer}>
+          <label style={styles.label} htmlFor="phone_number">Phone Number *</label>
+          <input
+            id="phone_number"
+            style={styles.input}
+            type="tel"
+            name="phone_number"
+            placeholder="+1 (555) 123-4567"
+            value={formData.phone_number}
+            onChange={handleChange}
+            required
+            onFocus={(e) => {
+              e.target.style.borderColor = colors.primary;
+              e.target.style.backgroundColor = colors.background;
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = colors.border;
+              e.target.style.backgroundColor = colors.lightGray;
+            }}
+          />
+        </div>
+
+        <div style={styles.fullWidthContainer}>
+          <label style={styles.optionalLabel} htmlFor="profile_picture">
+            Profile Picture <span style={styles.optionalText}>(optional)</span>
+          </label>
+          <input
+            id="profile_picture"
+            style={styles.fileInput}
+            type="file"
+            name="profile_picture"
+            accept="image/*"
+            onChange={handleChange}
+            onFocus={(e) => {
+              e.target.style.borderColor = colors.primary;
+              e.target.style.backgroundColor = colors.background;
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = colors.border;
+              e.target.style.backgroundColor = colors.lightGray;
+            }}
+          />
+        </div>
         
-        <div style={styles.inputContainer}>
-          <label style={styles.label} htmlFor="password">Password</label>
+        <div style={styles.fullWidthContainer}>
+          <label style={styles.label} htmlFor="password">Password *</label>
           <div style={styles.passwordContainer}>
             <input
               id="password"
@@ -317,8 +432,8 @@ const UserRegistration = ({ token }) => {
           </div>
         </div>
         
-        <div style={styles.inputContainer}>
-          <label style={styles.label} htmlFor="password2">Confirm Password</label>
+        <div style={styles.fullWidthContainer}>
+          <label style={styles.label} htmlFor="password2">Confirm Password *</label>
           <div style={styles.passwordContainer}>
             <input
               id="password2"

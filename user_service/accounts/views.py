@@ -281,7 +281,7 @@ class InviteUserView(CreateAPIView):
         token = str(registration.token)
 
         # FRONTEND URL (change this to your production domain when deployed)
-        frontend_base_url = "http://localhost:3000/api/authapi/register/${token}/"
+        frontend_base_url = "http://localhost:1000/register"
         query_string = urlencode({'token': token})
         url = f"{frontend_base_url}?{query_string}"
 
