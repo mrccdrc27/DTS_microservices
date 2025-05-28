@@ -59,7 +59,14 @@
       "description": "Customer reported failed payment transactions at checkout.",
       "department": "Finance",
       "position": "Payment Specialist",
-      "comments": [],
+      "comments": [
+        {
+          "id": 1748420430160,
+          "user_id": 1,
+          "message": "zxc",
+          "created_at": "2025-05-28T08:20:30.160Z"
+        }
+      ],
       "activity_log": [
         {
           "timestamp": "2025-04-06T11:00:00Z",

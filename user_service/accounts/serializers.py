@@ -28,24 +28,55 @@ class CustomUserSerializer(serializers.ModelSerializer):
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(write_only=True)
     password2 = serializers.CharField(write_only=True)
-
+    profile_picture = serializers.FileField(required=False, allow_null=True)
+    phone_number = serializers.CharField(required=True)   # required, non-nullable
+    middle_name = serializers.CharField(required=False, allow_blank=True)  # optional
+    role = serializers.CharField(required=False, allow_null=True)
     class Meta:
         model = CustomUser
         fields = (
-            "id", 
-            "username", 
+            "id",
+            "username",
             "first_name",
+            "middle_name",
+            "last_name",
+            "role",
+            "phone_number",
             "is_staff",
-            "email", 
-            "password1", 
-            "password2"
+            "email",
+            "password1",
+            "password2",
+            "profile_picture",
         )
+
+
+    def validate_profile_picture(self, file):
+        import os
+        from PIL import Image
+
+        max_size = 2 * 1024 * 1024  # 2MB limit
+        if file.size > max_size:
+            raise serializers.ValidationError("Max file size is 2MB only.")
+
+        valid_extensions = ['.jpg', '.jpeg', '.png']
+        ext = os.path.splitext(file.name)[1].lower()
+        if ext not in valid_extensions:
+            raise serializers.ValidationError("Only .jpg, .jpeg, and .png files are allowed.")
+
+        try:
+            image = Image.open(file)
+            image.verify()
+        except Exception:
+            raise serializers.ValidationError("Uploaded file is not a valid image.")
+
+        return file
+
+
 
     def validate(self, attrs):
         if attrs['password1'] != attrs['password2']:
             raise serializers.ValidationError("Passwords do not match!")
 
-        # Run Django's built-in password validators
         try:
             validate_password(attrs['password1'], user=self.instance or None)
         except DjangoValidationError as e:
@@ -54,21 +85,19 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        # Remove password fields from validated data
         password = validated_data.pop("password1")
         validated_data.pop("password2")
+
+        profile_picture = validated_data.pop("profile_picture", None)
 
         user = CustomUser(**validated_data)
         user.set_password(password)
+
+        if profile_picture:
+            user.profile_picture = profile_picture
+
         user.save()
         return user
-    
-    # Creates the mode;
-    def create(self, validated_data):
-        password = validated_data.pop("password1")
-        validated_data.pop("password2")
-
-        return CustomUser.objects.create_user(password=password, **validated_data)
 
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.CharField()
@@ -144,6 +173,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.contrib.auth import get_user_model
 from .models import PendingRegistration  # adjust this import as needed
+from accounts.validators import validate_file_size, validate_file_extension
 
 User = get_user_model()
 
@@ -151,10 +181,14 @@ class CompleteRegistrationSerializer(serializers.ModelSerializer):
     token = serializers.UUIDField(write_only=True)
     password = serializers.CharField(write_only=True)
     password2 = serializers.CharField(write_only=True)
+    profile_picture = serializers.FileField(
+    required=False,
+    allow_null=True)
+
     
     class Meta:
         model = User
-        fields = ['token', 'first_name', 'last_name', 'password', 'password2']
+        fields = ['token', 'first_name', 'middle_name', 'last_name', 'role','phone_number', 'profile_picture', 'password', 'password2']
     
     def validate_token(self, token):
         try:
@@ -164,6 +198,28 @@ class CompleteRegistrationSerializer(serializers.ModelSerializer):
         if invite.is_expired():
             raise serializers.ValidationError("Token expired.")
         return token
+
+    def validate_profile_picture(self, file):
+        # Your custom validation logic here
+        max_size = 2 * 1024 * 1024  # 2MB
+        if file.size > max_size:
+            raise serializers.ValidationError("Max file size is 2MB.")
+
+        valid_extensions = ['.jpg', '.jpeg', '.png']
+        import os
+        ext = os.path.splitext(file.name)[1].lower()
+        if ext not in valid_extensions:
+            raise serializers.ValidationError("Only .jpg, .jpeg, and .png files are allowed.")
+
+        from PIL import Image
+        try:
+            image = Image.open(file)
+            image.verify()
+        except Exception:
+            raise serializers.ValidationError("Uploaded file is not a valid image.")
+
+        return file
+
 
     def validate_password(self, value):
         try:
@@ -182,6 +238,10 @@ class CompleteRegistrationSerializer(serializers.ModelSerializer):
         password = validated_data.pop('password')
         validated_data.pop('password2')
 
+        profile_picture = validated_data.pop('profile_picture', None)
+        phone_number = validated_data.pop('phone_number', None)
+        middle_name = validated_data.pop('middle_name', None)
+
         invite = PendingRegistration.objects.get(token=token)
         
         user = User.objects.create_user(
@@ -189,12 +249,20 @@ class CompleteRegistrationSerializer(serializers.ModelSerializer):
             email=invite.email,
             password=password,
             first_name=validated_data.get('first_name'),
+            middle_name=middle_name,
             last_name=validated_data.get('last_name'),
-            is_staff=(invite.role == 'admin')  # adjust based on your logic
+            phone_number=phone_number,
+            is_staff=(invite.role == 'admin'),
         )
         
+        if profile_picture:
+            user.profile_picture = profile_picture
+            user.save()
+
         invite.delete()
         return user
+
+
 
 
 class ChangePasswordSerializer(serializers.Serializer):

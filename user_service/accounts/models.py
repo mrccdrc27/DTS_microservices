@@ -5,7 +5,12 @@ import uuid
 
 
 class CustomUser(AbstractUser):
+    middle_name = models.CharField(max_length=50, blank=True)
     email = models.EmailField(unique=True)
+    phone_number = models.CharField(max_length=20, blank=False)
+    profile_picture = models.FileField(upload_to='profile_pictures/', blank=True, null=True)
+    role = models.CharField(max_length=20,blank=True)
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 
