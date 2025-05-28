@@ -2,7 +2,7 @@ from django.contrib.auth.password_validation import validate_password
 from .models import CustomUser
 from rest_framework import serializers
 from django.contrib.auth import authenticate
-
+from django.db import transaction
 from django.core.exceptions import ValidationError as DjangoValidationError
 
 from django.contrib.auth.models import User
@@ -15,10 +15,26 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import PendingRegistration
 
+
 User = get_user_model()
 # Serializers, is what converts the datastructure of an object to much more readable format (json)
 # Acts as a Controller in MVC structure, you can enfore rules that bridge the view and the model
 
+
+
+
+class PendingRegistrationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PendingRegistration
+        fields = ['id', 'email', 'role', 'token', 'expires_at']
+
+#is_active edits
+class UserActivationSerializer(serializers.ModelSerializer):
+    is_active = serializers.BooleanField(required=False, default=True)
+
+    class Meta:
+        model = CustomUser
+        fields = ['is_active']
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
@@ -55,6 +71,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         from PIL import Image
 
         max_size = 2 * 1024 * 1024  # 2MB limit
+        if file is None:
+            return file
         if file.size > max_size:
             raise serializers.ValidationError("Max file size is 2MB only.")
 
@@ -188,20 +206,28 @@ class CompleteRegistrationSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ['token', 'first_name', 'middle_name', 'last_name', 'role','phone_number', 'profile_picture', 'password', 'password2']
+        fields = ['token', 'first_name', 'middle_name', 'last_name','phone_number', 'profile_picture', 'password', 'password2']
     
     def validate_token(self, token):
         try:
             invite = PendingRegistration.objects.get(token=token)
         except PendingRegistration.DoesNotExist:
             raise serializers.ValidationError("Invalid token.")
+
+        if invite.is_used:
+            raise serializers.ValidationError("Token has already been used.")
+
         if invite.is_expired():
-            raise serializers.ValidationError("Token expired.")
+            raise serializers.ValidationError("Token has expired.")
+
+        self.context['invite'] = invite  # store for use in create()
         return token
 
     def validate_profile_picture(self, file):
         # Your custom validation logic here
         max_size = 2 * 1024 * 1024  # 2MB
+        if file is None:
+            return file
         if file.size > max_size:
             raise serializers.ValidationError("Max file size is 2MB.")
 
@@ -244,24 +270,23 @@ class CompleteRegistrationSerializer(serializers.ModelSerializer):
 
         invite = PendingRegistration.objects.get(token=token)
         
+        #with transaction.atomic():
         user = User.objects.create_user(
             username=invite.email,
             email=invite.email,
+            role=invite.role,
             password=password,
             first_name=validated_data.get('first_name'),
             middle_name=middle_name,
             last_name=validated_data.get('last_name'),
             phone_number=phone_number,
             is_staff=(invite.role == 'admin'),
+            profile_picture=profile_picture
         )
-        
-        if profile_picture:
-            user.profile_picture = profile_picture
-            user.save()
-
         invite.delete()
-        return user
-
+        return user  # Only deleted if user creation is successful
+        # invite.is_used = True  #  prevent reuse
+        # return user
 
 
 

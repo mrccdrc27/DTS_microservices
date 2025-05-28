@@ -29,10 +29,59 @@ from .models import PendingRegistration
 from django.urls import reverse
 
 from rest_framework.generics import CreateAPIView
-
+from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import update_session_auth_hash
 
+# views.py
+from rest_framework import status, permissions
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from django.contrib.auth import get_user_model
+from .serializers import UserActivationSerializer
+
+from .models import CustomUser
+from .serializers import CustomUserSerializer
+from rest_framework import generics
+from .models import PendingRegistration
+from .serializers import PendingRegistrationSerializer
+from django.utils import timezone
+User = get_user_model()
+
+
+
+class UserListView(generics.ListAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserRegistrationSerializer
+
+class PendingRegistrationListView(generics.ListAPIView):
+    serializer_class = PendingRegistrationSerializer
+
+    def get_queryset(self):
+        now = timezone.now()
+        return PendingRegistration.objects.filter(is_used=False, expires_at__gt=now)
+class ToggleUserActivationAPIView(GenericAPIView):
+    # permission_classes = [permissions.IsAdminUser]  # Add later when needed
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    serializer_class = UserActivationSerializer
+
+    def get(self, request, user_id):
+        # this is required to render the form properly in the browser
+        serializer = UserActivationSerializer()
+        return Response(serializer.data)
+
+    def post(self, request, user_id):
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Accept form data or JSON
+        serializer = UserActivationSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'success': True, 'is_active': user.is_active})
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -232,7 +281,7 @@ class InviteUserView(CreateAPIView):
         token = str(registration.token)
 
         # FRONTEND URL (change this to your production domain when deployed)
-        frontend_base_url = "http://localhost:3000/api/register"
+        frontend_base_url = "http://localhost:3000/api/authapi/register/${token}/"
         query_string = urlencode({'token': token})
         url = f"{frontend_base_url}?{query_string}"
 

@@ -23,6 +23,7 @@ class PendingRegistration(models.Model):
     token = models.UUIDField(default=uuid.uuid4, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     expires_at = models.DateTimeField()
-
+    is_used = models.BooleanField(default=False)
+    
     def is_expired(self):
         return timezone.now() > self.expires_at
