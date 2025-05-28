@@ -1,4 +1,6 @@
 {
+  "comments": [],
+  "activity_log": [],
   "tickets": [
     {
       "id": "1",
@@ -6,40 +8,18 @@
       "subject": "Account Login Issue",
       "customer": "John Doe",
       "priority": "Low",
-      "status": "On Hold",
+      "status": "Approved",
       "opened_on": "2025-04-06",
       "sla": "72 hours",
       "description": "Customer unable to log into account using correct credentials.",
       "department": "Support",
       "position": "IT Analyst",
-      "comments": [
-        {
-          "id": 1747830132547,
-          "user_id": 1,
-          "message": "I already see the issue, I will notify the next agent about this. ",
-          "created_at": "2025-05-21T12:22:12.547Z"
-        }
-      ],
-      "activity_log": [
-        {
-          "timestamp": "2025-04-06T08:15:00Z",
-          "title": "Ticket Opened",
-          "message": "Ticket created by John Doe",
-          "author": "System"
-        },
-        {
-          "timestamp": "2025-04-06T09:00:00Z",
-          "title": "Assigned",
-          "message": "Assigned to IT Analyst",
-          "author": "Agent Sarah"
-        },
-        {
-          "timestamp": "2025-04-07T10:00:00Z",
-          "title": "Status Changed",
-          "message": "Changed from 'Open' to 'On Hold'",
-          "author": "Agent Mark"
-        }
-      ]
+      "newActivity": {
+        "task_id": "1",
+        "ticket_id": "1",
+        "user_id": "1",
+        "content": "Status changed to \"Rejected\" on 2025-05-28T15:51:09.983Z"
+      }
     },
     {
       "id": "2",
@@ -47,27 +27,12 @@
       "subject": "Payment Gateway Failure",
       "customer": "Alice Smith",
       "priority": "Medium",
-      "status": "In Progress",
+      "status": "Rejected",
       "opened_on": "2025-04-06",
       "sla": "24 hours",
       "description": "Customer reported failed payment transactions at checkout.",
       "department": "Finance",
-      "position": "Payment Specialist",
-      "comments": [],
-      "activity_log": [
-        {
-          "timestamp": "2025-04-06T11:00:00Z",
-          "title": "Ticket Opened",
-          "message": "Ticket created by Alice Smith",
-          "author": "System"
-        },
-        {
-          "timestamp": "2025-04-06T12:30:00Z",
-          "title": "Investigating",
-          "message": "Initial investigation started",
-          "author": "Agent Lisa"
-        }
-      ]
+      "position": "Payment Specialist"
     },
     {
       "id": "3",
@@ -80,22 +45,7 @@
       "sla": "48 hours",
       "description": "Customer did not receive email confirmation for order placed.",
       "department": "Sales",
-      "position": "Order Manager",
-      "comments": [],
-      "activity_log": [
-        {
-          "timestamp": "2025-04-07T09:45:00Z",
-          "title": "Ticket Opened",
-          "message": "Ticket logged for missing order confirmation",
-          "author": "System"
-        },
-        {
-          "timestamp": "2025-04-07T11:20:00Z",
-          "title": "Customer Contacted",
-          "message": "Requested order ID from customer",
-          "author": "Agent Josh"
-        }
-      ]
+      "position": "Order Manager"
     },
     {
       "id": "4",
@@ -108,22 +58,7 @@
       "sla": "72 hours",
       "description": "Customer requested to return a recently purchased item.",
       "department": "Logistics",
-      "position": "Return Coordinator",
-      "comments": [],
-      "activity_log": [
-        {
-          "timestamp": "2025-04-07T14:00:00Z",
-          "title": "Ticket Opened",
-          "message": "Return request initiated",
-          "author": "System"
-        },
-        {
-          "timestamp": "2025-04-07T15:30:00Z",
-          "title": "Return Policy Sent",
-          "message": "Return instructions emailed to customer",
-          "author": "Agent Mike"
-        }
-      ]
+      "position": "Return Coordinator"
     },
     {
       "id": "5",
@@ -136,41 +71,7 @@
       "sla": "24 hours",
       "description": "Customer reports that the main application server is unreachable.",
       "department": "IT Operations",
-      "position": "Systems Engineer",
-      "comments": [
-        {
-          "id": 1,
-          "user_id": 5,
-          "message": "Restarting server and monitoring logs.",
-          "created_at": "2025-05-21T11:45:00"
-        },
-        {
-          "id": 1747822961998,
-          "user_id": 1,
-          "message": "ticket #5",
-          "created_at": "2025-05-21T10:22:41.998Z"
-        }
-      ],
-      "activity_log": [
-        {
-          "timestamp": "2025-04-08T07:00:00Z",
-          "title": "Ticket Opened",
-          "message": "Server down issue reported by customer",
-          "author": "System"
-        },
-        {
-          "timestamp": "2025-04-08T08:00:00Z",
-          "title": "Server Restarted",
-          "message": "Performed restart and log inspection",
-          "author": "Engineer Alex"
-        },
-        {
-          "timestamp": "2025-04-08T09:30:00Z",
-          "title": "Monitoring",
-          "message": "Server stability being monitored",
-          "author": "Engineer Alex"
-        }
-      ]
+      "position": "Systems Engineer"
     },
     {
       "id": "6",
@@ -178,27 +79,12 @@
       "subject": "Feature Request for Dashboard",
       "customer": "Michael Brown",
       "priority": "Medium",
-      "status": "Approved",
+      "status": "Rejected",
       "opened_on": "2025-04-08",
       "sla": "48 hours",
       "description": "Customer suggested adding filters to dashboard reports.",
       "department": "Product Management",
-      "position": "Product Owner",
-      "comments": [],
-      "activity_log": [
-        {
-          "timestamp": "2025-04-08T10:00:00Z",
-          "title": "Feature Request Logged",
-          "message": "Customer request logged for dashboard filters",
-          "author": "System"
-        },
-        {
-          "timestamp": "2025-04-09T13:00:00Z",
-          "title": "Request Approved",
-          "message": "Feature request approved by product manager",
-          "author": "PM Olivia"
-        }
-      ]
+      "position": "Product Owner"
     },
     {
       "id": "7",
@@ -211,22 +97,7 @@
       "sla": "72 hours",
       "description": "Customer reported similar payment issues, already resolved previously.",
       "department": "Finance",
-      "position": "Support Analyst",
-      "comments": [],
-      "activity_log": [
-        {
-          "timestamp": "2025-04-08T09:00:00Z",
-          "title": "Ticket Opened",
-          "message": "Duplicate payment issue report",
-          "author": "System"
-        },
-        {
-          "timestamp": "2025-04-08T12:00:00Z",
-          "title": "Issue Closed",
-          "message": "Issue previously resolved; request rejected",
-          "author": "Finance Admin"
-        }
-      ]
+      "position": "Support Analyst"
     },
     {
       "id": "8",
@@ -239,22 +110,7 @@
       "sla": "48 hours",
       "description": "Customer unable to deactivate account due to system error.",
       "department": "Support",
-      "position": "Account Manager",
-      "comments": [],
-      "activity_log": [
-        {
-          "timestamp": "2025-04-09T08:20:00Z",
-          "title": "Deactivation Attempt Failed",
-          "message": "System error when user attempted deactivation",
-          "author": "System"
-        },
-        {
-          "timestamp": "2025-04-09T10:00:00Z",
-          "title": "Bug Logged",
-          "message": "Issue reported to development team",
-          "author": "Agent Eric"
-        }
-      ]
+      "position": "Account Manager"
     },
     {
       "id": "9",
@@ -267,22 +123,7 @@
       "sla": "24 hours",
       "description": "Customer claims they did not receive an invoice for recent order.",
       "department": "Billing",
-      "position": "Accounts Specialist",
-      "comments": [],
-      "activity_log": [
-        {
-          "timestamp": "2025-04-09T11:15:00Z",
-          "title": "Ticket Opened",
-          "message": "Invoice issue reported",
-          "author": "System"
-        },
-        {
-          "timestamp": "2025-04-09T12:45:00Z",
-          "title": "Invoice Re-Sent",
-          "message": "Invoice resent to customer via email",
-          "author": "Agent Nina"
-        }
-      ]
+      "position": "Accounts Specialist"
     },
     {
       "id": "10",
@@ -295,22 +136,7 @@
       "sla": "72 hours",
       "description": "Customer has attempted login multiple times with no success.",
       "department": "Support",
-      "position": "Tech Support Agent",
-      "comments": [],
-      "activity_log": [
-        {
-          "timestamp": "2025-04-10T09:10:00Z",
-          "title": "Ticket Created",
-          "message": "Multiple failed login attempts reported",
-          "author": "System"
-        },
-        {
-          "timestamp": "2025-04-10T10:00:00Z",
-          "title": "Credentials Reset",
-          "message": "Temporary credentials sent to user",
-          "author": "Support Bot"
-        }
-      ]
+      "position": "Tech Support Agent"
     }
   ],
   "agents": [
