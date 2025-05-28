@@ -11,3 +11,9 @@ git rm -r --cached <folder>
 
 
 seed: python manage.py seed_tickets --force
+
+
+dependencies:
+httpx
+redis
+faker
