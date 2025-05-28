@@ -1,5 +1,6 @@
 // designs
 import 'font-awesome/css/font-awesome.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './index.css'
 import { BrowserRouter } from 'react-router-dom';
 import MainRoutes, { MainRoutes2 } from './routes/MainRoutes';

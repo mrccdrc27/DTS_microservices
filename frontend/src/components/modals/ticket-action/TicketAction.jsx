@@ -1,48 +1,53 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import styles from "./ticket-action.module.css";
-import axios from 'axios';
+import axios from "axios";
 
 const ticketURL = import.meta.env.VITE_TICKET_API;
+const activityLogURL = import.meta.env.VITE_ACTIVITY_LOG_API;
 
-export default function TicketAction({ ticket, closeTicketAction, refreshTicket}) {
-  const [status, setStatus] = useState('');
+export default function TicketAction({
+  ticket,
+  closeTicketAction,
+  refreshTicket,
+  refreshLogs,
+}) {
+  const [status, setStatus] = useState("");
 
-  // add comment
-  const [newComment, setNewComment] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // update status
+  const handleUpdateStatus = async () => {
+    const timestamp = new Date().toISOString();
+    // const timestamp = new Date().toLocaleString();
 
-  // submit comment
-  const handleAddComment = async () => {
-  if (!newComment.trim()) return;
+    const newActivity = {
+      task_id: ticket.id,
+      ticket_id: ticket.id,
+      user_id: ticket.id,
+      content: `Status changed to "${status}" on ${timestamp}`,
+      created_at: new Date().toISOString(),
+    };
 
-  const updatedComments = [
-    ...(ticket.comments || []),
-    {
-      id: Date.now(),
-      user_id: 1, // or dynamic
-      message: newComment,
-      created_at: new Date().toISOString()
-    }
-  ];
+    try {
+      await axios.patch(`${ticketURL}/${ticket.id}`, {
+        status,
+      });
 
-  setIsSubmitting(true);
+      await axios.post(activityLogURL, newActivity);
 
-  try {
-    await axios.patch(`${ticketURL}/${ticket.id}`, {comments: updatedComments});
-
-      alert("Comment added!");
+      alert("Status updated and activity logged!");
       await refreshTicket();
+      await refreshLogs();
       closeTicketAction(false);
     } catch (error) {
-      console.error("Failed to add comment:", error.message);
-    } finally {
-      setIsSubmitting(false);
+      console.error(
+        "Error updating status or logging activity:",
+        error.message
+      );
     }
   };
 
   useEffect(() => {
     if (ticket?.status) {
-      setStatus(ticket.status.toLowerCase());
+      setStatus(ticket.status);
     }
   }, [ticket]);
 
@@ -55,10 +60,7 @@ export default function TicketAction({ ticket, closeTicketAction, refreshTicket}
         <section className={styles.ticketActionHeader}>
           <div className={styles.ticketActionTitle}>
             <h1>Ticket No. {ticket?.ticket_id}</h1>
-            {/* <button>PUSH</button> */}
-            <button onClick={handleAddComment} disabled={isSubmitting}>
-              PUSH
-            </button>
+            <button onClick={handleUpdateStatus}>PUSH</button>
           </div>
 
           <div className={styles.ticketActionSubject}>
@@ -77,10 +79,13 @@ export default function TicketAction({ ticket, closeTicketAction, refreshTicket}
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
-              <option value="" disabled>Please select an option</option>
-              <option value="approved">Approved</option>
-              <option value="rejected">Rejected</option>
-              <option value="on-hold">On Hold</option>
+              <option value="" disabled>
+                Please select an option
+              </option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+              <option value="On Hold">On Hold</option>
+              <option value="In Progress">In Progress</option>
             </select>
           </div>
         </section>
@@ -92,14 +97,8 @@ export default function TicketAction({ ticket, closeTicketAction, refreshTicket}
           </div>
 
           <div className={styles.ticketActionInput}>
-            <textarea
-              placeholder="Add a comment here..."
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-            />
+            <textarea placeholder="Add a comment here..." />
           </div>
-
-          
 
           <div className={styles.ticketActionUpload}>
             <input type="file" />

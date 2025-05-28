@@ -17,7 +17,7 @@ import AdminArchive from '../pages/admin/archive-page/AdminArchive';
 import AgentInvite from '../pages/admin/agent-page/AgentInvite';
 import WorkflowEditor from '../pages/admin/workflow-page/WorkflowCreator';
 
-import ProtectedRoute from './ProtectedRoute'; // 👈 import this
+import ProtectedRoute from './ProtectedRoute';
 import Unauthorized from '../pages/error/Unauthorized';
 import NotFound from '../pages/error/NotFound';
 import AgentPosition from '../pages/admin/agent-page/AgentPosition';
