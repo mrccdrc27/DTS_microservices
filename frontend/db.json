@@ -1,5 +1,15 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "id": "4c64",
+      "task_id": "8",
+      "ticket_id": "8",
+      "user_id": "8",
+      "message": "qwerty",
+      "created_at": "2025-05-29T00:12:30.161Z",
+      "parent_id": null
+    }
+  ],
   "activity_log": [
     {
       "id": "6b61",
@@ -24,6 +34,22 @@
       "user_id": "1",
       "content": "Status changed to \"Rejected\" on 2025-05-28T17:58:49.473Z",
       "created_at": "2025-05-28T17:58:49.473Z"
+    },
+    {
+      "id": "7c2d",
+      "task_id": "8",
+      "ticket_id": "8",
+      "user_id": "8",
+      "content": "Status changed to \"Approved\" on 2025-05-29T00:12:57.758Z",
+      "created_at": "2025-05-29T00:12:57.758Z"
+    },
+    {
+      "id": "ba4c",
+      "task_id": "4",
+      "ticket_id": "4",
+      "user_id": "4",
+      "content": "Status changed to \"Approved\" on 2025-05-31T08:40:29.008Z",
+      "created_at": "2025-05-31T08:40:29.008Z"
     }
   ],
   "tickets": [
@@ -78,7 +104,7 @@
       "subject": "Product Return Request",
       "customer": "Carol White",
       "priority": "Low",
-      "status": "On Hold",
+      "status": "Approved",
       "opened_on": "2025-04-07",
       "sla": "72 hours",
       "description": "Customer requested to return a recently purchased item.",
@@ -130,7 +156,7 @@
       "subject": "Account Deactivation Issue",
       "customer": "James Green",
       "priority": "High",
-      "status": "On Hold",
+      "status": "Approved",
       "opened_on": "2025-04-09",
       "sla": "48 hours",
       "description": "Customer unable to deactivate account due to system error.",
