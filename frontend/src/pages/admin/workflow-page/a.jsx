@@ -20,10 +20,9 @@ const api = {
     }
   },
 
-  // Modified to use the correct endpoint with query parameter
   getStepsByWorkflowId: async (workflowId) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/workflow/steps/?workflow=${workflowId}`);
+      const response = await axios.get(`${API_BASE_URL}/workflow/${workflowId}/steps`);
       return response.data;
     } catch (error) {
       console.error('Error fetching steps:', error);
@@ -57,24 +56,19 @@ const api = {
     }
   },
 
-  // Steps API - FIXED: Use consistent endpoint
+  // Steps API
   createStep: async (stepData) => {
     try {
-      console.log('Creating step with data:', stepData);
       const response = await axios.post(`${API_BASE_URL}/workflow/steps/`, stepData);
-      console.log('Step created successfully:', response.data);
       return response.data;
     } catch (error) {
       console.error('Error creating step:', error);
-      console.error('Request data:', stepData);
       throw error;
     }
   },
   updateStep: async (stepId, stepData) => {
     try {
-      console.log('Updating step with data:', stepData);
-      const response = await axios.put(`${API_BASE_URL}/workflow/steps/${stepId}/`, stepData);
-      console.log('Step updated successfully:', response.data);
+      const response = await axios.put(`${API_BASE_URL}/workflow/steps/${stepId}`, stepData);
       return response.data;
     } catch (error) {
       console.error('Error updating step:', error);
@@ -83,7 +77,7 @@ const api = {
   },
   deleteStep: async (stepId) => {
     try {
-      const response = await axios.delete(`${API_BASE_URL}/workflow/steps/${stepId}/`);
+      const response = await axios.delete(`${API_BASE_URL}/workflow/steps/${stepId}`);
       return response.data;
     } catch (error) {
       console.error('Error deleting step:', error);
@@ -92,7 +86,7 @@ const api = {
   },
 
   // (Unchanged) Get available positions
-  getPositions: async () => {
+  getPositions: async (workflowId) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/position/list/`);
       return response.data;
@@ -141,7 +135,7 @@ function ActionRow({
   );
 }
 
-function StepCard({ step, index, isActive, onClick, onDelete, onSave, isSaving, isDeleting, positions }) {
+function StepCard({ step, index, isActive, onClick, onDelete, onSave, isSaving, isDeleting }) {
   const cardClasses = `${styles.stepCard} ${isActive ? styles.stepCardActive : ''}`;
   
   const handleDelete = async (e) => {
@@ -156,10 +150,6 @@ function StepCard({ step, index, isActive, onClick, onDelete, onSave, isSaving, 
     await onSave(step, index);
   };
 
-  // Find the position name from the positions array
-  const positionName = positions.find(p => p.id === step.position)?.positionName || 'Not assigned';
-  const roleName = positions.find(p => p.id === step.roleId)?.positionName || 'Not assigned';
-
   return (
     <div className={cardClasses} onClick={onClick}>
       <div className={styles.stepCardHeader}>
@@ -167,23 +157,25 @@ function StepCard({ step, index, isActive, onClick, onDelete, onSave, isSaving, 
           Step {index + 1}: {step.stepName || 'Untitled Step'}
         </h4>
         <div className={styles.stepCardActions}>
-          <button
-            className={styles.stepSaveButton}
-            onClick={handleSave}
-            disabled={isSaving}
-            title="Save step"
-          >
-            {isSaving ? '⏳' : '💾'}
-          </button>
           {step.id && (
-            <button
-              className={styles.stepDeleteButton}
-              onClick={handleDelete}
-              disabled={isDeleting}
-              title="Delete step"
-            >
-              {isDeleting ? '⏳' : '🗑️'}
-            </button>
+            <>
+              <button
+                className={styles.stepSaveButton}
+                onClick={handleSave}
+                disabled={isSaving}
+                title="Save step"
+              >
+                {isSaving ? '⏳' : '💾'}
+              </button>
+              <button
+                className={styles.stepDeleteButton}
+                onClick={handleDelete}
+                disabled={isDeleting}
+                title="Delete step"
+              >
+                {isDeleting ? '⏳' : '🗑️'}
+              </button>
+            </>
           )}
           {!step.id && (
             <span className={styles.unsavedIndicator} title="Unsaved step">
@@ -192,8 +184,7 @@ function StepCard({ step, index, isActive, onClick, onDelete, onSave, isSaving, 
           )}
         </div>
       </div>
-      <p className={styles.stepInfo}>Position: {positionName}</p>
-      <p className={styles.stepInfo}>Role: {roleName}</p>
+      <p className={styles.stepInfo}>Position: {step.position || index + 1}</p>
       <p className={styles.stepInfo}>Actions: {step.actions?.length || 0}</p>
       <p className={styles.stepStatus}>
         Status: {step.id ? 'Saved' : 'Not saved'}
@@ -219,115 +210,79 @@ export default function WorkflowEdit() {
     subCategory: '',
   });
 
-  const [steps, setSteps] = useState([]);
+  const [steps, setSteps] = useState([
+    {
+      id: null,
+      workflow: null,
+      position: 1,
+      stepName: '',
+      description: '',
+      actions: [{ actionId: '', routeToStep: '' }],
+    },
+  ]);
 
   const [activeStepIndex, setActiveStepIndex] = useState(0);
   const [actions, setActions] = useState([]);
   const [positions, setPositions] = useState([]);
 
+  useEffect(() => {
+    axios.get('http://localhost:2000/position/list/')
+      .then(response => {
+        setPositions(response.data);
+      })
+      .catch(error => {
+        console.error('Failed to fetch positions:', error);
+      });
+  }, []);
+
+  
+  const [availablePositions, setAvailablePositions] = useState([]);
+
   const [isLoadingActions, setIsLoadingActions] = useState(true);
-  const [isLoadingSteps, setIsLoadingSteps] = useState(true);
   const [isSavingWorkflow, setIsSavingWorkflow] = useState(false);
   const [isSavingStep, setIsSavingStep] = useState(false);
   const [isDeletingStep, setIsDeletingStep] = useState(false);
   const [stepOperations, setStepOperations] = useState({}); // Track individual step operations
   const [error, setError] = useState(null);
 
-  // Load positions on mount
+  // 3) On mount, fetch the existing workflow data
   useEffect(() => {
-    async function loadPositions() {
+    async function fetchWorkflow() {
       try {
-        const response = await api.getPositions();
-        setPositions(response);
-      } catch (error) {
-        console.error('Failed to fetch positions:', error);
-      }
-    }
-    loadPositions();
-  }, []);
-
-  // 3) On mount, fetch the existing workflow data and steps
-  useEffect(() => {
-    async function fetchWorkflowAndSteps() {
-      try {
-        setIsLoadingSteps(true);
-        
-        // Fetch workflow data
-        const workflowData = await api.getWorkflow(workflowId);
+        const data = await api.getWorkflow(workflowId);
+        // Assume backend returns { id, userID, workflowName, description, mainCategory, subCategory, steps: [...] }
         setWorkflow({
-          id: workflowData.id,
-          userID: workflowData.userID,
-          workflowName: workflowData.workflowName,
-          description: workflowData.description,
-          mainCategory: workflowData.mainCategory,
-          subCategory: workflowData.subCategory,
+          id: data.id,
+          userID: data.userID,
+          workflowName: data.workflowName,
+          description: data.description,
+          mainCategory: data.mainCategory,
+          subCategory: data.subCategory,
         });
-
-        // Fetch steps associated with this workflow
-        try {
+        if (Array.isArray(data.steps) && data.steps.length > 0) {
           const stepsData = await api.getStepsByWorkflowId(workflowId);
-          console.log('Fetched steps:', stepsData);
-          
-          if (Array.isArray(stepsData) && stepsData.length > 0) {
-            const formattedSteps = stepsData.map((s) => ({
+          setSteps(
+            stepsData.map((s) => ({
               id: s.id,
               workflow: s.workflow,
-              position: s.position, // This is now the position ID from API
+              position: s.position,
               stepName: s.stepName,
               description: s.description,
-              roleId: s.roleId || '', // Add roleId field
               actions: Array.isArray(s.actions)
                 ? s.actions.map((a) => ({
                     actionId: a.actionId,
                     routeToStep: a.routeToStep,
                   }))
                 : [{ actionId: '', routeToStep: '' }],
-            }));
-            
-            // Sort steps by position (position ID)
-            formattedSteps.sort((a, b) => (a.position || 0) - (b.position || 0));
-            setSteps(formattedSteps);
-          } else {
-            // No existing steps, create a default empty step
-            setSteps([
-              {
-                id: null,
-                workflow: workflowData.id,
-                position: '', // Empty - user needs to select a position
-                stepName: '',
-                description: '',
-                roleId: '', // Add roleId field
-                actions: [{ actionId: '', routeToStep: '' }],
-              },
-            ]);
-          }
-        } catch (stepsError) {
-          console.error('Error fetching steps:', stepsError);
-          // If steps fetch fails, create a default empty step
-          setSteps([
-            {
-              id: null,
-              workflow: workflowData.id,
-              position: '', // Empty - user needs to select a position
-              stepName: '',
-              description: '',
-              roleId: '', // Add roleId field
-              actions: [{ actionId: '', routeToStep: '' }],
-            },
-          ]);
+            }))
+          );          
         }
-        
       } catch (err) {
         console.error('Failed to fetch workflow:', err);
         setError('Could not load workflow');
-      } finally {
-        setIsLoadingSteps(false);
       }
     }
-    
-    if (workflowId) {
-      fetchWorkflowAndSteps();
-    }
+    fetchWorkflow();
   }, [workflowId]);
 
   // 4) Load all available actions on mount
@@ -346,6 +301,20 @@ export default function WorkflowEdit() {
     }
     loadActions();
   }, []);
+
+  // 5) Load positions once we have a workflow ID
+  useEffect(() => {
+    if (!workflow.id) return;
+    async function loadPositions() {
+      try {
+        const posData = await api.getPositions(workflow.id);
+        setAvailablePositions(posData);
+      } catch (err) {
+        console.error('Error loading positions:', err);
+      }
+    }
+    loadPositions();
+  }, [workflow.id]);
 
   // 6) Handle input changes for workflow
   const handleWorkflowChange = (field, value) => {
@@ -402,7 +371,7 @@ export default function WorkflowEdit() {
     }
   };
 
-  // 10) FIXED: Save or create the active step
+  // 10) Save or create the active step
   const saveStep = async () => {
     if (!workflow.id) {
       alert('Please save the workflow first before saving steps.');
@@ -414,28 +383,13 @@ export default function WorkflowEdit() {
       setError(null);
 
       const activeStep = steps[activeStepIndex];
-      
-      // Validate required fields
-      if (!activeStep.stepName?.trim()) {
-        alert('Please enter a step name before saving.');
-        return;
-      }
-
-      if (!activeStep.position) {
-        alert('Please select a position before saving.');
-        return;
-      }
-
       const stepData = {
-        workflow: parseInt(workflow.id), // Ensure it's a number
-        position: parseInt(activeStep.position), // Position is the selected position ID
-        stepName: activeStep.stepName.trim(),
-        description: activeStep.description || '',
-        roleId: activeStep.roleId || null, // Send null if no role selected
-        actions: activeStep.actions.filter((act) => act.actionId), // Only include actions with actionId
+        workflow: workflow.id,
+        position: activeStep.position,
+        stepName: activeStep.stepName,
+        description: activeStep.description,
+        actions: activeStep.actions.filter((act) => act.actionId),
       };
-
-      console.log('Saving step data:', stepData);
 
       let savedStep;
       if (activeStep.id) {
@@ -446,38 +400,23 @@ export default function WorkflowEdit() {
         savedStep = await api.createStep(stepData);
       }
 
-      console.log('Saved step response:', savedStep);
-
-      // FIXED: Update the local state with the server response
+      // Replace the local step with whatever the server returns
       setSteps((prev) =>
         prev.map((step, idx) =>
-          idx === activeStepIndex 
-            ? { 
-                ...step, 
-                id: savedStep.id,
-                workflow: savedStep.workflow || step.workflow,
-                position: savedStep.position || step.position,
-                stepName: savedStep.stepName || step.stepName,
-                description: savedStep.description || step.description,
-                roleId: savedStep.roleId || step.roleId,
-                actions: savedStep.actions || step.actions
-              } 
-            : step
+          idx === activeStepIndex ? { ...step, id: savedStep.id, ...savedStep } : step
         )
       );
-      
       alert('Step saved successfully!');
     } catch (err) {
       console.error('Error saving step:', err);
-      console.error('Error details:', err.response?.data);
-      setError('Failed to save step: ' + (err.response?.data?.message || err.message));
-      alert('Failed to save step. Check console for details.');
+      setError('Failed to save step');
+      alert('Failed to save step. Please try again.');
     } finally {
       setIsSavingStep(false);
     }
   };
 
-  // FIXED: Save a specific step from StepCard
+  // NEW: Save a specific step from StepCard
   const saveStepFromCard = async (step, stepIndex) => {
     if (!workflow.id) {
       alert('Please save the workflow first before saving steps.');
@@ -489,27 +428,13 @@ export default function WorkflowEdit() {
       setStepOperations(prev => ({ ...prev, [`save_${stepIndex}`]: true }));
       setError(null);
 
-      // Validate required fields
-      if (!step.stepName?.trim()) {
-        alert('Please enter a step name before saving.');
-        return;
-      }
-
-      if (!step.position) {
-        alert('Please select a position before saving.');
-        return;
-      }
-
       const stepData = {
-        workflow: parseInt(workflow.id), // Ensure it's a number
-        position: parseInt(step.position), // Position is the selected position ID
-        stepName: step.stepName.trim(),
-        description: step.description || '',
-        roleId: step.roleId || null, // Send null if no role selected
-        actions: step.actions.filter((act) => act.actionId), // Only include actions with actionId
+        workflow: workflow.id,
+        position: step.position,
+        stepName: step.stepName,
+        description: step.description,
+        actions: step.actions.filter((act) => act.actionId),
       };
-
-      console.log('Saving step from card:', stepData);
 
       let savedStep;
       if (step.id) {
@@ -520,32 +445,18 @@ export default function WorkflowEdit() {
         savedStep = await api.createStep(stepData);
       }
 
-      console.log('Saved step from card response:', savedStep);
-
-      // FIXED: Update the local state with the server response
+      // Replace the local step with server response
       setSteps((prev) =>
         prev.map((s, idx) =>
-          idx === stepIndex 
-            ? { 
-                ...s, 
-                id: savedStep.id,
-                workflow: savedStep.workflow || s.workflow,
-                position: savedStep.position || s.position,
-                stepName: savedStep.stepName || s.stepName,
-                description: savedStep.description || s.description,
-                roleId: savedStep.roleId || s.roleId,
-                actions: savedStep.actions || s.actions
-              } 
-            : s
+          idx === stepIndex ? { ...s, id: savedStep.id, ...savedStep } : s
         )
       );
       
       alert(`Step "${step.stepName || 'Untitled'}" saved successfully!`);
     } catch (err) {
-      console.error('Error saving step from card:', err);
-      console.error('Error details:', err.response?.data);
-      setError('Failed to save step: ' + (err.response?.data?.message || err.message));
-      alert('Failed to save step. Check console for details.');
+      console.error('Error saving step:', err);
+      setError('Failed to save step');
+      alert('Failed to save step. Please try again.');
     } finally {
       setStepOperations(prev => ({ ...prev, [`save_${stepIndex}`]: false }));
     }
@@ -597,10 +508,9 @@ export default function WorkflowEdit() {
     const newStep = {
       id: null,
       workflow: workflow.id,
-      position: '', // Empty - user needs to select a position
+      position: steps.length + 1,
       stepName: '',
       description: '',
-      roleId: '', // Add roleId field
       actions: [{ actionId: '', routeToStep: '' }],
     };
     setSteps((prev) => [...prev, newStep]);
@@ -639,30 +549,18 @@ export default function WorkflowEdit() {
 
   const activeStep = steps[activeStepIndex] || steps[0];
 
-  // 14) Show a loading state while fetching actions or steps
-  if (isLoadingActions || isLoadingSteps) {
+  // 14) Show a loading state while fetching all actions
+  if (isLoadingActions) {
     return (
       <div className={styles.container}>
-        <div className={styles.loading}>
-          Loading {isLoadingActions ? 'actions' : 'steps'}…
-        </div>
+        <div className={styles.loading}>Loading actions…</div>
       </div>
     );
+
+    
   }
 
-  // Show message if no steps are available
-  if (!steps || steps.length === 0) {
-    return (
-      <div className={styles.container}>
-        <div className={styles.noSteps}>
-          <h3>No steps found for this workflow</h3>
-          <button onClick={addStep} className={styles.button}>
-            Add First Step
-          </button>
-        </div>
-      </div>
-    );
-  }
+  
 
   return (
     <div className={styles.container}>
@@ -765,13 +663,8 @@ export default function WorkflowEdit() {
               />
             </div>
             <div className={styles.formGroupSmall}>
-              <label className={styles.label}>Position</label>
-              <select 
-                className={styles.input}
-                value={activeStep?.position || ''}
-                onChange={(e) => handleStepChange('position', e.target.value)}
-                disabled={isSavingStep}
-              >
+              <label className={styles.label}>Role</label>
+              <select className={styles.input}>
                 <option value="">Select a position</option>
                 {positions.map((pos) => (
                   <option key={pos.id} value={pos.id}>
@@ -828,7 +721,7 @@ export default function WorkflowEdit() {
       <div className={styles.rightPanel}>
         <div className={styles.stepSection}>
           <div className={styles.header}>
-            <h3>Workflow Steps ({steps.length})</h3>
+            <h3>Workflow Steps</h3>
             <button
               className={styles.addButton}
               onClick={addStep}
@@ -841,7 +734,7 @@ export default function WorkflowEdit() {
           <div className={styles.stepList}>
             {steps.map((step, index) => (
               <StepCard
-                key={step.id || `step-${index}`}
+                key={index}
                 step={step}
                 index={index}
                 isActive={index === activeStepIndex}
@@ -850,7 +743,6 @@ export default function WorkflowEdit() {
                 onSave={saveStepFromCard}
                 isSaving={stepOperations[`save_${index}`] || false}
                 isDeleting={stepOperations[`delete_${index}`] || false}
-                positions={positions}
               />
             ))}
           </div>

@@ -10,7 +10,7 @@ const API_BASE_URL = 'http://localhost:2000';
 const api = {
   createWorkflow: async (workflowData) => {
     const response = await axios.post(
-      `${API_BASE_URL}/workflow/create/`,
+      `${API_BASE_URL}/workflow/`,
       workflowData
     );
     return response.data;

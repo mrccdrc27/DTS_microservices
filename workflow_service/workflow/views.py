@@ -1,35 +1,48 @@
-from django.shortcuts import render
 from rest_framework import generics
-from .models import *
-from .serializers import *
 from rest_framework.exceptions import ValidationError
+from .models import Workflows, Steps, StepActions
+from .serializers import WorkflowSerializer, StepSerializer, StepActionsSerializer
 
-class WorkflowCreateView(generics.CreateAPIView):
-    queryset = Workflows.objects.all()
-    serializer_class = WorkflowRegister
 
-class WorkflowListView(generics.ListAPIView):
+# --- WORKFLOWS ---
+class WorkflowListCreateView(generics.ListCreateAPIView):
     queryset = Workflows.objects.all()
     serializer_class = WorkflowSerializer
 
-class StepCreateView(generics.CreateAPIView):
-    queryset = Steps.objects.all()
-    serializer_class = StepRegister
-class StepListView(generics.ListAPIView):
-    serializer_class = StepSerializer
-    
-    # Creates parameter named workflow
     def get_queryset(self):
-        workflow_id = self.request.query_params.get("workflow", None)
+        workflow_id = self.request.query_params.get('id')
         if workflow_id:
-            try:
-                workflow_id = int(workflow_id)
-            except ValueError:
-                raise ValidationError({"error": "Invalid Parameters"})
-            return Steps.objects.filter(workflow__id=workflow_id)
-        return Steps.objects.all()  # Return all if no filter is applied
+            return Workflows.objects.filter(id=workflow_id)
+        return Workflows.objects.all()
 
-class StepActionListView(generics.ListAPIView):
+
+class WorkflowDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Workflows.objects.all()
+    serializer_class = WorkflowSerializer
+    lookup_field = 'id'
+
+
+# --- STEPS ---
+class StepListCreateView(generics.ListCreateAPIView):
+    queryset = Steps.objects.all()
+    serializer_class = StepSerializer
+
+    def get_queryset(self):
+        workflow_id = self.request.query_params.get('workflow')
+        if workflow_id:
+            return Steps.objects.filter(workflow__id=workflow_id)
+        return Steps.objects.all()
+
+
+class StepDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Steps.objects.all()
+    serializer_class = StepSerializer
+    lookup_field = 'id'
+
+
+# --- STEP ACTIONS ---
+class StepActionListCreateView(generics.ListCreateAPIView):
+    queryset = StepActions.objects.all()
     serializer_class = StepActionsSerializer
 
     def get_queryset(self):
@@ -40,8 +53,10 @@ class StepActionListView(generics.ListAPIView):
             except ValueError:
                 raise ValidationError({"error": "Invalid Parameters"})
             return StepActions.objects.filter(step__id=step_id)
-        return StepActions.objects.all()  # Return all if no filter is applied
+        return StepActions.objects.all()
 
-class StepActionCreateView(generics.CreateAPIView):
+
+class StepActionDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = StepActions.objects.all()
-    serializer_class = StepActionRegisterSerializer
+    serializer_class = StepActionsSerializer
+    lookup_field = 'id'
