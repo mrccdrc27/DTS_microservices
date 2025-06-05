@@ -8,6 +8,33 @@
       "message": "qwerty",
       "created_at": "2025-05-29T00:12:30.161Z",
       "parent_id": null
+    },
+    {
+      "id": "830b",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "message": "Comment is here",
+      "created_at": "2025-06-03T00:45:29.921Z",
+      "parent_id": null
+    },
+    {
+      "id": "5c90",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "message": "hello",
+      "created_at": "2025-06-04T11:09:49.948Z",
+      "parent_id": null
+    },
+    {
+      "id": "a354",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "message": "popo",
+      "created_at": "2025-06-04T12:23:21.055Z",
+      "parent_id": null
     }
   ],
   "activity_log": [
@@ -50,6 +77,54 @@
       "user_id": "4",
       "content": "Status changed to \"Approved\" on 2025-05-31T08:40:29.008Z",
       "created_at": "2025-05-31T08:40:29.008Z"
+    },
+    {
+      "id": "4b18",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "content": "Status changed to \"Approved\" on 2025-06-03T00:46:34.231Z",
+      "created_at": "2025-06-03T00:46:34.231Z"
+    },
+    {
+      "id": "5998",
+      "task_id": "2",
+      "ticket_id": "2",
+      "user_id": "2",
+      "content": "Status changed to \"Approved\" on 2025-06-03T00:56:53.121Z",
+      "created_at": "2025-06-03T00:56:53.121Z"
+    },
+    {
+      "id": "42d4",
+      "task_id": "2",
+      "ticket_id": "2",
+      "user_id": "2",
+      "content": "Status changed to \"On Hold\" on 2025-06-03T00:57:05.051Z",
+      "created_at": "2025-06-03T00:57:05.051Z"
+    },
+    {
+      "id": "bc5e",
+      "task_id": "2",
+      "ticket_id": "2",
+      "user_id": "2",
+      "content": "Status changed to \"On Hold\" on 2025-06-03T00:57:09.562Z",
+      "created_at": "2025-06-03T00:57:09.562Z"
+    },
+    {
+      "id": "9d25",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "content": "Status changed to \"On Hold\" on 2025-06-04T11:09:56.993Z",
+      "created_at": "2025-06-04T11:09:56.993Z"
+    },
+    {
+      "id": "9fcb",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "content": "Status changed to \"Approved\" on 2025-06-04T12:23:34.730Z",
+      "created_at": "2025-06-04T12:23:34.730Z"
     }
   ],
   "tickets": [
@@ -59,7 +134,7 @@
       "subject": "Account Login Issue",
       "customer": "John Doe",
       "priority": "Low",
-      "status": "Rejected",
+      "status": "Approved",
       "opened_on": "2025-04-06",
       "sla": "72 hours",
       "description": "Customer unable to log into account using correct credentials.",
@@ -78,7 +153,7 @@
       "subject": "Payment Gateway Failure",
       "customer": "Alice Smith",
       "priority": "Medium",
-      "status": "Rejected",
+      "status": "On Hold",
       "opened_on": "2025-04-06",
       "sla": "24 hours",
       "description": "Customer reported failed payment transactions at checkout.",

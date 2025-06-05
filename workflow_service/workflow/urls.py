@@ -1,9 +1,5 @@
 from django.urls import path
-from .views import (
-    WorkflowListCreateView, WorkflowDetailView,
-    StepListCreateView, StepDetailView,
-    StepActionListCreateView, StepActionDetailView,
-)
+from .views import *
 
 urlpatterns = [
     path('', WorkflowListCreateView.as_view(), name='workflow-list-create'),
@@ -14,4 +10,6 @@ urlpatterns = [
 
     path('step-actions/', StepActionListCreateView.as_view(), name='step-action-list-create'),
     path('step-actions/<int:id>/', StepActionDetailView.as_view(), name='step-action-detail'),
+
+    path('step-transitions/', StepTransitionListCreateView.as_view(), name='step-transition-list-create'),
 ]
