@@ -8,7 +8,7 @@
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: var(--bg3-color);
 }
 
 :root {
@@ -16,7 +16,9 @@ body {
   --primary-color: #780000;
   --secondary-color: #063a84;
   --background-color: #fcfcfc;
-  --bg-color: #f1f1f1;
+  --bg3-color: #f9f9f9;
+  --bg-color: #FAFBFC;
+  --bg1-color: #ffffff;
   --bg2-color: #fefefe;
   --text-color: #242424;
   --label-color: #666;
@@ -36,17 +38,18 @@ body {
   --table-head-size: 0.8125rem; /* 13 */
   --table-font-size: 0.75rem; /* 12 */
   --table-desc-size: 0.65rem;
+  --title-font-size: 1rem; /* 16 */
   --h2-font-size: 1.25rem;
   --h1-font-size: 1.5rem; /* 24 */
-  --title-font-size: 1rem; /* 16 */
+  --header-font-size: 1.8rem; 
 
   /* pages */
   --mainpagewidth: 0 12vw;
   --mainpageminWidth: 0 10vw;
 
   /* Design */
-  --border-bottom: 1px solid #ddd;  /* common */
-  --border-black: 1px solid #000000; 
+  --border-bottom: 1px solid var(--border-color);
+  --border-black: 1px solid #000000;
   --border-dark-gray: 1px solid #333333;
   --border-medium-gray: 1px solid #666666;
   --border-light-gray: 1px solid #999999;

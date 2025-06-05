@@ -30,11 +30,22 @@ export default function TicketDetail() {
   // open ticket action modal
   const [openTicketAction, setOpenTicketAction] = useState(false);
 
-  // comment section
+  // hide comment section
   const [hideCommentSection, setHideCommentSection] = useState(true);
 
-  // activity log
+  // hide activity log
   const [hideActivityLog, setHideActivityLog] = useState(true);
+
+  // hide Ticket Information Panel
+  const [hideTicketInfoPanel, setHideTicketInfoPanel] = useState(true);
+
+  const [activePanel, setActivePanel] = useState("comment");
+
+  // view comment section
+  const [viewCommentPanel, setViewCommentPanel] = useState(true);
+
+  // view history log
+  const [viewHistoryPanel, setViewHistoryPanel] = useState(false);
 
   // fetch activity log
   const [activityLog, setActivityLog] = useState([]);
@@ -73,7 +84,6 @@ export default function TicketDetail() {
       console.error("Failed to fetch comments:", error);
     }
   }, []);
-
   // add comment
   const handleAddComment = async () => {
     if (!newComment.trim()) return;
@@ -100,7 +110,6 @@ export default function TicketDetail() {
       setIsSubmitting(false);
     }
   };
-
   // reply comment
   const handleReply = async (parent_id) => {
     if (!replyMessage.trim()) return;
@@ -123,7 +132,6 @@ export default function TicketDetail() {
       console.error("Failed to reply:", error.message);
     }
   };
-
   // edit comment
   const handleEditComment = async (id) => {
     if (!editMessage.trim()) return;
@@ -139,7 +147,6 @@ export default function TicketDetail() {
       console.error("Failed to edit comment:", error.message);
     }
   };
-
   // delete comment
   const handleDeleteComment = async (id) => {
     const confirmDelete = confirm("Delete this comment?");
@@ -182,6 +189,26 @@ export default function TicketDetail() {
       console.error("Failed to fetch ticket:", err);
       setError("Ticket not found.");
     }
+  };
+
+  // view Comment
+  const toggleComments = () => {
+    setActivePanel("comment");
+    setViewCommentPanel(true);
+    setViewHistoryPanel(false);
+  };
+
+  // view History Logs
+  const toggleHistory = () => {
+    setActivePanel("history");
+    setViewCommentPanel(false);
+    setViewHistoryPanel(true);
+  };
+
+  const getButtonClass = (panel) => {
+    return activePanel === panel
+      ? `${styles.csBtn} ${styles.active}`
+      : styles.csBtn;
   };
 
   if (error) {
@@ -236,6 +263,11 @@ export default function TicketDetail() {
               <p>{ticket.description}</p>
             </div>
 
+            <div className={styles.tdInstructions}>
+              <h3>Instructions</h3>
+              <p>Details</p>
+            </div>
+
             <div className={styles.tdAttachment}>
               <h3>Attachment</h3>
               <div className={styles.tdAttached}>
@@ -277,122 +309,198 @@ export default function TicketDetail() {
 
             <div className={styles.tdCommentSection}>
               <div className={styles.tdCSHeader}>
-                <h3>Comment</h3>
-                {hideCommentSection ? (
-                  <p
-                    className={styles.tdCSButton}
-                    onClick={() => setHideCommentSection(false)}
+                <div className={styles.tdCSWrapper}>
+                  <h3
+                    className={getButtonClass("comment")}
+                    onClick={toggleComments}
                   >
-                    Hide
-                  </p>
-                ) : (
-                  <p
-                    className={styles.tdCSButton}
-                    onClick={() => setHideCommentSection(true)}
+                    Comment
+                  </h3>
+                  <h3
+                    className={getButtonClass("history")}
+                    onClick={toggleHistory}
                   >
-                    Show
-                  </p>
-                )}
+                    Activity Log
+                  </h3>
+                </div>
+                {viewCommentPanel &&
+                  (hideCommentSection ? (
+                    <p
+                      className={styles.tdCSButton}
+                      onClick={() => setHideCommentSection(false)}
+                    >
+                      <div className={styles.tdArrow}>
+                        <i className="fa-solid fa-caret-up"></i>
+                      </div>
+                    </p>
+                  ) : (
+                    <p
+                      className={styles.tdCSButton}
+                      onClick={() => setHideCommentSection(true)}
+                    >
+                      <div className={styles.tdArrow}>
+                        <i className="fa-solid fa-caret-up"></i>
+                      </div>
+                    </p>
+                  ))}
+                {viewHistoryPanel &&
+                  (hideActivityLog ? (
+                    <p
+                      className={styles.tdCSButton}
+                      onClick={() => setHideActivityLog(false)}
+                    >
+                      <div className={styles.tdArrow}>
+                        <i className="fa-solid fa-caret-up"></i>
+                      </div>
+                    </p>
+                  ) : (
+                    <p
+                      className={styles.tdCSButton}
+                      onClick={() => setHideActivityLog(true)}
+                    >
+                      <div className={styles.tdArrow}>
+                        <i className="fa-solid fa-caret-down"></i>
+                      </div>
+                    </p>
+                  ))}
               </div>
-              {hideCommentSection && comments && comments.length > 0
-                ? [...comments]
+
+              {viewCommentPanel &&
+                (hideCommentSection && comments && comments.length > 0
+                  ? [...comments]
+                      .sort(
+                        (a, b) =>
+                          new Date(b.created_at) - new Date(a.created_at)
+                      )
+                      .map((comment) => (
+                        <div key={comment.id} className={styles.tdCommentItem}>
+                          <div className={styles.tdUserProfile}>
+                            <img
+                              src="https://i.pinimg.com/736x/e6/50/7f/e6507f42d79520263d8d952633cedcf2.jpg"
+                              alt="Profile"
+                            />
+                          </div>
+                          <div className={styles.tdCommentContent}>
+                            <div className={styles.tdCommentHeader}>
+                              <div className={styles.tdUserName}>
+                                <strong>User {comment.user_id}</strong>
+                              </div>
+                              <div className={styles.tdCommentDate}>
+                                {new Date(comment.created_at).toLocaleString()}
+                              </div>
+                            </div>
+                            <div className={styles.tdCommentContent}>
+                              <p>{comment.message}</p>
+                            </div>
+                            <div className={styles.tdCommentActions}>
+                              <div className={styles.tdCommentAction}>
+                                <i className="fa-regular fa-thumbs-up"></i>
+                              </div>
+                              {/* <span className={styles.tdCommentAction}>Reply</span> */}
+                              <span
+                                className={styles.tdCommentAction}
+                                onClick={() => {
+                                  setReplyingTo(comment.id);
+                                  setReplyMessage("");
+                                }}
+                              >
+                                Reply
+                              </span>
+                              <span
+                                className={styles.tdCommentAction}
+                                onClick={() => {
+                                  setEditingCommentId(comment.id);
+                                  setEditMessage(comment.message);
+                                }}
+                              >
+                                Edit
+                              </span>
+                              <span
+                                className={styles.tdCommentAction}
+                                onClick={() => handleDeleteComment(comment.id)}
+                              >
+                                Delete
+                              </span>
+                            </div>
+                            <div className={styles.tdActionCont}>
+                              {replyingTo === comment.id && (
+                                <div className={styles.replyBox}>
+                                  <textarea
+                                    placeholder="Write a reply..."
+                                    value={replyMessage}
+                                    onChange={(e) =>
+                                      setReplyMessage(e.target.value)
+                                    }
+                                  />
+                                  <button
+                                    onClick={() => handleReply(comment.id)}
+                                  >
+                                    Submit Reply
+                                  </button>
+                                </div>
+                              )}
+                              {editingCommentId === comment.id && (
+                                <div className={styles.editBox}>
+                                  <textarea
+                                    value={editMessage}
+                                    onChange={(e) =>
+                                      setEditMessage(e.target.value)
+                                    }
+                                  />
+                                  <button
+                                    onClick={() =>
+                                      handleEditComment(comment.id)
+                                    }
+                                  >
+                                    Save
+                                  </button>
+                                  <button
+                                    onClick={() => setEditingCommentId(null)}
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                  : hideCommentSection && (
+                      <p className={styles.noCommentMessage}>
+                        No comments available.
+                      </p>
+                    ))}
+              {viewHistoryPanel && hideActivityLog && (
+                <div className={styles.tdALWrapper}>
+                  <div className={styles.tdALProgressBar}></div>
+                  {activityLog
+                    .filter(
+                      (entry) => String(entry.ticket_id) === String(ticket.id)
+                    )
                     .sort(
                       (a, b) => new Date(b.created_at) - new Date(a.created_at)
                     )
-                    .map((comment) => (
-                      <div key={comment.id} className={styles.tdCommentItem}>
-                        <div className={styles.tdUserProfile}>
-                          <img
-                            src="https://i.pinimg.com/736x/e6/50/7f/e6507f42d79520263d8d952633cedcf2.jpg"
-                            alt="Profile"
-                          />
+                    .map((entry) => (
+                      <div key={entry.id} className={styles.tdALRow}>
+                        <div className={styles.tdALProgressStep}>
+                          <div className={styles.tdALProgressIcon}></div>
                         </div>
-                        <div className={styles.tdCommentContent}>
-                          <div className={styles.tdCommentHeader}>
-                            <div className={styles.tdUserName}>
-                              <strong>User {comment.user_id}</strong>
-                            </div>
-                            <div className={styles.tdCommentDate}>
-                              {new Date(comment.created_at).toLocaleString()}
-                            </div>
+                        <div className={styles.activityItem}>
+                          <div className={styles.activityTitle}>
+                            {new Date(entry.created_at).toLocaleString()}
                           </div>
-                          <div className={styles.tdCommentContent}>
-                            <p>{comment.message}</p>
+                          <div className={styles.activityText}>#{entry.id}</div>
+                          <div className={styles.activityText}>
+                            {entry.content}
                           </div>
-                          <div className={styles.tdCommentActions}>
-                            <div className={styles.tdCommentAction}>
-                              <i className="fa-regular fa-thumbs-up"></i>
-                            </div>
-                            {/* <span className={styles.tdCommentAction}>Reply</span> */}
-                            <span
-                              className={styles.tdCommentAction}
-                              onClick={() => {
-                                setReplyingTo(comment.id);
-                                setReplyMessage("");
-                              }}
-                            >
-                              Reply
-                            </span>
-                            <span
-                              className={styles.tdCommentAction}
-                              onClick={() => {
-                                setEditingCommentId(comment.id);
-                                setEditMessage(comment.message);
-                              }}
-                            >
-                              Edit
-                            </span>
-                            <span
-                              className={styles.tdCommentAction}
-                              onClick={() => handleDeleteComment(comment.id)}
-                            >
-                              Delete
-                            </span>
-                          </div>
-                          <div className={styles.tdActionCont}>
-                            {replyingTo === comment.id && (
-                              <div className={styles.replyBox}>
-                                <textarea
-                                  placeholder="Write a reply..."
-                                  value={replyMessage}
-                                  onChange={(e) =>
-                                    setReplyMessage(e.target.value)
-                                  }
-                                />
-                                <button onClick={() => handleReply(comment.id)}>
-                                  Submit Reply
-                                </button>
-                              </div>
-                            )}
-                            {editingCommentId === comment.id && (
-                              <div className={styles.editBox}>
-                                <textarea
-                                  value={editMessage}
-                                  onChange={(e) =>
-                                    setEditMessage(e.target.value)
-                                  }
-                                />
-                                <button
-                                  onClick={() => handleEditComment(comment.id)}
-                                >
-                                  Save
-                                </button>
-                                <button
-                                  onClick={() => setEditingCommentId(null)}
-                                >
-                                  Cancel
-                                </button>
-                              </div>
-                            )}
+                          <div className={styles.activityFooter}>
+                            By user {entry.user_id}
                           </div>
                         </div>
                       </div>
-                    ))
-                : hideCommentSection && (
-                    <p className={styles.noCommentMessage}>
-                      No comments available.
-                    </p>
-                  )}
+                    ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -405,6 +513,7 @@ export default function TicketDetail() {
             >
               Make an Action
             </button>
+
             <div className={styles.tdStatusCard}>
               <div className={styles.tdStatusLabel}>Status</div>
               <div
@@ -434,80 +543,62 @@ export default function TicketDetail() {
               </div>
             </div>
 
-            <div className={styles.tdInfoItem}>
-              <div className={styles.tdInfoLabelValue}>
-                <div className={styles.tdInfoLabel}>Priority</div>
-                <div
-                  className={
-                    general[`priority-${ticket.priority.toLowerCase()}`]
-                  }
-                >
-                  {ticket.priority}
-                </div>
-              </div>
-              <div className={styles.tdInfoLabelValue}>
-                <div className={styles.tdInfoLabel}>Ticket Owner</div>
-                <div className={styles.tdInfoValue}>{ticket.customer}</div>
-              </div>
-              <div className={styles.tdInfoLabelValue}>
-                <div className={styles.tdInfoLabel}>Department</div>
-                <div className={styles.tdInfoValue}>{ticket.department}</div>
-              </div>
-              <div className={styles.tdInfoLabelValue}>
-                <div className={styles.tdInfoLabel}>Position</div>
-                <div className={styles.tdInfoValue}>{ticket.position}</div>
-              </div>
-              <div className={styles.tdInfoLabelValue}>
-                <div className={styles.tdInfoLabel}>SLA</div>
-                <div className={styles.tdInfoValue}>{ticket.sla}</div>
-              </div>
-            </div>
-
-            {/* <div className={styles.tdActivityLog}>
-              <div className={styles.tdALHeader}>
-                <div className={styles.tdActivityLogTitle}>Activity Log</div>
-                {hideActivityLog ? (
+            <div className={styles.tdInfoWrapper}>
+              <div className={styles.tdInfoHeader}>
+                <h3>Details</h3>
+                {hideTicketInfoPanel ? (
                   <p
                     className={styles.tdCSButton}
-                    onClick={() => setHideActivityLog(false)}
+                    onClick={() => setHideTicketInfoPanel(false)}
                   >
-                    Hide
+                    <div className={styles.tdArrow}>
+                      <i className="fa-solid fa-caret-up"></i>
+                    </div>
                   </p>
                 ) : (
                   <p
                     className={styles.tdCSButton}
-                    onClick={() => setHideActivityLog(true)}
+                    onClick={() => setHideTicketInfoPanel(true)}
                   >
-                    Show
+                    <div className={styles.tdArrow}>
+                      <i className="fa-solid fa-caret-down"></i>
+                    </div>
                   </p>
                 )}
               </div>
-              {hideActivityLog && (
-                <div className={styles.tdALWrapper}>
-                  <div className={styles.tdALProgressBar}></div>
-                  {ticket.activity_log.map((entry, index) => (
-                    <div key={index} className={styles.tdALRow}>
-                      <div className={styles.tdALProgressStep}>
-                        <div className={styles.tdALProgressIcon}></div>
-                      </div>
-                      <div className={styles.activityItem}>
-                        <div className={styles.activityTitle}>
-                          {new Date(entry.timestamp).toLocaleString()}
-                        </div>
-                        <div className={styles.activityText}>{entry.title}</div>
-                        <div className={styles.activityText}>
-                          {entry.message}
-                        </div>
-                        <div className={styles.activityFooter}>
-                          By {entry.author}
-                        </div>
-                      </div>
+              {hideTicketInfoPanel && (
+                <div className={styles.tdInfoItem}>
+                  <div className={styles.tdInfoLabelValue}>
+                    <div className={styles.tdInfoLabel}>Priority</div>
+                    <div
+                      className={
+                        general[`priority-${ticket.priority.toLowerCase()}`]
+                      }
+                    >
+                      {ticket.priority}
                     </div>
-                  ))}
+                  </div>
+                  <div className={styles.tdInfoLabelValue}>
+                    <div className={styles.tdInfoLabel}>Ticket Owner</div>
+                    <div className={styles.tdInfoValue}>{ticket.customer}</div>
+                  </div>
+                  <div className={styles.tdInfoLabelValue}>
+                    <div className={styles.tdInfoLabel}>Department</div>
+                    <div className={styles.tdInfoValue}>
+                      {ticket.department}
+                    </div>
+                  </div>
+                  <div className={styles.tdInfoLabelValue}>
+                    <div className={styles.tdInfoLabel}>Position</div>
+                    <div className={styles.tdInfoValue}>{ticket.position}</div>
+                  </div>
+                  <div className={styles.tdInfoLabelValue}>
+                    <div className={styles.tdInfoLabel}>SLA</div>
+                    <div className={styles.tdInfoValue}>{ticket.sla}</div>
+                  </div>
                 </div>
               )}
-            </div> */}
-
+            </div>
             <div className={styles.tdActivityLog}>
               <div className={styles.tdALHeader}>
                 <div className={styles.tdActivityLogTitle}>Activity Log</div>
@@ -516,14 +607,18 @@ export default function TicketDetail() {
                     className={styles.tdCSButton}
                     onClick={() => setHideActivityLog(false)}
                   >
-                    Hide
+                    <div className={styles.tdArrow}>
+                      <i className="fa-solid fa-caret-up"></i>
+                    </div>
                   </p>
                 ) : (
                   <p
                     className={styles.tdCSButton}
                     onClick={() => setHideActivityLog(true)}
                   >
-                    Show
+                    <div className={styles.tdArrow}>
+                      <i className="fa-solid fa-caret-down"></i>
+                    </div>
                   </p>
                 )}
               </div>

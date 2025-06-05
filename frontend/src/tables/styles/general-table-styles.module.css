@@ -194,3 +194,9 @@ tr:hover {
   text-align: left;
   padding: 12px 15px;
 }
+
+.noTicketsMessage {
+  text-align: center;
+  color: var(--text-color);
+  padding: 20px;
+}

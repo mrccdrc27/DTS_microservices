@@ -94,11 +94,13 @@ export default function AgentNav() {
       )}
 
       <nav className={styles.navBar}>
+
+        {/* logo */}
         <div className={styles.logoSection}>
           <div className={styles.logoImg}>
             <img src="/logotixx.png" alt="logo" />
           </div>
-          <p>TicketFlow</p>
+          <p>Ticket<span>Flow</span></p>
           {/* <span>TickTrack</span> */}
         </div>
 
@@ -161,7 +163,6 @@ export default function AgentNav() {
         </div> 
 
          {/* Mobile view */}
-
          <div className={styles.hamburger} onClick={toggleMenu}>
           <div className={styles.bar}></div>
           <div className={styles.bar}></div>

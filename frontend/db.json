@@ -1,6 +1,65 @@
 {
-  "comments": [],
-  "activity_log": [],
+  "comments": [
+    {
+      "id": "b333",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "message": "hello",
+      "created_at": "2025-05-31T03:55:07.032Z",
+      "parent_id": null
+    }
+  ],
+  "activity_log": [
+    {
+      "id": "24eb",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "content": "Status changed to \"Approved\" on 2025-06-04T03:08:23.815Z",
+      "created_at": "2025-06-04T03:08:23.816Z"
+    },
+    {
+      "id": "59e6",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "content": "Status changed to \"Approved\" on 2025-06-04T03:25:53.107Z",
+      "created_at": "2025-06-04T03:25:53.107Z"
+    },
+    {
+      "id": "f8ce",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "content": "Status changed to \"Approved\" on 2025-06-04T04:06:11.151Z",
+      "created_at": "2025-06-04T04:06:11.151Z"
+    },
+    {
+      "id": "1366",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "content": "Status changed to \"In Progress\" on 2025-06-04T04:17:39.261Z",
+      "created_at": "2025-06-04T04:17:39.261Z"
+    },
+    {
+      "id": "bcde",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "content": "Status changed to \"Approved\" on 2025-06-04T06:08:43.855Z",
+      "created_at": "2025-06-04T06:08:43.855Z"
+    },
+    {
+      "id": "8b20",
+      "task_id": "1",
+      "ticket_id": "1",
+      "user_id": "1",
+      "content": "Status changed to \"Rejected\" on 2025-06-04T06:12:05.278Z",
+      "created_at": "2025-06-04T06:12:05.278Z"
+    }
+  ],
   "tickets": [
     {
       "id": "1",
@@ -8,7 +67,7 @@
       "subject": "Account Login Issue",
       "customer": "John Doe",
       "priority": "Low",
-      "status": "Approved",
+      "status": "Rejected",
       "opened_on": "2025-04-06",
       "sla": "72 hours",
       "description": "Customer unable to log into account using correct credentials.",

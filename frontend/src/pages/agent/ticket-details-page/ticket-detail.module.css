@@ -29,6 +29,7 @@
 .tdLeftSection {
   flex: 2;
   background-color: var(--background-color);
+  border: var(--border-bottom);
   border-radius: 4px;
   padding: 20px;
 }
@@ -54,9 +55,27 @@
 }
 
 .tdDescription {
+  overflow-x: auto;
+  padding: 5px;
   font-size: var(--table-font-size);
   color: var(--text-color);
   margin-bottom: 20px;
+}
+
+.tdDescription:hover {
+  background-color: var(--border-color);
+}
+
+.tdInstructions {
+  overflow-x: auto;
+  padding: 5px;
+  font-size: var(--table-font-size);
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+.tdInstructions:hover {
+  background-color: var(--border-color);
 }
 
 .tdAttachment {
@@ -145,6 +164,28 @@
   margin-top: 20px;
 }
 
+.tdCSWrapper {
+  display: flex;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.csBtn {
+  padding-bottom: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.active {
+  border-bottom: 3px solid var(--information-color);
+  font-weight: bold;
+}
+
+.csBtn:not(.active) {
+  color: gray;
+  opacity: 0.6;
+}
+
 .tdCommentSection h3 {
   margin-bottom: 20px;
   color: var(--information-color);
@@ -215,7 +256,7 @@
   display: flex;
   font-weight: bold;
   gap: 10px;
-} 
+}
 
 .tdCommentAction {
   cursor: pointer;
@@ -226,6 +267,7 @@
 .tdRightSection {
   flex: 1;
   background-color: var(--background-color);
+  border: var(--border-bottom);
   border-radius: 4px;
   padding: 20px;
 }
@@ -290,6 +332,19 @@
   border: 3px solid #ccc;
 }
 
+.tdInfoHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.tdInfoHeader
+h3,
+.tdArrow {
+  font-size: var(--table-head-size);
+  color: var(--text-color);
+}
+
 .tdInfoItem {
   margin-bottom: 20px;
   border: var(--border-bottom);
@@ -302,7 +357,12 @@
   justify-content: space-between;
 }
 
-.tdInfoLabel,
+.tdInfoLabel {
+  font-weight: bold;
+  font-size: var(--table-head-size);
+  color: var(--label-color);
+}
+
 .tdInfoValue {
   font-size: var(--table-head-size);
   color: var(--text-color);
