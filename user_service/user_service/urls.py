@@ -38,7 +38,7 @@ urlpatterns = [
     # this route takes all from accounts/urls.py under the /api endpoint
     path("api/", include("accounts.urls")),
     path("api/auth", include("accounts.urls")),
-     path('reset-password/<uidb64>/<token>/', views.PasswordTokenCheckAPI.as_view(), name='password-reset-confirm'),
+    path('reset-password/<uidb64>/<token>/', views.PasswordTokenCheckAPI.as_view(), name='password-reset-confirm'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

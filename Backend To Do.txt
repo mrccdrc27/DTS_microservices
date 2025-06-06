@@ -1,0 +1,10 @@
+June 5, 2025
+
+## email should not be entered when entering OTP
+## migrate to JWT
+## clean the code
+## chill the fuq out
+
+June 6,2025
+
+## endpoint on account registration should copy the token directly on OTP endpoint
