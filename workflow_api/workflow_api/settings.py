@@ -96,7 +96,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'workflow_service.wsgi.application'
+WSGI_APPLICATION = 'workflow_api.wsgi.application'
 
 
 # Database
