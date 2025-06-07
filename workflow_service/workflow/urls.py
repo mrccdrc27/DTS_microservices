@@ -1,9 +1,14 @@
 from django.urls import path
-from .views import *
+from .views import (
+    WorkflowListCreateView, WorkflowDetailView,
+    StepListCreateView, StepDetailView,
+    StepActionListCreateView, StepActionDetailView,
+    StepTransitionListCreateView
+)
 
 urlpatterns = [
-    path('', WorkflowListCreateView.as_view(), name='workflow-list-create'),
-    path('<int:id>/', WorkflowDetailView.as_view(), name='workflow-detail'),
+    path('workflows/', WorkflowListCreateView.as_view(), name='workflow-list-create'),
+    path('workflows/<int:id>/', WorkflowDetailView.as_view(), name='workflow-detail'),
 
     path('steps/', StepListCreateView.as_view(), name='step-list-create'),
     path('steps/<int:id>/', StepDetailView.as_view(), name='step-detail'),
