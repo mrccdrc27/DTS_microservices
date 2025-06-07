@@ -27,6 +27,8 @@ class Command(BaseCommand):
         departments = ['Support', 'IT', 'Sales', 'HR', 'Finance', 'Legal']
         positions = ['IT Analyst', 'Support Rep', 'Manager', 'Technician', 'Consultant', 'Coordinator']
         sla_options = ['24 hours', '48 hours', '72 hours', '1 week']
+        category = ['General Inquiry', 'Technical Issue', 'Billing', 'Account Management']
+        subcategory = ['Software', 'Hardware', 'Payment', 'Subscription']
 
         for i in range(1, 21):
             opened = fake.date_between(start_date='-30d', end_date='today')
@@ -41,6 +43,8 @@ class Command(BaseCommand):
                 description=fake.paragraph(nb_sentences=3),
                 department=random.choice(departments),
                 position=random.choice(positions),
+                category=random.choice(category),
+                subcategory=random.choice(subcategory),
             )
             self.stdout.write(f"Created: {ticket.ticket_id} - {ticket.subject}")
 

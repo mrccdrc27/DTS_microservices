@@ -27,5 +27,8 @@ class Ticket(models.Model):
     department = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
 
+    category = models.CharField(max_length=100, blank=True, null=True)
+    subcategory = models.CharField(max_length=100, blank=True, null=True)
+
     def __str__(self):
         return f"{self.ticket_id} - {self.subject}"
