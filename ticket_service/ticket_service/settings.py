@@ -27,21 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Celery Configuration
-# Celery Configuration
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
-CELERY_RESULT_BACKEND = 'rpc://'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
-
-# Task routing - IMPORTANT!
-CELERY_TASK_ROUTES = {
-    'tickets.tasks.*': {'queue': 'ticket_queue'},      # Ticket tasks go to ticket queue
-    'workflows.tasks.*': {'queue': 'workflow_queue'},  # Workflow tasks go to workflow queue
-}
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -55,7 +40,6 @@ INSTALLED_APPS = [
 
     'rest_framework',
     "corsheaders",
-    'celery',
 ]
 
 MIDDLEWARE = [
