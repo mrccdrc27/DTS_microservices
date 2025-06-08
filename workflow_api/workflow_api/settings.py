@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'step',
     'role',
     'action',
+    # reference apps
+    'task',
+    'tickets',
     # dependencies
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
