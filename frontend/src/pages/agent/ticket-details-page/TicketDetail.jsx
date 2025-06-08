@@ -15,7 +15,8 @@ import AgentNav from "../../../components/navigations/agent-nav/AgentNav";
 import TicketAction from "../../../components/modals/ticket-action/TicketAction";
 
 // api
-const ticketURL = import.meta.env.VITE_TICKET_API;
+const ticketURL = 'https://dtsmicroservices-production.up.railway.app/tickets'
+// https://dtsmicroservices-production.up.railway.app/tickets
 
 export default function TicketDetail() {
   const [ticket, setTicket] = useState(null);
