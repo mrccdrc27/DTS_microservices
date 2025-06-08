@@ -17,5 +17,7 @@ dependencies:
 httpx
 redis
 faker
+pip install celery
+ 
 
 docker run -d --name redis -p 6379:6379 redis
