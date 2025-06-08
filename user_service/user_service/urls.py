@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
 from accounts import views
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # Django Admin default
@@ -39,3 +40,5 @@ urlpatterns = [
     path("api/auth", include("accounts.urls")),
      path('reset-password/<uidb64>/<token>/', views.PasswordTokenCheckAPI.as_view(), name='password-reset-confirm'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

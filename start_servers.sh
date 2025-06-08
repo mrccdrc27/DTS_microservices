@@ -20,6 +20,13 @@ cd frontend
 npx json-server --watch db.json --port 5000 --host 0.0.0.0 &
 cd ..
 
+# Start workflow_service
+# echo "Starting workflow_service..."
+# cd workflow_service
+# python manage.py migrate
+# python manage.py runserver 0.0.0.0:2000 &
+# cd ..
+
 # Start user_service
 echo "Starting user_service..."
 cd user_service
@@ -27,12 +34,21 @@ python manage.py migrate
 python manage.py runserver 0.0.0.0:3000 &
 cd ..
 
-# Start workflow_service
-echo "Starting workflow_service..."
-cd workflow_service
+# Start ticket_service
+echo "Starting ticket_service..."
+cd ticket_service
+python manage.py flush --no-input
+python manage.py makemigrations
 python manage.py migrate
-python manage.py runserver 0.0.0.0:2000 &
+python manage.py seed_tickets
+python manage.py runserver 0.0.0.0:4000 &
 cd ..
+
+# # Start api gateway
+# echo "Starting API Gateway..."
+# cd api_gateway
+# python manage.py runserver 0.0.0.0:8001 &
+# cd ..
 
 # Start React app
 echo "Starting React app..."

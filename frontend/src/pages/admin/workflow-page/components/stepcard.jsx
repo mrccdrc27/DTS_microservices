@@ -18,11 +18,8 @@ export default function WorkflowSteps() {
 
         <div className={style.stepcontainer}>
             <h3>Workflow Step</h3>
-            <button className={style.button }>
-                create step
-            </button>
             
-            {/* Can do array MAP to dynamically generate cards */}
+            {/* change to dynamically  */}
             <div className={style.cardcontainer}>
             <StepCard num="1" stepName="Initial Assessment" />
             <StepCard num="2" stepName="Data Collection" />

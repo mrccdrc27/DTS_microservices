@@ -24,12 +24,18 @@ urlpatterns = [
     # Invite register agents routes
     path('invite/', InviteUserView.as_view(), name='invite-user'),
 
-
+    # List users
+    path('users/', UserListView.as_view(), name='user-list'),
 
     path('api/register/<uuid:token>/', RegisterUserView.as_view(), name='register-user'),
     path('api/validate-token/', validate_registration_token),
 
-    
+    #is_active toggle
+    path('users/<int:user_id>/activate/', ToggleUserActivationAPIView.as_view(), name='toggle-user-activation'),
+
+
+    # View pending registration invites
+    path('pending-invites/', PendingRegistrationListView.as_view(), name='pending-invites'),
 
     # Change password route 
     path('auth/change-password/', ChangePasswordAPIView.as_view(), name='change-password'),
