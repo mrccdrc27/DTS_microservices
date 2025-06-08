@@ -7,6 +7,8 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 import logging
 import traceback
+from concurrent.futures import ThreadPoolExecutor
+from functools import lru_cache
 
 logger = logging.getLogger(__name__)
 
@@ -15,38 +17,54 @@ class WorkflowPushService:
         self.workflow_base_url = 'http://localhost:2000'
         self.timeout = getattr(settings, 'WORKFLOW_SERVICE_TIMEOUT', 0.1)
 
-        retry_strategy = Retry(
+        # Retry strategy for GET/HEAD/OPTIONS (health checks)
+        retry_strategy_get = Retry(
             total=3,
             backoff_factor=1,
             status_forcelist=[429, 500, 502, 503, 504],
-            allowed_methods=["HEAD", "GET", "OPTIONS", "POST"],
+            allowed_methods=["HEAD", "GET", "OPTIONS"],
+        )
+        # Retry strategy for POST: no retries to avoid long backoff on writes
+        retry_strategy_post = Retry(
+            total=0,
+            backoff_factor=0,
+            status_forcelist=[],
+            allowed_methods=["POST"],
         )
 
-        adapter = HTTPAdapter(max_retries=retry_strategy)
-        self.session = requests.Session()
-        self.session.mount("http://", adapter)
-        self.session.mount("https://", adapter)
+        adapter_get = HTTPAdapter(max_retries=retry_strategy_get)
+        adapter_post = HTTPAdapter(max_retries=retry_strategy_post)
 
-    def is_workflow_online(self):
+        self.session = requests.Session()
+        self.session.mount("http://", adapter_get)
+        self.session.mount("https://", adapter_get)
+        # Mount POST adapter specifically for POST requests
+        self.session.mount("http://", adapter_post)
+        self.session.mount("https://", adapter_post)
+
+    @lru_cache(maxsize=1)
+    def is_workflow_online_cached(self):
         try:
             self.session.get(self.workflow_base_url, timeout=self.timeout)
             return True
         except Exception:
             return False
 
+    def clear_workflow_online_cache(self):
+        self.is_workflow_online_cached.cache_clear()
+
     def push_ticket_to_workflow(self, ticket_id):
         try:
+            if not self.is_workflow_online_cached():
+                logger.warning(f"Workflow system offline. Queuing ticket_id={ticket_id} before DB lookup.")
+                self.enqueue_ticket_id(ticket_id, "Workflow system offline (early check)")
+                return {'success': False, 'error': 'System offline, queued'}
+
             ticket = Ticket.objects.get(id=ticket_id)
 
             if ticket.pushed_to_workflow:
                 logger.info(f"Ticket {ticket.ticket_id} already pushed.")
                 return {'success': True, 'message': 'Already pushed'}
-
-            # Check if workflow base is reachable
-            if not self.is_workflow_online():
-                logger.warning(f"Workflow system offline. Queuing ticket {ticket.ticket_id}.")
-                self.enqueue_ticket(ticket, "Workflow system offline")
-                return {'success': False, 'error': 'System offline, queued'}
 
             serializer = TicketPushSerializer(ticket)
             ticket_data = serializer.data
@@ -95,7 +113,7 @@ class WorkflowPushService:
             ticket=ticket,
             defaults={
                 'status': 'pending',
-                'retry_count': 0,
+                'retry_': 0,
                 'last_error': error,
                 'scheduled_for': timezone.now()
             }
@@ -111,15 +129,18 @@ class WorkflowPushService:
 
     def process_retry_queue(self):
         now = timezone.now()
+
+        # Get all queue items pending or failed and scheduled for now or earlier
         queue_items = TicketPushQueue.objects.filter(
             status__in=['pending', 'failed']
         ).filter(
-            scheduled_for__isnull=True
-        ) | TicketPushQueue.objects.filter(
             scheduled_for__lte=now
         )
 
         processed = []
+
+        # Clear health check cache once before batch
+        self.clear_workflow_online_cache()
 
         for item in queue_items.select_related('ticket'):
             try:
@@ -134,18 +155,18 @@ class WorkflowPushService:
                     item.ticket.workflow_push_at = timezone.now()
                     item.ticket.save()
                 else:
-                    item.retry_count += 1
+                    item.retry_ += 1
                     item.last_error = result.get('error', 'Unknown error')
-                    item.status = 'failed' if item.retry_count >= item.max_retries else 'pending'
+                    item.status = 'failed' if item.retry_ >= item.max_retries else 'pending'
                     item.scheduled_for = now + timezone.timedelta(minutes=5)
 
                 item.save()
                 processed.append({'ticket_id': item.ticket.ticket_id, 'result': item.status})
 
             except Exception:
-                item.retry_count += 1
+                item.retry_ += 1
                 item.last_error = traceback.format_exc()
-                item.status = 'failed' if item.retry_count >= item.max_retries else 'pending'
+                item.status = 'failed' if item.retry_ >= item.max_retries else 'pending'
                 item.scheduled_for = now + timezone.timedelta(minutes=10)
                 item.save()
                 processed.append({'ticket_id': item.ticket.ticket_id, 'result': 'exception'})
@@ -154,8 +175,14 @@ class WorkflowPushService:
 
     def push_multiple_tickets(self, ticket_ids):
         results = []
-        for ticket_id in ticket_ids:
-            result = self.push_ticket_to_workflow(ticket_id)
-            result['ticket_id'] = ticket_id
-            results.append(result)
+
+        # Clear health check cache once before batch
+        self.clear_workflow_online_cache()
+
+        def push_one(ticket_id):
+            return {**self.push_ticket_to_workflow(ticket_id), 'ticket_id': ticket_id}
+
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            results = list(executor.map(push_one, ticket_ids))
+
         return results

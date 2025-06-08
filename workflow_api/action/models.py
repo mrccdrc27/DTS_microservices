@@ -1,6 +1,7 @@
 from django.db import models
 
 class Actions(models.Model):
+    # revise not to be unique, as actions with similar name can be reused across workflows
     actionName = models.CharField(max_length=64, unique=True)
     description = models.CharField(max_length=256, null=True)
     
