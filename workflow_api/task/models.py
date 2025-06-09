@@ -15,8 +15,8 @@ class Task(models.Model):
     
     def get_ticket(self):
         # Optional: only if you need to reference it somewhere dynamically
-        from tickets.models import Ticket
-        return Ticket.objects.first()
+        from tickets.models import WorkflowTicket
+        return WorkflowTicket.objects.first()
 
     fetched_at = models.DateTimeField(null=True, blank=True)
 

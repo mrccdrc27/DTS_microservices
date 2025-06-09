@@ -54,7 +54,7 @@ class TicketPushQueue(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    retry_ = models.IntegerField(default=0)
+    retry_count = models.IntegerField(default=0)
     max_retries = models.IntegerField(default=3)
     last_error = models.TextField(blank=True, null=True)
     scheduled_for = models.DateTimeField(null=True, blank=True)  # For delayed retries
