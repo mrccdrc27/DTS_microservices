@@ -37,6 +37,9 @@ class WorkflowTicket(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    # flags
+    is_task_allocated = models.BooleanField(default=False)
+
     class Meta:
         indexes = [
             models.Index(fields=['original_ticket_id']),
@@ -46,6 +49,18 @@ class WorkflowTicket(models.Model):
             models.Index(fields=['customer']),
             models.Index(fields=['department']),
         ]
+
+    def save(self, *args, **kwargs):
+        first = self.pk is None
+        super().save(*args, **kwargs)
+
+        if not self.is_task_allocated:
+            from tickets.utils import allocate_task_for_ticket
+            if allocate_task_for_ticket(self):
+                # flip flag without re-invoking save logic
+                WorkflowTicket.objects.filter(pk=self.pk).update(
+                    is_task_allocated=True
+                )
 
     def __str__(self):
         return f"WF-{self.id} ({self.original_ticket_id}) - {self.subject}"
