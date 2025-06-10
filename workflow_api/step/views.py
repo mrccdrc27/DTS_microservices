@@ -19,6 +19,12 @@ class StepDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = StepSerializer
     lookup_field = 'id'
 
+class Stepviews(generics.ListAPIView):
+    """
+    List all steps for a given workflow.
+    """
+    serializer_class = StepSerializer
+    queryset = Steps.objects.all()
 
 # --- STEP TRANSITIONS ---
 class StepTransitionListCreateView(generics.ListCreateAPIView):

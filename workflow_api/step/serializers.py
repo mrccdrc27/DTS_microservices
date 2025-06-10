@@ -1,29 +1,23 @@
 from rest_framework import serializers
-from django.db import transaction
-from .models import Steps
-
-from rest_framework import serializers
-from django.db import transaction
 from .models import Steps, StepTransition
 from role.models import Roles
-
-from rest_framework import serializers
-from action.serializers import ActionSerializer
 from action.models import Actions
+
 
 class StepSerializer(serializers.ModelSerializer):
 
-    position = serializers.SlugRelatedField(
+    role_id = serializers.SlugRelatedField(
         slug_field='name',
         queryset=Roles.objects.all()
     )
-    isInitialized = serializers.SerializerMethodField()
+    is_initialized = serializers.SerializerMethodField()
     class Meta:
         model = Steps
         fields = (
             "id", 
+            "step_id",
             "workflow_id",
-            "position_id", 
+            "role_id", 
             "name", 
             "description",
             "order",
@@ -31,22 +25,22 @@ class StepSerializer(serializers.ModelSerializer):
             "created_at", 
             "updated_at"
         )
-    def get_isInitialized(self, obj):
-        return StepTransition.objects.filter(step=obj).exists()
+    def get_is_initialized(self, obj):
+        return StepTransition.objects.filter(to_step_id=obj).exists()
 
-class StepTransitionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = StepTransition
-        fields = [
-            'id',
-            'from_step',
-            'to_step',
-            'action_id',
-        ]
-        read_only_fields = ['id']
+# class StepTransitionSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = StepTransition
+#         fields = [
+#             'id',
+#             'from_step',
+#             'to_step',
+#             'action_id',
+#         ]
+#         read_only_fields = ['id']
 
-        # validation: from_step != to_step
-        # from_step workflow must be equal to to_step workflow
+#         # validation: from_step != to_step
+#         # from_step workflow must be equal to to_step workflow
 
 class ActionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -55,53 +49,51 @@ class ActionSerializer(serializers.ModelSerializer):
         read_only_fields = ['id']
 
 
+
 class StepTransitionSerializer(serializers.ModelSerializer):
-    action = ActionSerializer()
+    action_id = serializers.PrimaryKeyRelatedField(queryset=Actions.objects.all())
+    from_step_id = serializers.PrimaryKeyRelatedField(queryset=Steps.objects.all())
+    to_step_id = serializers.PrimaryKeyRelatedField(queryset=Steps.objects.all())
 
     class Meta:
         model = StepTransition
-        fields = ['id', 'from_step', 'to_step', 'action']
+        fields = ['id', 'from_step_id', 'to_step_id', 'action_id']
         read_only_fields = ['id']
 
     def validate(self, attrs):
-        frm = attrs.get('from_step') or getattr(self.instance, 'from_step', None)
-        to  = attrs.get('to_step')   or getattr(self.instance, 'to_step', None)
+        frm = attrs.get('from_step_id') or getattr(self.instance, 'from_step_id', None)
+        to  = attrs.get('to_step_id')   or getattr(self.instance, 'to_step_id', None)
 
-        # 1) from_step != to_step
+        # No self-loop
         if frm and to and frm.pk == to.pk:
             raise serializers.ValidationError("from_step and to_step must be different")
 
-        # 2) Same workflow
+        # Same workflow constraint
         if frm and to and frm.workflow_id != to.workflow_id:
-            raise serializers.ValidationError("from_step and to_step must be in the same workflow")
+            raise serializers.ValidationError("from_step and to_step must belong to the same workflow")
 
         return attrs
 
     def create(self, validated_data):
-        action_data = validated_data.pop('action')
+        action_data = validated_data.pop('action_id')
         action, _ = Actions.objects.get_or_create(
-            actionName=action_data['actionName'],
-            defaults={'description': action_data.get('description')}
+            actionName=action_data.actionName,
+            defaults={'description': getattr(action_data, 'description', None)}
         )
-        return StepTransition.objects.create(action=action, **validated_data)
+        return StepTransition.objects.create(action_id=action, **validated_data)
 
     def update(self, instance, validated_data):
-        # 1) Handle nested action
-        action_data = validated_data.pop('action', None)
+        action_data = validated_data.pop('action_id', None)
         if action_data:
             action, _ = Actions.objects.get_or_create(
-                actionName=action_data['actionName'],
-                defaults={'description': action_data.get('description')}
+                actionName=action_data.actionName,
+                defaults={'description': getattr(action_data, 'description', None)}
             )
-            instance.action = action
+            instance.action_id = action
 
-        # 2) Update FK fields if provided
-        instance.from_step = validated_data.get('from_step', instance.from_step)
-        instance.to_step   = validated_data.get('to_step',   instance.to_step)
+        instance.from_step_id = validated_data.get('from_step_id', instance.from_step_id)
+        instance.to_step_id   = validated_data.get('to_step_id',   instance.to_step_id)
 
-        # 3) Run full_clean to trigger any model-level clean() if you have one
         instance.full_clean()
-
-        # 4) Save and return
         instance.save()
         return instance

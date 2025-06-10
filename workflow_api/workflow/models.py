@@ -11,6 +11,7 @@ STATUS_CHOICES = [
 ]
 
 class Category(models.Model):
+    category_id = models.CharField(max_length=64, unique=True, null=True, blank=True)  # Unique identifier for the category
     name = models.CharField(max_length=64, unique=True)
     parent = models.ForeignKey(
         'self',
@@ -22,6 +23,16 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Only enforce immutability on creation
+            if not self.category_id:
+                self.category_id = str(uuid.uuid4())  # Assign a unique identifier if missing
+        else:
+            if 'category_id' in kwargs.get('update_fields', []):
+                raise ValidationError("category_id cannot be modified after creation.")  # Prevent updates
+
+        super().save(*args, **kwargs)  # Save to database
 
 
 class Workflows(models.Model):
@@ -72,10 +83,13 @@ class Workflows(models.Model):
             })
 
     def save(self, *args, **kwargs):
-        if not self.workflow_id:
-            self.workflow_id = str(uuid.uuid4())
+        if not self.pk:  # Only enforce immutability on creation
+            if not self.workflow_id:
+                self.workflow_id = str(uuid.uuid4())  # Assign a unique identifier if missing
         else:
-            raise ValidationError("workflow_id cannot be modified after creation.")
-        self.full_clean()
-        super().save(*args, **kwargs)
+            if 'workflow_id' in kwargs.get('update_fields', []):
+                raise ValidationError("workflow_id cannot be modified after creation.")  # Prevent updates
+
+        self.full_clean()  # Validate model fields
+        super().save(*args, **kwargs)  # Save to database
 

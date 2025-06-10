@@ -77,4 +77,3 @@ class StepTransition(models.Model):
         # ensure clean() runs on every save
         self.full_clean()
         super().save(*args, **kwargs)
-

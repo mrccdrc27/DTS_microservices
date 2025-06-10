@@ -113,7 +113,7 @@ class WorkflowPushService:
             ticket=ticket,
             defaults={
                 'status': 'pending',
-                'retry_': 0,
+                'retry_count': 0,
                 'last_error': error,
                 'scheduled_for': timezone.now()
             }
@@ -155,18 +155,18 @@ class WorkflowPushService:
                     item.ticket.workflow_push_at = timezone.now()
                     item.ticket.save()
                 else:
-                    item.retry_ += 1
+                    item.retry_count += 1
                     item.last_error = result.get('error', 'Unknown error')
-                    item.status = 'failed' if item.retry_ >= item.max_retries else 'pending'
+                    item.status = 'failed' if item.retry_count >= item.max_retries else 'pending'
                     item.scheduled_for = now + timezone.timedelta(minutes=5)
 
                 item.save()
                 processed.append({'ticket_id': item.ticket.ticket_id, 'result': item.status})
 
             except Exception:
-                item.retry_ += 1
+                item.retry_count += 1
                 item.last_error = traceback.format_exc()
-                item.status = 'failed' if item.retry_ >= item.max_retries else 'pending'
+                item.status = 'failed' if item.retry_count >= item.max_retries else 'pending'
                 item.scheduled_for = now + timezone.timedelta(minutes=10)
                 item.save()
                 processed.append({'ticket_id': item.ticket.ticket_id, 'result': 'exception'})
