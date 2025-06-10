@@ -5,7 +5,7 @@ from .serializers import *
 
 class WorkflowListCreateView(generics.ListCreateAPIView):
     queryset = Workflows.objects.all()
-    serializer_class = WorkflowSerializer2
+    serializer_class = WorkflowSerializer
 
     def get_queryset(self):
         workflow_id = self.request.query_params.get('id')

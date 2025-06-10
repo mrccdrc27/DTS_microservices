@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.generics import RetrieveAPIView
 from rest_framework.exceptions import ValidationError
 from .models import Workflows
 from .serializers import *
@@ -26,3 +27,12 @@ from .serializers import CategorySerializer
 class CategoryListCreateView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+class WorkflowAggregatedView(generics.ListAPIView):
+    serializer_class = FullWorkflowSerializer
+    queryset = Workflows.objects.all()
+
+class WorkflowAggregatedDetailView(RetrieveAPIView):
+    queryset = Workflows.objects.all()
+    serializer_class = FullWorkflowSerializer
+    lookup_field = 'id'

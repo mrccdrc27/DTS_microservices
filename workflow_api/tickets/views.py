@@ -4,14 +4,18 @@ from rest_framework.response import Response
 from django.db.models import Q, Count
 from django.utils import timezone
 from .models import WorkflowTicket
-from .serializers import WorkflowTicketSerializer, WorkflowTicketListSerializer, WorkflowTicketCreateSerializer
+from .serializers import WorkflowTicketSerializer, WorkflowTicketCreateSerializer
 import logging
 
 logger = logging.getLogger(__name__)
 
-class WorkflowTicketViewSet(viewsets.ReadOnlyModelViewSet):
+class WorkflowTicketViewSet(viewsets.ModelViewSet):
     queryset = WorkflowTicket.objects.all()
-    serializer_class = WorkflowTicketListSerializer
+    
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return WorkflowTicketCreateSerializer
+        return WorkflowTicketSerializer
     
     def get_queryset(self):
         """Enhanced queryset with filtering capabilities"""
@@ -44,6 +48,32 @@ class WorkflowTicketViewSet(viewsets.ReadOnlyModelViewSet):
             )
         
         return queryset.order_by('-created_at')
+    
+    def create(self, request, *args, **kwargs):
+        """Create a new workflow ticket from ticket service"""
+        serializer = self.get_serializer(data=request.data)
+        
+        if serializer.is_valid():
+            # Check for duplicates based on original_ticket_id
+            original_ticket_id = request.data.get('original_ticket_id')
+            if original_ticket_id:
+                existing = WorkflowTicket.objects.filter(
+                    original_ticket_id=original_ticket_id
+                ).first()
+                
+                if existing:
+                    logger.info(f"Workflow ticket for original ticket {original_ticket_id} already exists")
+                    response_serializer = WorkflowTicketSerializer(existing)
+                    return Response(response_serializer.data, status=status.HTTP_200_OK)
+            
+            workflow_ticket = serializer.save()
+            logger.info(f"Created workflow ticket {workflow_ticket.id} from original ticket {workflow_ticket.original_ticket_id}")
+            
+            response_serializer = WorkflowTicketSerializer(workflow_ticket)
+            return Response(response_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            logger.error(f"Failed to create workflow ticket: {serializer.errors}")
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     @action(detail=False, methods=['get'])
     def health_check(self, request):
@@ -135,4 +165,29 @@ class WorkflowTicketViewSet(viewsets.ReadOnlyModelViewSet):
         
         tickets = self.queryset.filter(department__icontains=department)
         serializer = self.get_serializer(tickets, many=True)
+        return Response(serializer.data)
+    
+    @action(detail=True, methods=['patch'])
+    def update_status(self, request, pk=None):
+        """Update ticket status"""
+        ticket = self.get_object()
+        new_status = request.data.get('status')
+        
+        if not new_status:
+            return Response(
+                {'error': 'status is required'}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        if new_status not in dict(WorkflowTicket.STATUS_CHOICES):
+            return Response(
+                {'error': 'Invalid status value'}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        ticket.status = new_status
+        ticket.save()
+        
+        logger.info(f"Updated ticket {ticket.id} status to {new_status}")
+        serializer = self.get_serializer(ticket)
         return Response(serializer.data)

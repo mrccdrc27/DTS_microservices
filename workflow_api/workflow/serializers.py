@@ -25,19 +25,23 @@ class WorkflowSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workflows
         fields = (
-            "id", 
+            "id",
             "user_id", 
             "name",
             "description", 
             "category", 
-            "sub_category"
+            "sub_category",
+            "workflow_id"
         )
 
-        read_only_fields = ("status",)  # Make status read-only
+
+
+        read_only_fields = ("status",
+                            "workflow_id", )  # Make status read-only
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        steps = Steps.objects.filter(workflow=instance)
+        steps = Steps.objects.filter(workflow_id=instance)
 
         data["status"] = instance.status
 
@@ -79,3 +83,76 @@ class WorkflowSerializer(serializers.ModelSerializer):
             # )
 
             return workflow
+        
+# This code is a Django REST Framework serializer for a workflow management system.
+from rest_framework import serializers
+from .models import Workflows, Category
+from step.models import Steps, StepTransition
+from action.models import Actions
+from role.models import Roles
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'name', 'parent']
+
+
+class RoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Roles
+        fields = ['id', 'name', 'description']
+
+
+class StepSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Steps
+        fields = [
+            'id', 'name', 'description', 'order',
+            'is_initialized', 'created_at', 'updated_at', 'role_id'
+        ]
+
+
+class StepTransitionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StepTransition
+        fields = ['id', 'from_step_id', 'to_step_id', 'action_id']
+
+
+class ActionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Actions
+        fields = ['id', 'name', 'description']
+
+
+class WorkflowAggregatedSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(read_only=True)
+    sub_category = CategorySerializer(read_only=True)
+
+    class Meta:
+        model = Workflows
+        fields = [
+            'id', 'workflow_id', 'user_id', 'name', 'description',
+            'status', 'createdAt', 'updatedAt',
+            'category', 'sub_category'
+        ]
+
+
+class FullWorkflowSerializer(serializers.Serializer):
+    workflow = serializers.SerializerMethodField()
+
+    def get_workflow(self, obj: Workflows):
+        steps = Steps.objects.filter(workflow_id=obj)
+        step_ids = steps.values_list('id', flat=True)
+
+        transitions = StepTransition.objects.filter(from_step_id__in=step_ids)
+        action_ids = transitions.values_list('action_id', flat=True)
+        role_ids = steps.values_list('role_id', flat=True).distinct()
+
+        return {
+            **WorkflowAggregatedSerializer(obj).data,
+            "role": RoleSerializer(Roles.objects.filter(id__in=role_ids).first()).data if role_ids else None,
+            "steps": StepSerializer(steps, many=True).data,
+            "transitions": StepTransitionSerializer(transitions, many=True).data,
+            "actions": ActionSerializer(Actions.objects.filter(id__in=action_ids), many=True).data,
+        }

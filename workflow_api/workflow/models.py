@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+import uuid
+
 
 STATUS_CHOICES = [
     ("draft", "Draft"),
@@ -26,6 +28,7 @@ class Workflows(models.Model):
     user_id        = models.IntegerField(null=False)
     name  = models.CharField(max_length=64, unique=True)
     description   = models.CharField(max_length=256, null=True)
+    workflow_id = models.CharField(max_length=64, unique=True, null=True, blank=True)
 
     category = models.ForeignKey(
         Category,
@@ -40,9 +43,11 @@ class Workflows(models.Model):
         limit_choices_to={'parent__isnull': False},  # <-- only subcats
     )
 
+    # timestamp fields
     status        = models.CharField(max_length=16, choices=STATUS_CHOICES, default="draft")
     createdAt     = models.DateTimeField(auto_now_add=True)
     updatedAt     = models.DateTimeField(auto_now=True)
+
     # is_initialized = models.BooleanField(default=False)
 
     class Meta:
@@ -67,6 +72,10 @@ class Workflows(models.Model):
             })
 
     def save(self, *args, **kwargs):
-        # run clean() so ValidationError bubbles up on save()
+        if not self.workflow_id:
+            self.workflow_id = str(uuid.uuid4())
+        else:
+            raise ValidationError("workflow_id cannot be modified after creation.")
         self.full_clean()
         super().save(*args, **kwargs)
+

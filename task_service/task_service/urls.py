@@ -1,5 +1,5 @@
 """
-URL configuration for task_service project.
+URL configuration for workflow_service project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
@@ -19,5 +19,10 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/',include('tickets.urls'))
+    path('workflow/', include('workflow.urls')),
+    path('workflow/roles/', include('role.urls')),
+    path('workflow/actions/', include('action.urls')),
+    path('workflow/steps/', include('step.urls')),
+    path('workflow/', include('tickets.urls')),
+    path('workflow/tasks/', include('task.urls'))
 ]
