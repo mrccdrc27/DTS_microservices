@@ -3,8 +3,6 @@ from django.core.exceptions import ValidationError
 import uuid
 
 class Actions(models.Model):
-    
-    # revise not to be unique, as actions with similar name can be reused across workflows
     action_id = models.CharField(max_length=64, unique=True, null=True, blank=True)
     name = models.CharField(max_length=64, unique=True)
     description = models.CharField(max_length=256, null=True)
@@ -19,7 +17,5 @@ class Actions(models.Model):
         else:
             if 'action_id' in kwargs.get('update_fields', []):
                 raise ValidationError("action_id cannot be modified after creation.")  # Prevent updates
-            super().save(*args, **kwargs)  # Save to database
-
-
-# Create your models here.
+        
+        super().save(*args, **kwargs)  # Save to database

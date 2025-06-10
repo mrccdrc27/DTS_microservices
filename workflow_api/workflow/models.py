@@ -1,3 +1,4 @@
+# workflow/models.py
 from django.db import models
 from django.core.exceptions import ValidationError
 import uuid
@@ -18,7 +19,8 @@ class Category(models.Model):
         null=True,
         blank=True,
         related_name='subcategories',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        to_field='category_id'  # Reference the UUID field instead of id
     )
 
     def __str__(self):
@@ -36,9 +38,9 @@ class Category(models.Model):
 
 
 class Workflows(models.Model):
-    user_id        = models.IntegerField(null=False)
-    name  = models.CharField(max_length=64, unique=True)
-    description   = models.CharField(max_length=256, null=True)
+    user_id = models.IntegerField(null=False)
+    name = models.CharField(max_length=64, unique=True)
+    description = models.CharField(max_length=256, null=True)
     workflow_id = models.CharField(max_length=64, unique=True, null=True, blank=True)
 
     category = models.ForeignKey(
@@ -46,20 +48,20 @@ class Workflows(models.Model):
         on_delete=models.PROTECT,
         related_name='main_workflows',
         limit_choices_to={'parent__isnull': True},   # <-- only root cats
+        to_field='category_id'  # Reference the UUID field
     )
     sub_category = models.ForeignKey(
         Category,
         on_delete=models.PROTECT,
         related_name='sub_workflows',
         limit_choices_to={'parent__isnull': False},  # <-- only subcats
+        to_field='category_id'  # Reference the UUID field
     )
 
     # timestamp fields
-    status        = models.CharField(max_length=16, choices=STATUS_CHOICES, default="draft")
-    createdAt     = models.DateTimeField(auto_now_add=True)
-    updatedAt     = models.DateTimeField(auto_now=True)
-
-    # is_initialized = models.BooleanField(default=False)
+    status = models.CharField(max_length=16, choices=STATUS_CHOICES, default="draft")
+    createdAt = models.DateTimeField(auto_now_add=True)
+    updatedAt = models.DateTimeField(auto_now=True)
 
     class Meta:
         constraints = [
@@ -79,7 +81,7 @@ class Workflows(models.Model):
         # Enforce sub_category.parent is not None
         if self.sub_category and self.sub_category.parent is None:
             raise ValidationError({
-                'sub_category': 'Must be aa sub-category (parent is not null).'
+                'sub_category': 'Must be a sub-category (parent is not null).'
             })
 
     def save(self, *args, **kwargs):
@@ -92,4 +94,3 @@ class Workflows(models.Model):
 
         self.full_clean()  # Validate model fields
         super().save(*args, **kwargs)  # Save to database
-

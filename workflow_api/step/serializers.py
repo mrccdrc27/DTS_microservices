@@ -5,11 +5,6 @@ from action.models import Actions
 
 
 class StepSerializer(serializers.ModelSerializer):
-
-    role_id = serializers.SlugRelatedField(
-        slug_field='name',
-        queryset=Roles.objects.all()
-    )
     is_initialized = serializers.SerializerMethodField()
     class Meta:
         model = Steps

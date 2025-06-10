@@ -31,7 +31,7 @@ class WorkflowSerializer(serializers.ModelSerializer):
             "description", 
             "category", 
             "sub_category",
-            "workflow_id"
+            "workflow_id",
         )
 
 
@@ -95,34 +95,34 @@ from role.models import Roles
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'name', 'parent']
+        fields = ['category_id', 'name', 'parent']
 
 
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Roles
-        fields = ['id', 'name', 'description']
+        fields = ['role_id', 'name', 'description']  # Changed from 'id' to 'role_id'
 
 
 class StepSerializer(serializers.ModelSerializer):
     class Meta:
         model = Steps
         fields = [
-            'id', 'name', 'description', 'order',
-            'is_initialized', 'created_at', 'updated_at', 'role_id'
+            'step_id', 'name', 'description', 'order',  # Changed from 'id' to 'step_id'
+            'is_initialized', 'created_at', 'updated_at', 'role_id', 'workflow_id'
         ]
 
 
 class StepTransitionSerializer(serializers.ModelSerializer):
     class Meta:
         model = StepTransition
-        fields = ['id', 'from_step_id', 'to_step_id', 'action_id']
+        fields = ['transition_id', 'from_step_id', 'to_step_id', 'action_id']  # Changed from 'id' to 'transition_id'
 
 
 class ActionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actions
-        fields = ['id', 'name', 'description']
+        fields = ['action_id', 'name', 'description']  # Changed from 'id' to 'action_id'
 
 
 class WorkflowAggregatedSerializer(serializers.ModelSerializer):
@@ -132,7 +132,7 @@ class WorkflowAggregatedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workflows
         fields = [
-            'id', 'workflow_id', 'user_id', 'name', 'description',
+            'workflow_id', 'user_id', 'name', 'description',  # Removed 'id', kept 'workflow_id' as primary reference
             'status', 'createdAt', 'updatedAt',
             'category', 'sub_category'
         ]
@@ -142,17 +142,19 @@ class FullWorkflowSerializer(serializers.Serializer):
     workflow = serializers.SerializerMethodField()
 
     def get_workflow(self, obj: Workflows):
-        steps = Steps.objects.filter(workflow_id=obj)
-        step_ids = steps.values_list('id', flat=True)
+        # Filter by workflow_id (UUID field) instead of the object itself
+        steps = Steps.objects.filter(workflow_id=obj.workflow_id)
+        step_ids = steps.values_list('step_id', flat=True)  # Use step_id instead of id
 
+        # Filter transitions by step UUIDs
         transitions = StepTransition.objects.filter(from_step_id__in=step_ids)
         action_ids = transitions.values_list('action_id', flat=True)
         role_ids = steps.values_list('role_id', flat=True).distinct()
 
         return {
             **WorkflowAggregatedSerializer(obj).data,
-            "role": RoleSerializer(Roles.objects.filter(id__in=role_ids).first()).data if role_ids else None,
+            "role": RoleSerializer(Roles.objects.filter(role_id__in=role_ids).first()).data if role_ids else None,  # Filter by role_id
             "steps": StepSerializer(steps, many=True).data,
             "transitions": StepTransitionSerializer(transitions, many=True).data,
-            "actions": ActionSerializer(Actions.objects.filter(id__in=action_ids), many=True).data,
+            "actions": ActionSerializer(Actions.objects.filter(action_id__in=action_ids), many=True).data,  # Filter by action_id
         }

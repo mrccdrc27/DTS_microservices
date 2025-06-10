@@ -14,7 +14,6 @@ class Roles(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
 
-
     def save(self, *args, **kwargs):
         if not self.pk:  # Only enforce immutability on creation
             if not self.role_id:
@@ -23,6 +22,4 @@ class Roles(models.Model):
             if 'role_id' in kwargs.get('update_fields', []):
                 raise ValidationError("role_id cannot be modified after creation.")  # Prevent updates
 
-        super().save(*args, **kwargs)  # Save to databa
-
-
+        super().save(*args, **kwargs)  # Save to database
