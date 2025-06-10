@@ -6,8 +6,8 @@ from task.models import Task
 def allocate_task_for_ticket(ticket):
     """
     Create Tasks for every Workflows entry whose
-    mainCategory.name == ticket.category (case‐insensitive)
-    AND subCategory.name == ticket.subcategory.
+    category.name == ticket.category (case‐insensitive)
+    AND sub_category.name == ticket.subcategory.
     Returns True if at least one Task was created (or already existed).
     """
     cat = ticket.category.strip()
@@ -18,8 +18,8 @@ def allocate_task_for_ticket(ticket):
 
     # find matching workflows directly by name
     workflows = Workflows.objects.filter(
-        mainCategory__name__iexact=cat,
-        subCategory__name__iexact=sub
+        category__name__iexact=cat,
+        sub_category__name__iexact=sub
     )
 
     created_any = False

@@ -23,17 +23,17 @@ class Category(models.Model):
 
 
 class Workflows(models.Model):
-    userID        = models.IntegerField(null=False)
-    workflowName  = models.CharField(max_length=64, unique=True)
+    user_id        = models.IntegerField(null=False)
+    name  = models.CharField(max_length=64, unique=True)
     description   = models.CharField(max_length=256, null=True)
 
-    mainCategory = models.ForeignKey(
+    category = models.ForeignKey(
         Category,
         on_delete=models.PROTECT,
         related_name='main_workflows',
         limit_choices_to={'parent__isnull': True},   # <-- only root cats
     )
-    subCategory = models.ForeignKey(
+    sub_category = models.ForeignKey(
         Category,
         on_delete=models.PROTECT,
         related_name='sub_workflows',
@@ -43,27 +43,27 @@ class Workflows(models.Model):
     status        = models.CharField(max_length=16, choices=STATUS_CHOICES, default="draft")
     createdAt     = models.DateTimeField(auto_now_add=True)
     updatedAt     = models.DateTimeField(auto_now=True)
-    isInitialized = models.BooleanField(default=False)
+    # is_initialized = models.BooleanField(default=False)
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['mainCategory', 'subCategory'],
+                fields=['category', 'sub_category'],
                 name='unique_main_sub_per_workflow'
             ),
         ]
 
     def clean(self):
-        # Enforce mainCategory.parent is None
-        if self.mainCategory and self.mainCategory.parent is not None:
+        # Enforce category.parent is None
+        if self.category and self.category.parent is not None:
             raise ValidationError({
-                'mainCategory': 'Must be a top-level category (parent is null).'
+                'category': 'Must be a top-level category (parent is null).'
             })
 
-        # Enforce subCategory.parent is not None
-        if self.subCategory and self.subCategory.parent is None:
+        # Enforce sub_category.parent is not None
+        if self.sub_category and self.sub_category.parent is None:
             raise ValidationError({
-                'subCategory': 'Must be a sub-category (parent is not null).'
+                'sub_category': 'Must be aa sub-category (parent is not null).'
             })
 
     def save(self, *args, **kwargs):

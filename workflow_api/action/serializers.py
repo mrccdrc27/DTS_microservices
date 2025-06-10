@@ -6,7 +6,7 @@ class ActionSerializer(serializers.ModelSerializer):
         model = Actions
         fields = (
             "id",
-            "actionName",
+            "name",
             "description"
         )
 
@@ -15,7 +15,7 @@ class ActionRegister(serializers.ModelSerializer):
         model = Actions
         fields = (
             "id",
-            "actionName",
+            "name",
             "description"
         )
 

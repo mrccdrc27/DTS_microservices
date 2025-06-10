@@ -1,17 +1,24 @@
 from django.db import models
-from role.models import Positions
+from role.models import Roles
 from action.models import Actions
 from django.core.exceptions import ValidationError
 
 class Steps(models.Model):
-    workflow = models.ForeignKey('workflow.Workflows', on_delete=models.CASCADE)
-    position = models.ForeignKey(Positions, on_delete=models.PROTECT)
-    stepName = models.CharField(max_length=64, unique=True)
+    # foreign keys
+    workflow_id = models.ForeignKey('workflow.Workflows', on_delete=models.CASCADE)
+    role_id = models.ForeignKey(Roles, on_delete=models.PROTECT)
+
+    # steps details
+    name = models.CharField(max_length=64, unique=True)
     description = models.CharField(max_length=256, null=True)
-    isInitialized = models.BooleanField(default=False)
     order = models.PositiveIntegerField(default=0)
-    createdAt = models.DateTimeField(auto_now_add=True)
-    updatedAt = models.DateTimeField(auto_now=True)
+
+    # flags
+    is_initialized = models.BooleanField(default=False)
+
+    # timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['order']
@@ -23,31 +30,22 @@ class Steps(models.Model):
         # Optional: only if you need to reference it somewhere dynamically
         from workflow.models import Workflows
         return Workflows.objects.first()
-
-# class StepTransition(models.Model):
-#     from_step = models.ForeignKey(Steps, related_name='outgoing_transitions', on_delete=models.CASCADE, null=True)
-#     to_step = models.ForeignKey(Steps, related_name='incoming_transitions', on_delete=models.CASCADE, null=True)
-#     action  = models.ForeignKey(Actions, on_delete=models.PROTECT, null=True)
-    
-#         # action must be unique for each transition
-#         # 
-
 class StepTransition(models.Model):
-    from_step = models.ForeignKey(
+    from_step_id = models.ForeignKey(
         Steps,
         related_name='outgoing_transitions',
         on_delete=models.CASCADE,
         null=True,
         blank=True
     )
-    to_step = models.ForeignKey(
+    to_step_id = models.ForeignKey(
         Steps,
         related_name='incoming_transitions',
         on_delete=models.CASCADE,
         null=True,
         blank=True
     )
-    action = models.ForeignKey(
+    action_id = models.ForeignKey(
         Actions,
         on_delete=models.CASCADE,
         null=True,
@@ -58,7 +56,7 @@ class StepTransition(models.Model):
         constraints = [
             # this is redundant if you use unique=True above, but shown here
             models.UniqueConstraint(
-                fields=['action'],
+                fields=['action_id'],
                 name='unique_action_per_transition'
             )
         ]
@@ -67,12 +65,11 @@ class StepTransition(models.Model):
         super().clean()
 
         # 1) No self-loop
-        if self.from_step and self.to_step and self.from_step_id == self.to_step_id:
+        if self.from_step_id and self.to_step_id and self.from_step_id == self.to_step_id:
             raise ValidationError("from_step and to_step must be different")
-
-        # 2) Same-workflow guard
-        if self.from_step and self.to_step and (
-            self.from_step.workflow_id != self.to_step.workflow_id
+        # 2) Same-workflow guard - Fixed attribute names
+        if self.from_step_id and self.to_step_id and (
+            self.from_step_id.workflow_id != self.to_step_id.workflow_id
         ):
             raise ValidationError("from_step and to_step must belong to the same workflow")
 
@@ -80,10 +77,4 @@ class StepTransition(models.Model):
         # ensure clean() runs on every save
         self.full_clean()
         super().save(*args, **kwargs)
-
-
-class StepActions(models.Model):
-    action = models.ForeignKey(Actions, on_delete=models.CASCADE)
-    step = models.ForeignKey(Steps, on_delete=models.CASCADE)
-
 

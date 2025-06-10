@@ -1,6 +1,6 @@
 from rest_framework import generics
 from rest_framework.exceptions import ValidationError
-from .models import Steps, StepActions
+from .models import Steps
 from .serializers import *
 
 # --- STEPS ---
@@ -19,27 +19,6 @@ class StepDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = StepSerializer
     lookup_field = 'id'
 
-    
-# --- STEP ACTIONS ---
-class StepActionListCreateView(generics.ListCreateAPIView):
-    queryset = StepActions.objects.all()
-    serializer_class = StepActionsSerializer
-
-    def get_queryset(self):
-        step_id = self.request.query_params.get("step", None)
-        if step_id:
-            try:
-                step_id = int(step_id)
-            except ValueError:
-                raise ValidationError({"error": "Invalid Parameters"})
-            return StepActions.objects.filter(step__id=step_id)
-        return StepActions.objects.all()
-
-
-class StepActionDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = StepActions.objects.all()
-    serializer_class = StepActionsSerializer
-    lookup_field = 'id'
 
 # --- STEP TRANSITIONS ---
 class StepTransitionListCreateView(generics.ListCreateAPIView):

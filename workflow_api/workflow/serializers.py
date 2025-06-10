@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from django.db import transaction
 from .models import *
-from step.models import Steps, StepActions
-from role.models import Positions
+from step.models import Steps, StepTransition
+from role.models import Roles
 
 class CategorySerializer(serializers.ModelSerializer):
     parent_name = serializers.CharField(source='parent.name', read_only=True)
@@ -12,43 +12,25 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'parent', 'parent_name']
 
 class WorkflowSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Workflows
-        fields = (
-            "id", "status", "userID", "workflowName",
-            "description", "mainCategory", "subCategory"
-        )
-
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
-        steps = Steps.objects.filter(workflow=instance)
-
-        # Status override logic
-        if steps.exists():
-            all_initialized = all(
-                StepActions.objects.filter(step=step).exists() for step in steps
-            )
-            if all_initialized:
-                data["status"] = "initialized"
-
-        return data
-
-class WorkflowSerializer2(serializers.ModelSerializer):
 
     # Define the main and subcategory fields with appropriate queryset filters
-    mainCategory = serializers.SlugRelatedField(
+    category = serializers.SlugRelatedField(
         slug_field='name',
         queryset=Category.objects.filter(parent__isnull=True)
     )
-    subCategory = serializers.SlugRelatedField(
+    sub_category = serializers.SlugRelatedField(
         slug_field='name',
         queryset=Category.objects.filter(parent__isnull=False)
     )
     class Meta:
         model = Workflows
         fields = (
-            "id", "userID", "workflowName",
-            "description", "mainCategory", "subCategory"
+            "id", 
+            "user_id", 
+            "name",
+            "description", 
+            "category", 
+            "sub_category"
         )
 
         read_only_fields = ("status",)  # Make status read-only
@@ -62,7 +44,10 @@ class WorkflowSerializer2(serializers.ModelSerializer):
         # Override status if all steps have actions
         if steps.exists():
             all_initialized = all(
-                StepActions.objects.filter(step=step).exists() for step in steps
+                StepTransition.objects.filter(
+                    models.Q(from_step_id=step) | models.Q(to_step_id=step)
+                ).exists()
+                for step in steps
             )
             if all_initialized:
                 data["status"] = "initialized"
@@ -72,7 +57,7 @@ class WorkflowSerializer2(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
-        position = Positions.objects.first()
+        position = Roles.objects.first()
         with transaction.atomic():
             # Step 1: Create the workflow
             workflow = Workflows.objects.create(**validated_data)

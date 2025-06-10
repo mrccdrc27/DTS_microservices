@@ -1,9 +1,9 @@
 from django.core.management.base import BaseCommand
 from django.db import transaction, IntegrityError
-from role.models import Positions
+from role.models import Roles
 from action.models import Actions
 from workflow.models import Workflows, Category
-from step.models import Steps, StepActions, StepTransition
+from step.models import Steps, StepTransition
 from django.core.exceptions import ValidationError
 
 
@@ -12,13 +12,13 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         with transaction.atomic():
-            # Seed Positions
+            # Seed Roles (previously Positions)
             for name, uid in [('Requester', 1), ('Reviewer', 2), ('Approver', 3)]:
-                Positions.objects.get_or_create(
-                    positionName=name,
-                    defaults={'userID': uid, 'description': f'{name} role'}
+                Roles.objects.get_or_create(
+                    name=name,
+                    defaults={'user_id': uid, 'description': f'{name} role'}
                 )
-            self.stdout.write(self.style.SUCCESS('Positions seeded.'))
+            self.stdout.write(self.style.SUCCESS('Roles seeded.'))
 
             main_names = ['General Inquiry', 'Technical Issue', 'Billing']
             sub_names = ['Software', 'Hardware', 'Payment']
@@ -34,12 +34,12 @@ class Command(BaseCommand):
 
                     wf_name = f"{main} - {sub}"
                     wf, created = Workflows.objects.get_or_create(
-                        workflowName=wf_name,
+                        name=wf_name,
                         defaults={
-                            'userID': 1,
+                            'user_id': 1,
                             'description': f'{wf_name} workflow',
-                            'mainCategory': main_cat,
-                            'subCategory': sub_cat,
+                            'category': main_cat,
+                            'sub_category': sub_cat,
                             'status': 'draft'
                         }
                     )
@@ -59,48 +59,47 @@ class Command(BaseCommand):
                     for idx, (label, role, _) in enumerate(steps_cfg):
                         step_name = f"{wf_name} - {label}"
                         step, _ = Steps.objects.get_or_create(
-                            workflow=wf,
-                            stepName=step_name,
+                            workflow_id=wf,
+                            name=step_name,
                             defaults={
                                 'description': label,
                                 'order': idx + 1,
-                                'position': Positions.objects.get(positionName=role)
+                                'role_id': Roles.objects.get(name=role)
                             }
                         )
                         step_objs.append(step)
 
-                    # Create actions, step-actions, and transitions
+                    # Create actions and transitions
                     for idx, (label, _, events) in enumerate(steps_cfg):
                         step = step_objs[idx]
                         for event in events:
                             # Unique action per step-event
-                            act_name = f"{step.stepName} - {event}"
+                            act_name = f"{step.name} - {event}"
                             action, _ = Actions.objects.get_or_create(
-                                actionName=act_name,
-                                defaults={'description': f'{event} action on {step.stepName}'}
+                                name=act_name,
+                                defaults={'description': f'{event} action on {step.name}'}
                             )
-                            StepActions.objects.get_or_create(step=step, action=action)
 
                             # Determine transition endpoints
                             if event == 'start':
                                 frm, to = None, step
                             elif event == 'submit':
-                                frm, to = step, step_objs[idx + 1]
+                                frm, to = step, step_objs[idx + 1] if idx + 1 < len(step_objs) else None
                             elif event == 'approve':
-                                frm, to = step, step_objs[idx + 1]
+                                frm, to = step, step_objs[idx + 1] if idx + 1 < len(step_objs) else None
                             elif event == 'reject':
-                                frm, to = step, step_objs[idx - 1]
+                                frm, to = step, step_objs[idx - 1] if idx > 0 else None
                             else:  # complete
                                 frm, to = step, None
 
-                            # Ensure unique(prev_step, action)
+                            # Create transition with updated field names
                             try:
                                 StepTransition.objects.get_or_create(
-                                    from_step=frm,
-                                    to_step=to,
-                                    action=action
+                                    from_step_id=frm,
+                                    to_step_id=to,
+                                    action_id=action
                                 )
-                            except ValidationError:
+                            except (ValidationError, IntegrityError):
                                 # Skip invalid or duplicate transitions
                                 continue
 
