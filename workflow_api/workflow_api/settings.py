@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'step',
     'role',
     'action',
+    'step_instance',
+    'action_log',
     # reference apps
     'task',
     'tickets',

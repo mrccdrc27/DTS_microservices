@@ -1,6 +1,10 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+import uuid
 
 class Task(models.Model):
+    task_id = models.CharField(max_length=64, unique=True, null=True, blank=True)  # New UUID field
+
     ticket_id = models.ForeignKey(
         'tickets.WorkflowTicket',  # Assuming Ticket model is in tickets app
         on_delete=models.CASCADE,
@@ -21,3 +25,13 @@ class Task(models.Model):
 
     def __str__(self):
         return f'Task {self.id} for Ticket ID: {self.ticket_id}'
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Only enforce immutability on creation
+            if not self.task_id:
+                self.task_id = str(uuid.uuid4())  # Assign a unique identifier if missing
+        else:
+            if 'task_id' in kwargs.get('update_fields', []):
+                raise ValidationError("task_id cannot be modified after creation.")  # Prevent updates
+        
+        super().save(*args, **kwargs)
