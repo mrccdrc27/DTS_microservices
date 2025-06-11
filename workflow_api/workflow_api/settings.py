@@ -221,3 +221,10 @@ LOGGING = {
 }
 
 # Pagination settings
+
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+CELERY_TASK_DEFAULT_QUEUE = 'ticket_tasks'
+CELERY_TASK_DEFAULT_DELIVERY_MODE = 'persistent'
+CELERY_TASK_ACKS_LATE = True
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'

@@ -121,6 +121,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 CELERY_TASK_ROUTES = {
     'listener_app.tasks.receive_workflow_update': {
         'queue': 'workflow_updates',

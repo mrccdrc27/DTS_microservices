@@ -21,3 +21,8 @@ pip install celery
  
 
 docker run -d --name redis -p 6379:6379 redis
+<!-- celery does not need application running, celery worker is enough -->
+celery -A your_application worker --pool=solo --loglevel=info
+
+celery -A workflow_api worker -Q workflow_updates --loglevel=info
+celery -A workflow_api worker --pool=solo --loglevel=info -Q workflow_ticket_queue
