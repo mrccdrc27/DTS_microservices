@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 set -e # Exit on any error
@@ -12,6 +13,14 @@ setup_env() {
     fi
 }
 setup_env
+
+# Start task_service
+echo "Starting task_service..."
+cd task_service
+python manage.py flush --no-input
+python manage.py migrate
+python manage.py runserver 0.0.0.0:4000 &
+cd ..
 
 # Start workflow_api
 echo "Starting workflow_api..."
@@ -29,12 +38,6 @@ python manage.py migrate
 python manage.py runserver 0.0.0.0:3000 &
 cd ..
 
-# Start task_service
-echo "Starting task_service..."
-cd task_service
-python manage.py migrate
-python manage.py runserver 0.0.0.0:4000 &
-cd ..
 
 # Start ticket_service
 echo "Starting ticket_service..."
