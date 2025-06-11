@@ -158,3 +158,16 @@ class FullWorkflowSerializer(serializers.Serializer):
             "transitions": StepTransitionSerializer(transitions, many=True).data,
             "actions": ActionSerializer(Actions.objects.filter(action_id__in=action_ids), many=True).data,  # Filter by action_id
         }
+    
+class WorkflowDeserializer(serializers.Serializer):
+    workflow_id = serializers.UUIDField()
+    user_id = serializers.UUIDField()
+    name = serializers.CharField()
+    description = serializers.CharField(allow_blank=True)
+    status = serializers.CharField()
+    category = CategorySerializer()
+    sub_category = CategorySerializer()
+    role = RoleSerializer(required=False, allow_null=True)
+    steps = StepSerializer(many=True)
+    transitions = StepTransitionSerializer(many=True)
+    actions = ActionSerializer(many=True)

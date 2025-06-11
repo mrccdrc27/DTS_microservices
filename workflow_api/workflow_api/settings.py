@@ -200,30 +200,44 @@ SIMPLE_JWT = {
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': 'workflow_service.log',
-        },
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
+
+    'formatters': {
+        'verbose': {
+            'format': '{asctime} [{levelname}] {name} — {message}',
+            'style': '{',
         },
     },
+
+    'handlers': {
+        'workflow_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'workflow.log'),  # logs/workflow.log
+            'formatter': 'verbose',
+        },
+    },
+
     'loggers': {
-        'workflow_service.views': {
-            'handlers': ['file', 'console'],
-            'level': 'INFO',
-            'propagate': True,
+        'workflow': {
+            'handlers': ['workflow_file'],
+            'level': 'DEBUG',
+            'propagate': False,
         },
     },
 }
 
+
 # Pagination settings
 
+# CELERY_TASK_QUEUES = {
+#     "workflow_send_queue": {
+#         "exchange": "workflow",
+#         "routing_key": "workflow.send",
+#     }
+# }
+
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
-CELERY_TASK_DEFAULT_QUEUE = 'ticket_tasks'
+CELERY_TASK_DEFAULT_QUEUE = 'workflow_send'
 CELERY_TASK_DEFAULT_DELIVERY_MODE = 'persistent'
 CELERY_TASK_ACKS_LATE = True
 CELERY_ACCEPT_CONTENT = ['json']
