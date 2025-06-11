@@ -12,7 +12,6 @@ class Task(models.Model):
         from workflow.models import Workflows
         return Workflows.objects.first()
     
-    
     def get_ticket(self):
         # Optional: only if you need to reference it somewhere dynamically
         from tickets.models import WorkflowTicket

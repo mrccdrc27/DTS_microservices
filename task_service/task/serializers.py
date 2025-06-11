@@ -8,6 +8,6 @@ class TaskSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        # data['ticket_id'] = instance.ticket_id.ticket_id if instance.ticket_id else None
-        data['workflow_id'] = instance.workflow_id.id if instance.workflow_id else None
+        data['ticket_id'] = instance.ticket_id.ticket_id if instance.ticket_id else None
+        data['workflow_id'] = instance.workflow_id.workflow_id if instance.workflow_id else None
         return data

@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Roles
-        fields = ("id", "name", "description")
+        fields = ("role_id", "id", "name", "description")
 
 class PositionRegister(serializers.ModelSerializer):
     class Meta:

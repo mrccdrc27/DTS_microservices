@@ -40,7 +40,7 @@ class StepSerializer(serializers.ModelSerializer):
 class ActionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actions
-        fields = ['id', 'actionName', 'description']
+        fields = ['id', 'name', 'description']
         read_only_fields = ['id']
 
 
@@ -72,7 +72,7 @@ class StepTransitionSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         action_data = validated_data.pop('action_id')
         action, _ = Actions.objects.get_or_create(
-            actionName=action_data.actionName,
+            name=action_data.name,
             defaults={'description': getattr(action_data, 'description', None)}
         )
         return StepTransition.objects.create(action_id=action, **validated_data)
@@ -81,7 +81,7 @@ class StepTransitionSerializer(serializers.ModelSerializer):
         action_data = validated_data.pop('action_id', None)
         if action_data:
             action, _ = Actions.objects.get_or_create(
-                actionName=action_data.actionName,
+                name=action_data.name,
                 defaults={'description': getattr(action_data, 'description', None)}
             )
             instance.action_id = action

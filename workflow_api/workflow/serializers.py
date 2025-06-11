@@ -26,26 +26,23 @@ class WorkflowSerializer(serializers.ModelSerializer):
         model = Workflows
         fields = (
             "id",
+            "workflow_id",
             "user_id", 
             "name",
-            "description", 
+            "description",
             "category", 
             "sub_category",
-            "workflow_id",
+            "status", 
+            "is_published",
         )
-
-
-
         read_only_fields = ("status",
                             "workflow_id", )  # Make status read-only
 
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
-        steps = Steps.objects.filter(workflow_id=instance)
-
-        data["status"] = instance.status
-
-        # Override status if all steps have actions
+    def update_status(self, workflow):
+        """
+        Determines whether a workflow should be marked as 'initialized'.
+        """
+        steps = Steps.objects.filter(workflow_id=workflow)
         if steps.exists():
             all_initialized = all(
                 StepTransition.objects.filter(
@@ -53,12 +50,10 @@ class WorkflowSerializer(serializers.ModelSerializer):
                 ).exists()
                 for step in steps
             )
-            if all_initialized:
-                data["status"] = "initialized"
-            else:
-                data["status"] = "draft"
-
-        return data
+            workflow.status = "initialized" if all_initialized else "draft"
+        else:
+            workflow.status = "draft"
+        workflow.save(update_fields=["status"])
 
     def create(self, validated_data):
         position = Roles.objects.first()
@@ -84,6 +79,16 @@ class WorkflowSerializer(serializers.ModelSerializer):
 
             return workflow
         
+    def update(self, instance, validated_data):
+        is_published = validated_data.get("is_published", instance.is_published)
+
+        # If is_published is being set to True, validate status
+        if is_published and instance.status != "initialized":
+            raise serializers.ValidationError(
+                "Workflow must be in 'initialized' state before it can be published."
+            )
+
+        return super().update(instance, validated_data)
 # This code is a Django REST Framework serializer for a workflow management system.
 from rest_framework import serializers
 from .models import Workflows, Category
@@ -153,7 +158,7 @@ class FullWorkflowSerializer(serializers.Serializer):
 
         return {
             **WorkflowAggregatedSerializer(obj).data,
-            "role": RoleSerializer(Roles.objects.filter(role_id__in=role_ids).first()).data if role_ids else None,  # Filter by role_id
+            "roles": RoleSerializer(Roles.objects.filter(role_id__in=role_ids), many=True).data if role_ids else [],
             "steps": StepSerializer(steps, many=True).data,
             "transitions": StepTransitionSerializer(transitions, many=True).data,
             "actions": ActionSerializer(Actions.objects.filter(action_id__in=action_ids), many=True).data,  # Filter by action_id

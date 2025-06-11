@@ -12,7 +12,7 @@ class PositionCreateView(generics.CreateAPIView):
 class PositionListView(generics.ListAPIView):
     queryset = Roles.objects.all()
     serializer_class = RoleSerializer
-class PositionListCreateView(generics.ListCreateAPIView):
+class RoleListCreateView(generics.ListCreateAPIView):
     serializer_class = RoleSerializer
 
     def get_queryset(self):
@@ -21,7 +21,7 @@ class PositionListCreateView(generics.ListCreateAPIView):
             return Roles.objects.filter(id=position_id)
         return Roles.objects.all()
     
-class PositionDetailView(generics.RetrieveUpdateDestroyAPIView):
+class RoleDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Roles.objects.all()
     serializer_class = RoleSerializer
     lookup_field = 'id'

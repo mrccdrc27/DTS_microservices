@@ -3,7 +3,6 @@ from django.db import models
 from django.core.exceptions import ValidationError
 import uuid
 
-
 STATUS_CHOICES = [
     ("draft", "Draft"),
     ("deployed", "Deployed"),
@@ -12,7 +11,7 @@ STATUS_CHOICES = [
 ]
 
 class Category(models.Model):
-    category_id = models.CharField(max_length=64, unique=True, null=True, blank=True)  # Unique identifier for the category
+    category_id = models.CharField(max_length=64, unique=True, null=True, blank=True)
     name = models.CharField(max_length=64, unique=True)
     parent = models.ForeignKey(
         'self',
@@ -20,21 +19,20 @@ class Category(models.Model):
         blank=True,
         related_name='subcategories',
         on_delete=models.CASCADE,
-        to_field='category_id'  # Reference the UUID field instead of id
+        to_field='category_id'
     )
 
     def __str__(self):
         return self.name
-    
+
     def save(self, *args, **kwargs):
-        if not self.pk:  # Only enforce immutability on creation
+        if not self.pk:
             if not self.category_id:
-                self.category_id = str(uuid.uuid4())  # Assign a unique identifier if missing
+                self.category_id = str(uuid.uuid4())
         else:
             if 'category_id' in kwargs.get('update_fields', []):
-                raise ValidationError("category_id cannot be modified after creation.")  # Prevent updates
-
-        super().save(*args, **kwargs)  # Save to database
+                raise ValidationError("category_id cannot be modified after creation.")
+        super().save(*args, **kwargs)
 
 
 class Workflows(models.Model):
@@ -47,18 +45,19 @@ class Workflows(models.Model):
         Category,
         on_delete=models.PROTECT,
         related_name='main_workflows',
-        limit_choices_to={'parent__isnull': True},   # <-- only root cats
-        to_field='category_id'  # Reference the UUID field
+        limit_choices_to={'parent__isnull': True},
+        to_field='category_id'
     )
     sub_category = models.ForeignKey(
         Category,
         on_delete=models.PROTECT,
         related_name='sub_workflows',
-        limit_choices_to={'parent__isnull': False},  # <-- only subcats
-        to_field='category_id'  # Reference the UUID field
+        limit_choices_to={'parent__isnull': False},
+        to_field='category_id'
     )
 
-    # timestamp fields
+    is_published = models.BooleanField(default=False)
+
     status = models.CharField(max_length=16, choices=STATUS_CHOICES, default="draft")
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
@@ -72,25 +71,22 @@ class Workflows(models.Model):
         ]
 
     def clean(self):
-        # Enforce category.parent is None
         if self.category and self.category.parent is not None:
             raise ValidationError({
                 'category': 'Must be a top-level category (parent is null).'
             })
-
-        # Enforce sub_category.parent is not None
         if self.sub_category and self.sub_category.parent is None:
             raise ValidationError({
                 'sub_category': 'Must be a sub-category (parent is not null).'
             })
 
     def save(self, *args, **kwargs):
-        if not self.pk:  # Only enforce immutability on creation
+        if not self.pk:
             if not self.workflow_id:
-                self.workflow_id = str(uuid.uuid4())  # Assign a unique identifier if missing
+                self.workflow_id = str(uuid.uuid4())
         else:
             if 'workflow_id' in kwargs.get('update_fields', []):
-                raise ValidationError("workflow_id cannot be modified after creation.")  # Prevent updates
+                raise ValidationError("workflow_id cannot be modified after creation.")
 
-        self.full_clean()  # Validate model fields
-        super().save(*args, **kwargs)  # Save to database
+        self.full_clean()
+        super().save(*args, **kwargs)

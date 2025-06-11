@@ -6,7 +6,8 @@ from django.contrib.auth import authenticate
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Roles
-        fields = ("role_id", "id", "name", "description")
+        fields = ('__all__')
+        read_only_fields = ('role_id', 'createdAt', 'updatedAt')
 
 class PositionRegister(serializers.ModelSerializer):
     class Meta:
@@ -22,7 +23,7 @@ class PositionRegister(serializers.ModelSerializer):
 
     def validate(self, attrs):
         name = attrs.get("name") 
-        if len(name) < 8:
+        if len(name) < 4:
             raise serializers.ValidationError(
                 "name must be greater than 8 characters"
             )

@@ -13,11 +13,12 @@ setup_env() {
 }
 setup_env
 
-# Start workflow_service
-Start workflow_service
-echo "Starting workflow_service..."
-cd workflow_service
+# Start workflow_api
+echo "Starting workflow_api..."
+cd workflow_api
 python manage.py migrate
+python manage.py flush --no-input
+python manage.py seed_workflows
 python manage.py runserver 0.0.0.0:2000 &
 cd ..
 
@@ -28,6 +29,13 @@ python manage.py migrate
 python manage.py runserver 0.0.0.0:3000 &
 cd ..
 
+# Start task_service
+echo "Starting task_service..."
+cd task_service
+python manage.py migrate
+python manage.py runserver 0.0.0.0:4000 &
+cd ..
+
 # Start ticket_service
 echo "Starting ticket_service..."
 cd ticket_service
@@ -35,7 +43,7 @@ python manage.py flush --no-input
 python manage.py makemigrations
 python manage.py migrate
 python manage.py seed_tickets
-python manage.py runserver 0.0.0.0:4000 &
+python manage.py runserver 0.0.0.0:8000 &
 cd ..
 
 cd ..
