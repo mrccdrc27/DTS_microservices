@@ -22,3 +22,7 @@ class Roles(models.Model):
                 raise ValidationError("role_id cannot be modified after creation.")  # Prevent updates
 
         super().save(*args, **kwargs)  # Save to database
+
+    
+    def __str__(self):
+        return self.name  # 👈 This makes the dropdown and representation user-friendly

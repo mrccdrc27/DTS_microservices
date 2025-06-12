@@ -26,20 +26,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # this issues Access JWT token 
-    path('api/token',
-         jwt_views.TokenObtainPairView.as_view(),
-         name='token_obtain_pair'),
+    path('api/token',jwt_views.TokenObtainPairView.as_view(),name='token_obtain_pair'),
 
     # this issues refresh JWT token 
-    path('api/token/refresh/',
-         jwt_views.TokenRefreshView.as_view(),
-         name = 'token_refresh'),
+    path('api/token/refresh/',jwt_views.TokenRefreshView.as_view(),name = 'token_refresh'),
 
     # this route takes all from accounts/urls.py under the /api endpoint
     path("api/", include("accounts.urls")),
     path("api/auth", include("accounts.urls")),
-    path('reset-password/<uidb64>/<token>/', views.PasswordTokenCheckAPI.as_view(), name='password-reset-confirm'),
-    path("api/role", include("role.urls"))
+    path('api/role/', include("role.urls"))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

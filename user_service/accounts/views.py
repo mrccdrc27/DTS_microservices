@@ -1,6 +1,4 @@
-# Create your views here.
 from rest_framework import generics
-
 from rest_framework.views import APIView
 from django.shortcuts import render
 from rest_framework.generics import GenericAPIView, RetrieveAPIView
@@ -9,50 +7,41 @@ from .serializers import *
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from rest_framework.response import Response
 from rest_framework import status, permissions
-
+from .serializers import VerifyLoginOTPSerializer
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
 from .models import CustomUser
 from .serializers import RequestPasswordResetSerializer, PasswordResetConfirmSerializer
-from rest_framework.generics import GenericAPIView
-
-
-from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-
 from .serializers import InviteUserSerializer
 from .models import PendingRegistration
 from django.urls import reverse
-
 from rest_framework.generics import CreateAPIView
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
-from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import update_session_auth_hash
-
-# views.py
-from rest_framework import status, permissions
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from django.contrib.auth import get_user_model
 from .serializers import UserActivationSerializer
-
-from .models import CustomUser
+from django.utils.crypto import get_random_string
+from django.core.cache import cache
 from .serializers import CustomUserSerializer
-from rest_framework import generics
-from .models import PendingRegistration
 from .serializers import PendingRegistrationSerializer
 from django.utils import timezone
+from django.core.mail import send_mail
+from urllib.parse import urlencode
+from rest_framework.decorators import api_view
+from django.core import signing
+
+
 User = get_user_model()
 
 
 
 class UserListView(generics.ListAPIView):
     queryset = CustomUser.objects.all()
-    serializer_class = UserRegistrationSerializer
+    serializer_class = UserInfoSerializer#CompleteRegistrationSerializer 
 
 class PendingRegistrationListView(generics.ListAPIView):
     serializer_class = PendingRegistrationSerializer
@@ -112,23 +101,6 @@ class Verify(APIView):
         return Response(content, status= status.HTTP_200_OK)
 
 
-class UserRegistrationAPIView(GenericAPIView):
-    permission_classes = (AllowAny,)
-    serializer_class = UserRegistrationSerializer
-    
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-
-        # token create
-        token = RefreshToken.for_user(user)
-        token['is_staff'] = user.is_staff
-        data = serializer.data
-        data["tokens"] = {"refresh":str(token),
-                          "access": str(token.access_token)}
-        return Response(data, status= status.HTTP_201_CREATED)
-
 class UserLoginAPIView(GenericAPIView):
     permission_classes = (AllowAny,)
     serializer_class = UserLoginSerializer
@@ -137,16 +109,70 @@ class UserLoginAPIView(GenericAPIView):
         serializer = self.get_serializer(data= request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
-        serializer = CustomUserSerializer(user)
 
-        # token create
+         # Generate 6-digit OTP
+        otp = get_random_string(length=6, allowed_chars='0123456789')
+
+        # Store OTP in cache for 5 minutes
+        cache.set(f'otp:{user.email}', otp, timeout=300)
+
+        # Send OTP email
+        send_mail(
+            subject='Your Login OTP',
+            message=f'Hi {user.email},\n\nYour OTP is: {otp}\n\nThis will expire in 5 minutes.',
+            from_email='Gensys Support Team <no-reply@gensys.com>',
+            recipient_list=[user.email],
+        )
+
+        # Create a signed (temporary) token with the email, expires in 5 minutes
+        temp_token = signing.dumps(user.email, salt='otp-salt')
+
+        return Response({
+            "message": "OTP sent to your email. Please verify to complete login.",
+            "temp_token": temp_token,
+        }, status=200)
+
+class VerifyLoginOTPAPIView(GenericAPIView):
+    serializer_class = VerifyLoginOTPSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        temp_token = serializer.validated_data['temp_token']
+        otp = serializer.validated_data['otp']
+
+        # Decode email from token
+        try:
+            email = signing.loads(temp_token, salt='otp-salt', max_age=300)  # 5 minutes expiry
+        except BadSignature:
+            return Response({'error': 'Invalid or expired token.'}, status=400)
+
+        cached_otp = cache.get(f'otp:{email}')
+        if cached_otp != otp:
+            return Response({'error': 'Invalid or expired OTP.'}, status=400)
+
+        try:
+            user = CustomUser.objects.get(email=email)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User not found.'}, status=404)
+
+
+        # Clear OTP 
+        cache.delete(f'otp:{email}')
+
+        # Create JWT, Reason for removal of JWT on login: Need to verify with 2FA first before issuing JWT.
         token = RefreshToken.for_user(user)
-        data = serializer.data
-        data["tokens"] = {"refresh":str(token),  
-                          "access": str(token.access_token)}
-        data["is_staff"] = user.is_staff
-        return Response(data, status=status.HTTP_200_OK)
-    
+        data = {
+            "refresh": str(token),
+            "access": str(token.access_token),
+            "is_staff": user.is_staff,
+            "user": CustomUserSerializer(user).data
+        }
+
+        return Response(data, status=200)
+
+
 class UserLogoutAPIView(GenericAPIView):
     permission_classes = (IsAuthenticated,)
     
@@ -159,9 +185,6 @@ class UserLogoutAPIView(GenericAPIView):
         except Exception as e:
             return Response(status= status.HTTP_400_BAD_REQUEST)
 
-class UserInfoAPIView(RetrieveAPIView):
-    permission_classes = (IsAuthenticated,)
-    serializer_class = CustomUserSerializer
     
     def get_object(self):
         return self.request.user
@@ -268,9 +291,7 @@ class PasswordResetCompleteAPIView(APIView):
             return Response({"error": "Invalid request"}, status=status.HTTP_400_BAD_REQUEST)
         
 
-from rest_framework.generics import CreateAPIView
-from django.core.mail import send_mail
-from urllib.parse import urlencode
+
 
 class InviteUserView(CreateAPIView):
     # permission_classes = [permissions.IsAdminUser]
@@ -281,7 +302,7 @@ class InviteUserView(CreateAPIView):
         token = str(registration.token)
 
         # FRONTEND URL (change this to your production domain when deployed)
-        frontend_base_url = "http://localhost:1000/register"
+        frontend_base_url = "http://localhost:3000/api/authapi/register/${token}/"
         query_string = urlencode({'token': token})
         url = f"{frontend_base_url}?{query_string}"
 
@@ -303,7 +324,7 @@ class InviteUserView(CreateAPIView):
 
         
 
-from rest_framework.decorators import api_view
+
 @api_view(['GET'])
 def validate_registration_token(request):
     token = request.query_params.get('token')
@@ -318,22 +339,27 @@ def validate_registration_token(request):
         return Response({'valid': False, 'message': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
     
 
-# class RegisterUserView(generics.CreateAPIView):
-#     def post(self, request, token):
-#         data = request.data.copy()
-#         data['token'] = token
-#         serializer = CompleteRegistrationSerializer(data=data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response({"message": "Registration complete."})
-#         return Response(serializer.errors, status=400)
-
-# from rest_framework import generics
-# from .serializers import CompleteRegistrationSerializer
 
 class RegisterUserView(generics.CreateAPIView):
     serializer_class = CompleteRegistrationSerializer
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        result = serializer.save()
+
+        user = result['user']
+        return Response({
+            'user': {
+                'id': user.id,
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'role': user.role,
+            },
+            'refresh': result['refresh'],
+            'access': result['access'],
+        }, status=status.HTTP_201_CREATED)
 
 class ChangePasswordAPIView(APIView):
     permission_classes = [IsAuthenticated]
@@ -344,3 +370,19 @@ class ChangePasswordAPIView(APIView):
             serializer.save()
             return Response({"message": "Password changed successfully."}, status=200)
         return Response(serializer.errors, status=400)
+    
+
+class AccountCreateView(generics.ListCreateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = AccountSerializer
+
+    def get_queryset(self):
+        workflow_id = self.request.query_params.get('workflow')
+        if workflow_id:
+            return CustomUser.objects.filter(workflow__id=workflow_id)
+        return CustomUser.objects.all()
+    
+class AccountDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = AccountSerializer
+    lookup_field = 'id'

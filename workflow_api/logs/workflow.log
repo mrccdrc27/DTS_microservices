@@ -25075,3 +25075,894 @@
 2025-06-12 19:22:49,958 [DEBUG] workflow.utils — Step c80db3a5-81b8-4e03-a630-d75166f86eda is fully initialized.
 2025-06-12 19:22:49,958 [INFO] workflow.utils — Workflow 'Billing - Payment' is initialized.
 2025-06-12 19:22:49,958 [INFO] workflow.utils — Setting workflow 'Billing - Payment' status to: initialized
+2025-06-12 19:44:44,467 [INFO] workflow.utils — >>> Computing status for workflow_id: 8d15cadc-764a-4638-943c-165b6cd33bd1
+2025-06-12 19:44:44,467 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Software' (8d15cadc-764a-4638-943c-165b6cd33bd1)
+2025-06-12 19:44:44,468 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Software
+2025-06-12 19:44:44,469 [DEBUG] workflow.utils — Checking step: 0835ae30-ab32-4a7b-bff5-e4388ed50ca4
+2025-06-12 19:44:44,470 [WARNING] workflow.utils — Step 0835ae30-ab32-4a7b-bff5-e4388ed50ca4 has no transitions at all.
+2025-06-12 19:44:44,470 [WARNING] workflow.utils — Step 0835ae30-ab32-4a7b-bff5-e4388ed50ca4 failed initialization check.
+2025-06-12 19:44:44,470 [INFO] workflow.utils — Setting workflow 'General Inquiry - Software' status to: draft
+2025-06-12 19:44:44,471 [INFO] workflow.utils — >>> Computing status for workflow_id: 8d15cadc-764a-4638-943c-165b6cd33bd1
+2025-06-12 19:44:44,471 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Software' (8d15cadc-764a-4638-943c-165b6cd33bd1)
+2025-06-12 19:44:44,471 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Software
+2025-06-12 19:44:44,472 [DEBUG] workflow.utils — Checking step: 0835ae30-ab32-4a7b-bff5-e4388ed50ca4
+2025-06-12 19:44:44,473 [WARNING] workflow.utils — Step 0835ae30-ab32-4a7b-bff5-e4388ed50ca4 has no transitions at all.
+2025-06-12 19:44:44,473 [WARNING] workflow.utils — Step 0835ae30-ab32-4a7b-bff5-e4388ed50ca4 failed initialization check.
+2025-06-12 19:44:44,473 [INFO] workflow.utils — Setting workflow 'General Inquiry - Software' status to: draft
+2025-06-12 19:44:44,474 [INFO] workflow.utils — >>> Computing status for workflow_id: 8d15cadc-764a-4638-943c-165b6cd33bd1
+2025-06-12 19:44:44,474 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Software' (8d15cadc-764a-4638-943c-165b6cd33bd1)
+2025-06-12 19:44:44,475 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Software
+2025-06-12 19:44:44,475 [DEBUG] workflow.utils — Checking step: 0835ae30-ab32-4a7b-bff5-e4388ed50ca4
+2025-06-12 19:44:44,476 [WARNING] workflow.utils — Step 0835ae30-ab32-4a7b-bff5-e4388ed50ca4 has no transitions at all.
+2025-06-12 19:44:44,476 [WARNING] workflow.utils — Step 0835ae30-ab32-4a7b-bff5-e4388ed50ca4 failed initialization check.
+2025-06-12 19:44:44,476 [INFO] workflow.utils — Setting workflow 'General Inquiry - Software' status to: draft
+2025-06-12 19:44:44,479 [INFO] workflow.utils — >>> Computing status for workflow_id: 8d15cadc-764a-4638-943c-165b6cd33bd1
+2025-06-12 19:44:44,479 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Software' (8d15cadc-764a-4638-943c-165b6cd33bd1)
+2025-06-12 19:44:44,480 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Software
+2025-06-12 19:44:44,480 [DEBUG] workflow.utils — Checking step: 0835ae30-ab32-4a7b-bff5-e4388ed50ca4
+2025-06-12 19:44:44,482 [DEBUG] workflow.utils — Transition 83b6951b-bf27-4ab5-8524-2e94f8707c01 initialized: True
+2025-06-12 19:44:44,482 [DEBUG] workflow.utils — Step 0835ae30-ab32-4a7b-bff5-e4388ed50ca4 is fully initialized.
+2025-06-12 19:44:44,482 [DEBUG] workflow.utils — Checking step: 6cba4e0d-9793-407e-bb70-9e9dd1139357
+2025-06-12 19:44:44,482 [WARNING] workflow.utils — Step 6cba4e0d-9793-407e-bb70-9e9dd1139357 has no transitions at all.
+2025-06-12 19:44:44,482 [WARNING] workflow.utils — Step 6cba4e0d-9793-407e-bb70-9e9dd1139357 failed initialization check.
+2025-06-12 19:44:44,482 [INFO] workflow.utils — Setting workflow 'General Inquiry - Software' status to: draft
+2025-06-12 19:44:44,485 [INFO] workflow.utils — >>> Computing status for workflow_id: 8d15cadc-764a-4638-943c-165b6cd33bd1
+2025-06-12 19:44:44,485 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Software' (8d15cadc-764a-4638-943c-165b6cd33bd1)
+2025-06-12 19:44:44,486 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Software
+2025-06-12 19:44:44,486 [DEBUG] workflow.utils — Checking step: 0835ae30-ab32-4a7b-bff5-e4388ed50ca4
+2025-06-12 19:44:44,487 [DEBUG] workflow.utils — Transition a9b0fbe4-feac-496f-99f6-0c9d7c673b10 initialized: True
+2025-06-12 19:44:44,488 [DEBUG] workflow.utils — Transition 83b6951b-bf27-4ab5-8524-2e94f8707c01 initialized: True
+2025-06-12 19:44:44,488 [DEBUG] workflow.utils — Step 0835ae30-ab32-4a7b-bff5-e4388ed50ca4 is fully initialized.
+2025-06-12 19:44:44,488 [DEBUG] workflow.utils — Checking step: 6cba4e0d-9793-407e-bb70-9e9dd1139357
+2025-06-12 19:44:44,489 [DEBUG] workflow.utils — Transition a9b0fbe4-feac-496f-99f6-0c9d7c673b10 initialized: True
+2025-06-12 19:44:44,489 [DEBUG] workflow.utils — Step 6cba4e0d-9793-407e-bb70-9e9dd1139357 is fully initialized.
+2025-06-12 19:44:44,489 [DEBUG] workflow.utils — Checking step: 889c420b-dc1b-4453-95d0-f9b97a08388b
+2025-06-12 19:44:44,490 [WARNING] workflow.utils — Step 889c420b-dc1b-4453-95d0-f9b97a08388b has no transitions at all.
+2025-06-12 19:44:44,490 [WARNING] workflow.utils — Step 889c420b-dc1b-4453-95d0-f9b97a08388b failed initialization check.
+2025-06-12 19:44:44,490 [INFO] workflow.utils — Setting workflow 'General Inquiry - Software' status to: draft
+2025-06-12 19:44:44,492 [INFO] workflow.utils — >>> Computing status for workflow_id: 8d15cadc-764a-4638-943c-165b6cd33bd1
+2025-06-12 19:44:44,492 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Software' (8d15cadc-764a-4638-943c-165b6cd33bd1)
+2025-06-12 19:44:44,493 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Software
+2025-06-12 19:44:44,493 [DEBUG] workflow.utils — Checking step: 0835ae30-ab32-4a7b-bff5-e4388ed50ca4
+2025-06-12 19:44:44,495 [DEBUG] workflow.utils — Transition a9b0fbe4-feac-496f-99f6-0c9d7c673b10 initialized: True
+2025-06-12 19:44:44,495 [DEBUG] workflow.utils — Transition 83b6951b-bf27-4ab5-8524-2e94f8707c01 initialized: True
+2025-06-12 19:44:44,495 [DEBUG] workflow.utils — Step 0835ae30-ab32-4a7b-bff5-e4388ed50ca4 is fully initialized.
+2025-06-12 19:44:44,495 [DEBUG] workflow.utils — Checking step: 6cba4e0d-9793-407e-bb70-9e9dd1139357
+2025-06-12 19:44:44,497 [DEBUG] workflow.utils — Transition 195126fa-58d9-4302-a6b0-18e7c5b39ec1 initialized: True
+2025-06-12 19:44:44,497 [DEBUG] workflow.utils — Transition a9b0fbe4-feac-496f-99f6-0c9d7c673b10 initialized: True
+2025-06-12 19:44:44,497 [DEBUG] workflow.utils — Step 6cba4e0d-9793-407e-bb70-9e9dd1139357 is fully initialized.
+2025-06-12 19:44:44,497 [DEBUG] workflow.utils — Checking step: 889c420b-dc1b-4453-95d0-f9b97a08388b
+2025-06-12 19:44:44,498 [DEBUG] workflow.utils — Transition 195126fa-58d9-4302-a6b0-18e7c5b39ec1 initialized: True
+2025-06-12 19:44:44,499 [DEBUG] workflow.utils — Step 889c420b-dc1b-4453-95d0-f9b97a08388b is fully initialized.
+2025-06-12 19:44:44,499 [INFO] workflow.utils — Workflow 'General Inquiry - Software' is initialized.
+2025-06-12 19:44:44,499 [INFO] workflow.utils — Setting workflow 'General Inquiry - Software' status to: initialized
+2025-06-12 19:44:44,501 [INFO] workflow.signals — Workflow 8d15cadc-764a-4638-943c-165b6cd33bd1 is initialized. No external sync triggered.
+2025-06-12 19:44:44,546 [INFO] workflow.utils — >>> Computing status for workflow_id: 8d15cadc-764a-4638-943c-165b6cd33bd1
+2025-06-12 19:44:44,547 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Software' (8d15cadc-764a-4638-943c-165b6cd33bd1)
+2025-06-12 19:44:44,547 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Software
+2025-06-12 19:44:44,548 [DEBUG] workflow.utils — Checking step: 0835ae30-ab32-4a7b-bff5-e4388ed50ca4
+2025-06-12 19:44:44,549 [DEBUG] workflow.utils — Transition a9b0fbe4-feac-496f-99f6-0c9d7c673b10 initialized: True
+2025-06-12 19:44:44,550 [DEBUG] workflow.utils — Transition 83b6951b-bf27-4ab5-8524-2e94f8707c01 initialized: True
+2025-06-12 19:44:44,551 [DEBUG] workflow.utils — Transition da24736b-a6b1-458a-b1d4-842a82a0fa58 initialized: True
+2025-06-12 19:44:44,551 [DEBUG] workflow.utils — Step 0835ae30-ab32-4a7b-bff5-e4388ed50ca4 is fully initialized.
+2025-06-12 19:44:44,551 [DEBUG] workflow.utils — Checking step: 6cba4e0d-9793-407e-bb70-9e9dd1139357
+2025-06-12 19:44:44,552 [DEBUG] workflow.utils — Transition 195126fa-58d9-4302-a6b0-18e7c5b39ec1 initialized: True
+2025-06-12 19:44:44,552 [DEBUG] workflow.utils — Transition da24736b-a6b1-458a-b1d4-842a82a0fa58 initialized: True
+2025-06-12 19:44:44,553 [DEBUG] workflow.utils — Transition a9b0fbe4-feac-496f-99f6-0c9d7c673b10 initialized: True
+2025-06-12 19:44:44,553 [DEBUG] workflow.utils — Step 6cba4e0d-9793-407e-bb70-9e9dd1139357 is fully initialized.
+2025-06-12 19:44:44,553 [DEBUG] workflow.utils — Checking step: 889c420b-dc1b-4453-95d0-f9b97a08388b
+2025-06-12 19:44:44,554 [DEBUG] workflow.utils — Transition 195126fa-58d9-4302-a6b0-18e7c5b39ec1 initialized: True
+2025-06-12 19:44:44,554 [DEBUG] workflow.utils — Step 889c420b-dc1b-4453-95d0-f9b97a08388b is fully initialized.
+2025-06-12 19:44:44,554 [INFO] workflow.utils — Workflow 'General Inquiry - Software' is initialized.
+2025-06-12 19:44:44,554 [INFO] workflow.utils — Setting workflow 'General Inquiry - Software' status to: initialized
+2025-06-12 19:44:44,556 [INFO] workflow.utils — >>> Computing status for workflow_id: 8d15cadc-764a-4638-943c-165b6cd33bd1
+2025-06-12 19:44:44,557 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Software' (8d15cadc-764a-4638-943c-165b6cd33bd1)
+2025-06-12 19:44:44,557 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Software
+2025-06-12 19:44:44,558 [DEBUG] workflow.utils — Checking step: 0835ae30-ab32-4a7b-bff5-e4388ed50ca4
+2025-06-12 19:44:44,559 [DEBUG] workflow.utils — Transition a9b0fbe4-feac-496f-99f6-0c9d7c673b10 initialized: True
+2025-06-12 19:44:44,560 [DEBUG] workflow.utils — Transition 83b6951b-bf27-4ab5-8524-2e94f8707c01 initialized: True
+2025-06-12 19:44:44,560 [DEBUG] workflow.utils — Transition da24736b-a6b1-458a-b1d4-842a82a0fa58 initialized: True
+2025-06-12 19:44:44,560 [DEBUG] workflow.utils — Step 0835ae30-ab32-4a7b-bff5-e4388ed50ca4 is fully initialized.
+2025-06-12 19:44:44,560 [DEBUG] workflow.utils — Checking step: 6cba4e0d-9793-407e-bb70-9e9dd1139357
+2025-06-12 19:44:44,561 [DEBUG] workflow.utils — Transition 195126fa-58d9-4302-a6b0-18e7c5b39ec1 initialized: True
+2025-06-12 19:44:44,562 [DEBUG] workflow.utils — Transition da24736b-a6b1-458a-b1d4-842a82a0fa58 initialized: True
+2025-06-12 19:44:44,562 [DEBUG] workflow.utils — Transition a9b0fbe4-feac-496f-99f6-0c9d7c673b10 initialized: True
+2025-06-12 19:44:44,562 [DEBUG] workflow.utils — Step 6cba4e0d-9793-407e-bb70-9e9dd1139357 is fully initialized.
+2025-06-12 19:44:44,562 [DEBUG] workflow.utils — Checking step: 889c420b-dc1b-4453-95d0-f9b97a08388b
+2025-06-12 19:44:44,564 [DEBUG] workflow.utils — Transition 653a3f31-f42d-4b21-a146-6881d7ff9358 initialized: True
+2025-06-12 19:44:44,564 [DEBUG] workflow.utils — Transition 195126fa-58d9-4302-a6b0-18e7c5b39ec1 initialized: True
+2025-06-12 19:44:44,564 [DEBUG] workflow.utils — Step 889c420b-dc1b-4453-95d0-f9b97a08388b is fully initialized.
+2025-06-12 19:44:44,564 [INFO] workflow.utils — Workflow 'General Inquiry - Software' is initialized.
+2025-06-12 19:44:44,564 [INFO] workflow.utils — Setting workflow 'General Inquiry - Software' status to: initialized
+2025-06-12 19:44:44,567 [INFO] workflow.utils — >>> Computing status for workflow_id: 927ef4e2-346e-4e27-a4fb-3161012268fb
+2025-06-12 19:44:44,568 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Hardware' (927ef4e2-346e-4e27-a4fb-3161012268fb)
+2025-06-12 19:44:44,568 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Hardware
+2025-06-12 19:44:44,569 [DEBUG] workflow.utils — Checking step: 7dd1dc2e-29d1-43ea-9f26-766bdf234eff
+2025-06-12 19:44:44,569 [WARNING] workflow.utils — Step 7dd1dc2e-29d1-43ea-9f26-766bdf234eff has no transitions at all.
+2025-06-12 19:44:44,569 [WARNING] workflow.utils — Step 7dd1dc2e-29d1-43ea-9f26-766bdf234eff failed initialization check.
+2025-06-12 19:44:44,569 [INFO] workflow.utils — Setting workflow 'General Inquiry - Hardware' status to: draft
+2025-06-12 19:44:44,570 [INFO] workflow.utils — >>> Computing status for workflow_id: 927ef4e2-346e-4e27-a4fb-3161012268fb
+2025-06-12 19:44:44,570 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Hardware' (927ef4e2-346e-4e27-a4fb-3161012268fb)
+2025-06-12 19:44:44,571 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Hardware
+2025-06-12 19:44:44,571 [DEBUG] workflow.utils — Checking step: 7dd1dc2e-29d1-43ea-9f26-766bdf234eff
+2025-06-12 19:44:44,572 [WARNING] workflow.utils — Step 7dd1dc2e-29d1-43ea-9f26-766bdf234eff has no transitions at all.
+2025-06-12 19:44:44,572 [WARNING] workflow.utils — Step 7dd1dc2e-29d1-43ea-9f26-766bdf234eff failed initialization check.
+2025-06-12 19:44:44,572 [INFO] workflow.utils — Setting workflow 'General Inquiry - Hardware' status to: draft
+2025-06-12 19:44:44,573 [INFO] workflow.utils — >>> Computing status for workflow_id: 927ef4e2-346e-4e27-a4fb-3161012268fb
+2025-06-12 19:44:44,573 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Hardware' (927ef4e2-346e-4e27-a4fb-3161012268fb)
+2025-06-12 19:44:44,574 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Hardware
+2025-06-12 19:44:44,574 [DEBUG] workflow.utils — Checking step: 7dd1dc2e-29d1-43ea-9f26-766bdf234eff
+2025-06-12 19:44:44,575 [WARNING] workflow.utils — Step 7dd1dc2e-29d1-43ea-9f26-766bdf234eff has no transitions at all.
+2025-06-12 19:44:44,575 [WARNING] workflow.utils — Step 7dd1dc2e-29d1-43ea-9f26-766bdf234eff failed initialization check.
+2025-06-12 19:44:44,575 [INFO] workflow.utils — Setting workflow 'General Inquiry - Hardware' status to: draft
+2025-06-12 19:44:44,577 [INFO] workflow.utils — >>> Computing status for workflow_id: 927ef4e2-346e-4e27-a4fb-3161012268fb
+2025-06-12 19:44:44,577 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Hardware' (927ef4e2-346e-4e27-a4fb-3161012268fb)
+2025-06-12 19:44:44,578 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Hardware
+2025-06-12 19:44:44,578 [DEBUG] workflow.utils — Checking step: 7dd1dc2e-29d1-43ea-9f26-766bdf234eff
+2025-06-12 19:44:44,579 [DEBUG] workflow.utils — Transition 784eab0a-8835-46cd-8459-dc402bb2e0ce initialized: True
+2025-06-12 19:44:44,579 [DEBUG] workflow.utils — Step 7dd1dc2e-29d1-43ea-9f26-766bdf234eff is fully initialized.
+2025-06-12 19:44:44,579 [DEBUG] workflow.utils — Checking step: bb05d9e2-1b68-4bee-9680-215a0eb6a969
+2025-06-12 19:44:44,580 [WARNING] workflow.utils — Step bb05d9e2-1b68-4bee-9680-215a0eb6a969 has no transitions at all.
+2025-06-12 19:44:44,580 [WARNING] workflow.utils — Step bb05d9e2-1b68-4bee-9680-215a0eb6a969 failed initialization check.
+2025-06-12 19:44:44,580 [INFO] workflow.utils — Setting workflow 'General Inquiry - Hardware' status to: draft
+2025-06-12 19:44:44,582 [INFO] workflow.utils — >>> Computing status for workflow_id: 927ef4e2-346e-4e27-a4fb-3161012268fb
+2025-06-12 19:44:44,583 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Hardware' (927ef4e2-346e-4e27-a4fb-3161012268fb)
+2025-06-12 19:44:44,583 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Hardware
+2025-06-12 19:44:44,584 [DEBUG] workflow.utils — Checking step: 7dd1dc2e-29d1-43ea-9f26-766bdf234eff
+2025-06-12 19:44:44,585 [DEBUG] workflow.utils — Transition f936baaa-3f56-49b8-a2d3-2a1b650c9ff5 initialized: True
+2025-06-12 19:44:44,585 [DEBUG] workflow.utils — Transition 784eab0a-8835-46cd-8459-dc402bb2e0ce initialized: True
+2025-06-12 19:44:44,585 [DEBUG] workflow.utils — Step 7dd1dc2e-29d1-43ea-9f26-766bdf234eff is fully initialized.
+2025-06-12 19:44:44,585 [DEBUG] workflow.utils — Checking step: bb05d9e2-1b68-4bee-9680-215a0eb6a969
+2025-06-12 19:44:44,587 [DEBUG] workflow.utils — Transition f936baaa-3f56-49b8-a2d3-2a1b650c9ff5 initialized: True
+2025-06-12 19:44:44,587 [DEBUG] workflow.utils — Step bb05d9e2-1b68-4bee-9680-215a0eb6a969 is fully initialized.
+2025-06-12 19:44:44,587 [DEBUG] workflow.utils — Checking step: 81cb292f-4aca-49a3-921f-4c3fceffcbf8
+2025-06-12 19:44:44,588 [WARNING] workflow.utils — Step 81cb292f-4aca-49a3-921f-4c3fceffcbf8 has no transitions at all.
+2025-06-12 19:44:44,588 [WARNING] workflow.utils — Step 81cb292f-4aca-49a3-921f-4c3fceffcbf8 failed initialization check.
+2025-06-12 19:44:44,588 [INFO] workflow.utils — Setting workflow 'General Inquiry - Hardware' status to: draft
+2025-06-12 19:44:44,590 [INFO] workflow.utils — >>> Computing status for workflow_id: 927ef4e2-346e-4e27-a4fb-3161012268fb
+2025-06-12 19:44:44,590 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Hardware' (927ef4e2-346e-4e27-a4fb-3161012268fb)
+2025-06-12 19:44:44,591 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Hardware
+2025-06-12 19:44:44,591 [DEBUG] workflow.utils — Checking step: 7dd1dc2e-29d1-43ea-9f26-766bdf234eff
+2025-06-12 19:44:44,593 [DEBUG] workflow.utils — Transition f936baaa-3f56-49b8-a2d3-2a1b650c9ff5 initialized: True
+2025-06-12 19:44:44,593 [DEBUG] workflow.utils — Transition 784eab0a-8835-46cd-8459-dc402bb2e0ce initialized: True
+2025-06-12 19:44:44,593 [DEBUG] workflow.utils — Step 7dd1dc2e-29d1-43ea-9f26-766bdf234eff is fully initialized.
+2025-06-12 19:44:44,593 [DEBUG] workflow.utils — Checking step: bb05d9e2-1b68-4bee-9680-215a0eb6a969
+2025-06-12 19:44:44,594 [DEBUG] workflow.utils — Transition 1ca4330e-9b50-4993-8985-0bb182c3b9f3 initialized: True
+2025-06-12 19:44:44,595 [DEBUG] workflow.utils — Transition f936baaa-3f56-49b8-a2d3-2a1b650c9ff5 initialized: True
+2025-06-12 19:44:44,595 [DEBUG] workflow.utils — Step bb05d9e2-1b68-4bee-9680-215a0eb6a969 is fully initialized.
+2025-06-12 19:44:44,595 [DEBUG] workflow.utils — Checking step: 81cb292f-4aca-49a3-921f-4c3fceffcbf8
+2025-06-12 19:44:44,596 [DEBUG] workflow.utils — Transition 1ca4330e-9b50-4993-8985-0bb182c3b9f3 initialized: True
+2025-06-12 19:44:44,596 [DEBUG] workflow.utils — Step 81cb292f-4aca-49a3-921f-4c3fceffcbf8 is fully initialized.
+2025-06-12 19:44:44,596 [INFO] workflow.utils — Workflow 'General Inquiry - Hardware' is initialized.
+2025-06-12 19:44:44,596 [INFO] workflow.utils — Setting workflow 'General Inquiry - Hardware' status to: initialized
+2025-06-12 19:44:44,598 [INFO] workflow.signals — Workflow 927ef4e2-346e-4e27-a4fb-3161012268fb is initialized. No external sync triggered.
+2025-06-12 19:44:44,601 [INFO] workflow.utils — >>> Computing status for workflow_id: 927ef4e2-346e-4e27-a4fb-3161012268fb
+2025-06-12 19:44:44,601 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Hardware' (927ef4e2-346e-4e27-a4fb-3161012268fb)
+2025-06-12 19:44:44,602 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Hardware
+2025-06-12 19:44:44,602 [DEBUG] workflow.utils — Checking step: 7dd1dc2e-29d1-43ea-9f26-766bdf234eff
+2025-06-12 19:44:44,604 [DEBUG] workflow.utils — Transition f936baaa-3f56-49b8-a2d3-2a1b650c9ff5 initialized: True
+2025-06-12 19:44:44,604 [DEBUG] workflow.utils — Transition 784eab0a-8835-46cd-8459-dc402bb2e0ce initialized: True
+2025-06-12 19:44:44,605 [DEBUG] workflow.utils — Transition 206d6667-0afc-4b62-8dea-e9f90c0badd8 initialized: True
+2025-06-12 19:44:44,605 [DEBUG] workflow.utils — Step 7dd1dc2e-29d1-43ea-9f26-766bdf234eff is fully initialized.
+2025-06-12 19:44:44,605 [DEBUG] workflow.utils — Checking step: bb05d9e2-1b68-4bee-9680-215a0eb6a969
+2025-06-12 19:44:44,606 [DEBUG] workflow.utils — Transition 1ca4330e-9b50-4993-8985-0bb182c3b9f3 initialized: True
+2025-06-12 19:44:44,606 [DEBUG] workflow.utils — Transition 206d6667-0afc-4b62-8dea-e9f90c0badd8 initialized: True
+2025-06-12 19:44:44,607 [DEBUG] workflow.utils — Transition f936baaa-3f56-49b8-a2d3-2a1b650c9ff5 initialized: True
+2025-06-12 19:44:44,607 [DEBUG] workflow.utils — Step bb05d9e2-1b68-4bee-9680-215a0eb6a969 is fully initialized.
+2025-06-12 19:44:44,607 [DEBUG] workflow.utils — Checking step: 81cb292f-4aca-49a3-921f-4c3fceffcbf8
+2025-06-12 19:44:44,608 [DEBUG] workflow.utils — Transition 1ca4330e-9b50-4993-8985-0bb182c3b9f3 initialized: True
+2025-06-12 19:44:44,608 [DEBUG] workflow.utils — Step 81cb292f-4aca-49a3-921f-4c3fceffcbf8 is fully initialized.
+2025-06-12 19:44:44,608 [INFO] workflow.utils — Workflow 'General Inquiry - Hardware' is initialized.
+2025-06-12 19:44:44,608 [INFO] workflow.utils — Setting workflow 'General Inquiry - Hardware' status to: initialized
+2025-06-12 19:44:44,610 [INFO] workflow.utils — >>> Computing status for workflow_id: 927ef4e2-346e-4e27-a4fb-3161012268fb
+2025-06-12 19:44:44,611 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Hardware' (927ef4e2-346e-4e27-a4fb-3161012268fb)
+2025-06-12 19:44:44,611 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Hardware
+2025-06-12 19:44:44,612 [DEBUG] workflow.utils — Checking step: 7dd1dc2e-29d1-43ea-9f26-766bdf234eff
+2025-06-12 19:44:44,613 [DEBUG] workflow.utils — Transition f936baaa-3f56-49b8-a2d3-2a1b650c9ff5 initialized: True
+2025-06-12 19:44:44,613 [DEBUG] workflow.utils — Transition 784eab0a-8835-46cd-8459-dc402bb2e0ce initialized: True
+2025-06-12 19:44:44,614 [DEBUG] workflow.utils — Transition 206d6667-0afc-4b62-8dea-e9f90c0badd8 initialized: True
+2025-06-12 19:44:44,614 [DEBUG] workflow.utils — Step 7dd1dc2e-29d1-43ea-9f26-766bdf234eff is fully initialized.
+2025-06-12 19:44:44,614 [DEBUG] workflow.utils — Checking step: bb05d9e2-1b68-4bee-9680-215a0eb6a969
+2025-06-12 19:44:44,615 [DEBUG] workflow.utils — Transition 1ca4330e-9b50-4993-8985-0bb182c3b9f3 initialized: True
+2025-06-12 19:44:44,615 [DEBUG] workflow.utils — Transition 206d6667-0afc-4b62-8dea-e9f90c0badd8 initialized: True
+2025-06-12 19:44:44,616 [DEBUG] workflow.utils — Transition f936baaa-3f56-49b8-a2d3-2a1b650c9ff5 initialized: True
+2025-06-12 19:44:44,616 [DEBUG] workflow.utils — Step bb05d9e2-1b68-4bee-9680-215a0eb6a969 is fully initialized.
+2025-06-12 19:44:44,616 [DEBUG] workflow.utils — Checking step: 81cb292f-4aca-49a3-921f-4c3fceffcbf8
+2025-06-12 19:44:44,617 [DEBUG] workflow.utils — Transition 14e31a9d-2c0d-451d-8561-384774b60e26 initialized: True
+2025-06-12 19:44:44,618 [DEBUG] workflow.utils — Transition 1ca4330e-9b50-4993-8985-0bb182c3b9f3 initialized: True
+2025-06-12 19:44:44,618 [DEBUG] workflow.utils — Step 81cb292f-4aca-49a3-921f-4c3fceffcbf8 is fully initialized.
+2025-06-12 19:44:44,618 [INFO] workflow.utils — Workflow 'General Inquiry - Hardware' is initialized.
+2025-06-12 19:44:44,618 [INFO] workflow.utils — Setting workflow 'General Inquiry - Hardware' status to: initialized
+2025-06-12 19:44:44,621 [INFO] workflow.utils — >>> Computing status for workflow_id: 7be73f9d-3891-4bd0-a01d-8b6ef9619013
+2025-06-12 19:44:44,622 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Payment' (7be73f9d-3891-4bd0-a01d-8b6ef9619013)
+2025-06-12 19:44:44,622 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Payment
+2025-06-12 19:44:44,623 [DEBUG] workflow.utils — Checking step: 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9
+2025-06-12 19:44:44,623 [WARNING] workflow.utils — Step 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9 has no transitions at all.
+2025-06-12 19:44:44,623 [WARNING] workflow.utils — Step 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9 failed initialization check.
+2025-06-12 19:44:44,623 [INFO] workflow.utils — Setting workflow 'General Inquiry - Payment' status to: draft
+2025-06-12 19:44:44,624 [INFO] workflow.utils — >>> Computing status for workflow_id: 7be73f9d-3891-4bd0-a01d-8b6ef9619013
+2025-06-12 19:44:44,624 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Payment' (7be73f9d-3891-4bd0-a01d-8b6ef9619013)
+2025-06-12 19:44:44,625 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Payment
+2025-06-12 19:44:44,625 [DEBUG] workflow.utils — Checking step: 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9
+2025-06-12 19:44:44,626 [WARNING] workflow.utils — Step 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9 has no transitions at all.
+2025-06-12 19:44:44,626 [WARNING] workflow.utils — Step 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9 failed initialization check.
+2025-06-12 19:44:44,626 [INFO] workflow.utils — Setting workflow 'General Inquiry - Payment' status to: draft
+2025-06-12 19:44:44,627 [INFO] workflow.utils — >>> Computing status for workflow_id: 7be73f9d-3891-4bd0-a01d-8b6ef9619013
+2025-06-12 19:44:44,627 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Payment' (7be73f9d-3891-4bd0-a01d-8b6ef9619013)
+2025-06-12 19:44:44,628 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Payment
+2025-06-12 19:44:44,628 [DEBUG] workflow.utils — Checking step: 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9
+2025-06-12 19:44:44,629 [WARNING] workflow.utils — Step 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9 has no transitions at all.
+2025-06-12 19:44:44,629 [WARNING] workflow.utils — Step 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9 failed initialization check.
+2025-06-12 19:44:44,629 [INFO] workflow.utils — Setting workflow 'General Inquiry - Payment' status to: draft
+2025-06-12 19:44:44,631 [INFO] workflow.utils — >>> Computing status for workflow_id: 7be73f9d-3891-4bd0-a01d-8b6ef9619013
+2025-06-12 19:44:44,631 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Payment' (7be73f9d-3891-4bd0-a01d-8b6ef9619013)
+2025-06-12 19:44:44,632 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Payment
+2025-06-12 19:44:44,632 [DEBUG] workflow.utils — Checking step: 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9
+2025-06-12 19:44:44,633 [DEBUG] workflow.utils — Transition 3e403b0a-9ca8-4074-ad07-4d8dae2f3083 initialized: True
+2025-06-12 19:44:44,633 [DEBUG] workflow.utils — Step 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9 is fully initialized.
+2025-06-12 19:44:44,633 [DEBUG] workflow.utils — Checking step: 60bfd42f-f927-42d6-8ee1-2aed9972bbfa
+2025-06-12 19:44:44,634 [WARNING] workflow.utils — Step 60bfd42f-f927-42d6-8ee1-2aed9972bbfa has no transitions at all.
+2025-06-12 19:44:44,634 [WARNING] workflow.utils — Step 60bfd42f-f927-42d6-8ee1-2aed9972bbfa failed initialization check.
+2025-06-12 19:44:44,634 [INFO] workflow.utils — Setting workflow 'General Inquiry - Payment' status to: draft
+2025-06-12 19:44:44,636 [INFO] workflow.utils — >>> Computing status for workflow_id: 7be73f9d-3891-4bd0-a01d-8b6ef9619013
+2025-06-12 19:44:44,637 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Payment' (7be73f9d-3891-4bd0-a01d-8b6ef9619013)
+2025-06-12 19:44:44,637 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Payment
+2025-06-12 19:44:44,638 [DEBUG] workflow.utils — Checking step: 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9
+2025-06-12 19:44:44,639 [DEBUG] workflow.utils — Transition 0b34c016-9531-4820-bd9f-92b8198bc15d initialized: True
+2025-06-12 19:44:44,639 [DEBUG] workflow.utils — Transition 3e403b0a-9ca8-4074-ad07-4d8dae2f3083 initialized: True
+2025-06-12 19:44:44,639 [DEBUG] workflow.utils — Step 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9 is fully initialized.
+2025-06-12 19:44:44,639 [DEBUG] workflow.utils — Checking step: 60bfd42f-f927-42d6-8ee1-2aed9972bbfa
+2025-06-12 19:44:44,641 [DEBUG] workflow.utils — Transition 0b34c016-9531-4820-bd9f-92b8198bc15d initialized: True
+2025-06-12 19:44:44,641 [DEBUG] workflow.utils — Step 60bfd42f-f927-42d6-8ee1-2aed9972bbfa is fully initialized.
+2025-06-12 19:44:44,641 [DEBUG] workflow.utils — Checking step: 5e0b5c72-5309-4e3b-b566-10b7e66e90f6
+2025-06-12 19:44:44,641 [WARNING] workflow.utils — Step 5e0b5c72-5309-4e3b-b566-10b7e66e90f6 has no transitions at all.
+2025-06-12 19:44:44,641 [WARNING] workflow.utils — Step 5e0b5c72-5309-4e3b-b566-10b7e66e90f6 failed initialization check.
+2025-06-12 19:44:44,641 [INFO] workflow.utils — Setting workflow 'General Inquiry - Payment' status to: draft
+2025-06-12 19:44:44,644 [INFO] workflow.utils — >>> Computing status for workflow_id: 7be73f9d-3891-4bd0-a01d-8b6ef9619013
+2025-06-12 19:44:44,644 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Payment' (7be73f9d-3891-4bd0-a01d-8b6ef9619013)
+2025-06-12 19:44:44,644 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Payment
+2025-06-12 19:44:44,645 [DEBUG] workflow.utils — Checking step: 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9
+2025-06-12 19:44:44,646 [DEBUG] workflow.utils — Transition 0b34c016-9531-4820-bd9f-92b8198bc15d initialized: True
+2025-06-12 19:44:44,647 [DEBUG] workflow.utils — Transition 3e403b0a-9ca8-4074-ad07-4d8dae2f3083 initialized: True
+2025-06-12 19:44:44,647 [DEBUG] workflow.utils — Step 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9 is fully initialized.
+2025-06-12 19:44:44,647 [DEBUG] workflow.utils — Checking step: 60bfd42f-f927-42d6-8ee1-2aed9972bbfa
+2025-06-12 19:44:44,648 [DEBUG] workflow.utils — Transition 8ede3769-6cb7-48a5-acbb-2e7d85a07491 initialized: True
+2025-06-12 19:44:44,648 [DEBUG] workflow.utils — Transition 0b34c016-9531-4820-bd9f-92b8198bc15d initialized: True
+2025-06-12 19:44:44,648 [DEBUG] workflow.utils — Step 60bfd42f-f927-42d6-8ee1-2aed9972bbfa is fully initialized.
+2025-06-12 19:44:44,648 [DEBUG] workflow.utils — Checking step: 5e0b5c72-5309-4e3b-b566-10b7e66e90f6
+2025-06-12 19:44:44,650 [DEBUG] workflow.utils — Transition 8ede3769-6cb7-48a5-acbb-2e7d85a07491 initialized: True
+2025-06-12 19:44:44,650 [DEBUG] workflow.utils — Step 5e0b5c72-5309-4e3b-b566-10b7e66e90f6 is fully initialized.
+2025-06-12 19:44:44,650 [INFO] workflow.utils — Workflow 'General Inquiry - Payment' is initialized.
+2025-06-12 19:44:44,650 [INFO] workflow.utils — Setting workflow 'General Inquiry - Payment' status to: initialized
+2025-06-12 19:44:44,652 [INFO] workflow.signals — Workflow 7be73f9d-3891-4bd0-a01d-8b6ef9619013 is initialized. No external sync triggered.
+2025-06-12 19:44:44,654 [INFO] workflow.utils — >>> Computing status for workflow_id: 7be73f9d-3891-4bd0-a01d-8b6ef9619013
+2025-06-12 19:44:44,655 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Payment' (7be73f9d-3891-4bd0-a01d-8b6ef9619013)
+2025-06-12 19:44:44,655 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Payment
+2025-06-12 19:44:44,656 [DEBUG] workflow.utils — Checking step: 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9
+2025-06-12 19:44:44,657 [DEBUG] workflow.utils — Transition 0b34c016-9531-4820-bd9f-92b8198bc15d initialized: True
+2025-06-12 19:44:44,658 [DEBUG] workflow.utils — Transition 3e403b0a-9ca8-4074-ad07-4d8dae2f3083 initialized: True
+2025-06-12 19:44:44,658 [DEBUG] workflow.utils — Transition e7f0660d-21a4-4112-9541-f104c35f765a initialized: True
+2025-06-12 19:44:44,658 [DEBUG] workflow.utils — Step 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9 is fully initialized.
+2025-06-12 19:44:44,658 [DEBUG] workflow.utils — Checking step: 60bfd42f-f927-42d6-8ee1-2aed9972bbfa
+2025-06-12 19:44:44,659 [DEBUG] workflow.utils — Transition 8ede3769-6cb7-48a5-acbb-2e7d85a07491 initialized: True
+2025-06-12 19:44:44,660 [DEBUG] workflow.utils — Transition e7f0660d-21a4-4112-9541-f104c35f765a initialized: True
+2025-06-12 19:44:44,660 [DEBUG] workflow.utils — Transition 0b34c016-9531-4820-bd9f-92b8198bc15d initialized: True
+2025-06-12 19:44:44,660 [DEBUG] workflow.utils — Step 60bfd42f-f927-42d6-8ee1-2aed9972bbfa is fully initialized.
+2025-06-12 19:44:44,660 [DEBUG] workflow.utils — Checking step: 5e0b5c72-5309-4e3b-b566-10b7e66e90f6
+2025-06-12 19:44:44,661 [DEBUG] workflow.utils — Transition 8ede3769-6cb7-48a5-acbb-2e7d85a07491 initialized: True
+2025-06-12 19:44:44,662 [DEBUG] workflow.utils — Step 5e0b5c72-5309-4e3b-b566-10b7e66e90f6 is fully initialized.
+2025-06-12 19:44:44,662 [INFO] workflow.utils — Workflow 'General Inquiry - Payment' is initialized.
+2025-06-12 19:44:44,662 [INFO] workflow.utils — Setting workflow 'General Inquiry - Payment' status to: initialized
+2025-06-12 19:44:44,664 [INFO] workflow.utils — >>> Computing status for workflow_id: 7be73f9d-3891-4bd0-a01d-8b6ef9619013
+2025-06-12 19:44:44,664 [INFO] workflow.utils — Evaluating workflow 'General Inquiry - Payment' (7be73f9d-3891-4bd0-a01d-8b6ef9619013)
+2025-06-12 19:44:44,665 [DEBUG] workflow.utils — Category: General Inquiry, Sub-category: Payment
+2025-06-12 19:44:44,665 [DEBUG] workflow.utils — Checking step: 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9
+2025-06-12 19:44:44,666 [DEBUG] workflow.utils — Transition 0b34c016-9531-4820-bd9f-92b8198bc15d initialized: True
+2025-06-12 19:44:44,667 [DEBUG] workflow.utils — Transition 3e403b0a-9ca8-4074-ad07-4d8dae2f3083 initialized: True
+2025-06-12 19:44:44,667 [DEBUG] workflow.utils — Transition e7f0660d-21a4-4112-9541-f104c35f765a initialized: True
+2025-06-12 19:44:44,667 [DEBUG] workflow.utils — Step 6df6481c-298f-4af7-9e79-b3e0ce8ec9a9 is fully initialized.
+2025-06-12 19:44:44,667 [DEBUG] workflow.utils — Checking step: 60bfd42f-f927-42d6-8ee1-2aed9972bbfa
+2025-06-12 19:44:44,668 [DEBUG] workflow.utils — Transition 8ede3769-6cb7-48a5-acbb-2e7d85a07491 initialized: True
+2025-06-12 19:44:44,669 [DEBUG] workflow.utils — Transition e7f0660d-21a4-4112-9541-f104c35f765a initialized: True
+2025-06-12 19:44:44,669 [DEBUG] workflow.utils — Transition 0b34c016-9531-4820-bd9f-92b8198bc15d initialized: True
+2025-06-12 19:44:44,669 [DEBUG] workflow.utils — Step 60bfd42f-f927-42d6-8ee1-2aed9972bbfa is fully initialized.
+2025-06-12 19:44:44,669 [DEBUG] workflow.utils — Checking step: 5e0b5c72-5309-4e3b-b566-10b7e66e90f6
+2025-06-12 19:44:44,671 [DEBUG] workflow.utils — Transition 41d01db4-2d3c-4d69-8dbb-cb6388dc568e initialized: True
+2025-06-12 19:44:44,671 [DEBUG] workflow.utils — Transition 8ede3769-6cb7-48a5-acbb-2e7d85a07491 initialized: True
+2025-06-12 19:44:44,671 [DEBUG] workflow.utils — Step 5e0b5c72-5309-4e3b-b566-10b7e66e90f6 is fully initialized.
+2025-06-12 19:44:44,671 [INFO] workflow.utils — Workflow 'General Inquiry - Payment' is initialized.
+2025-06-12 19:44:44,671 [INFO] workflow.utils — Setting workflow 'General Inquiry - Payment' status to: initialized
+2025-06-12 19:44:44,676 [INFO] workflow.utils — >>> Computing status for workflow_id: 6596dae4-d83d-4b8c-b3db-e3aa649111a8
+2025-06-12 19:44:44,676 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Software' (6596dae4-d83d-4b8c-b3db-e3aa649111a8)
+2025-06-12 19:44:44,676 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Software
+2025-06-12 19:44:44,677 [DEBUG] workflow.utils — Checking step: 70438df8-4c78-4dc6-9730-b7a30b6cb1c0
+2025-06-12 19:44:44,677 [WARNING] workflow.utils — Step 70438df8-4c78-4dc6-9730-b7a30b6cb1c0 has no transitions at all.
+2025-06-12 19:44:44,678 [WARNING] workflow.utils — Step 70438df8-4c78-4dc6-9730-b7a30b6cb1c0 failed initialization check.
+2025-06-12 19:44:44,678 [INFO] workflow.utils — Setting workflow 'Technical Issue - Software' status to: draft
+2025-06-12 19:44:44,678 [INFO] workflow.utils — >>> Computing status for workflow_id: 6596dae4-d83d-4b8c-b3db-e3aa649111a8
+2025-06-12 19:44:44,679 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Software' (6596dae4-d83d-4b8c-b3db-e3aa649111a8)
+2025-06-12 19:44:44,679 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Software
+2025-06-12 19:44:44,680 [DEBUG] workflow.utils — Checking step: 70438df8-4c78-4dc6-9730-b7a30b6cb1c0
+2025-06-12 19:44:44,680 [WARNING] workflow.utils — Step 70438df8-4c78-4dc6-9730-b7a30b6cb1c0 has no transitions at all.
+2025-06-12 19:44:44,680 [WARNING] workflow.utils — Step 70438df8-4c78-4dc6-9730-b7a30b6cb1c0 failed initialization check.
+2025-06-12 19:44:44,680 [INFO] workflow.utils — Setting workflow 'Technical Issue - Software' status to: draft
+2025-06-12 19:44:44,681 [INFO] workflow.utils — >>> Computing status for workflow_id: 6596dae4-d83d-4b8c-b3db-e3aa649111a8
+2025-06-12 19:44:44,681 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Software' (6596dae4-d83d-4b8c-b3db-e3aa649111a8)
+2025-06-12 19:44:44,682 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Software
+2025-06-12 19:44:44,682 [DEBUG] workflow.utils — Checking step: 70438df8-4c78-4dc6-9730-b7a30b6cb1c0
+2025-06-12 19:44:44,683 [WARNING] workflow.utils — Step 70438df8-4c78-4dc6-9730-b7a30b6cb1c0 has no transitions at all.
+2025-06-12 19:44:44,683 [WARNING] workflow.utils — Step 70438df8-4c78-4dc6-9730-b7a30b6cb1c0 failed initialization check.
+2025-06-12 19:44:44,683 [INFO] workflow.utils — Setting workflow 'Technical Issue - Software' status to: draft
+2025-06-12 19:44:44,685 [INFO] workflow.utils — >>> Computing status for workflow_id: 6596dae4-d83d-4b8c-b3db-e3aa649111a8
+2025-06-12 19:44:44,685 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Software' (6596dae4-d83d-4b8c-b3db-e3aa649111a8)
+2025-06-12 19:44:44,686 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Software
+2025-06-12 19:44:44,686 [DEBUG] workflow.utils — Checking step: 70438df8-4c78-4dc6-9730-b7a30b6cb1c0
+2025-06-12 19:44:44,687 [DEBUG] workflow.utils — Transition 9885e5f5-9cd5-40ce-bb06-84a62415bb92 initialized: True
+2025-06-12 19:44:44,688 [DEBUG] workflow.utils — Step 70438df8-4c78-4dc6-9730-b7a30b6cb1c0 is fully initialized.
+2025-06-12 19:44:44,688 [DEBUG] workflow.utils — Checking step: 78b65e4a-bdd8-41f4-b276-1f5b0d76f775
+2025-06-12 19:44:44,688 [WARNING] workflow.utils — Step 78b65e4a-bdd8-41f4-b276-1f5b0d76f775 has no transitions at all.
+2025-06-12 19:44:44,688 [WARNING] workflow.utils — Step 78b65e4a-bdd8-41f4-b276-1f5b0d76f775 failed initialization check.
+2025-06-12 19:44:44,688 [INFO] workflow.utils — Setting workflow 'Technical Issue - Software' status to: draft
+2025-06-12 19:44:44,690 [INFO] workflow.utils — >>> Computing status for workflow_id: 6596dae4-d83d-4b8c-b3db-e3aa649111a8
+2025-06-12 19:44:44,691 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Software' (6596dae4-d83d-4b8c-b3db-e3aa649111a8)
+2025-06-12 19:44:44,691 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Software
+2025-06-12 19:44:44,692 [DEBUG] workflow.utils — Checking step: 70438df8-4c78-4dc6-9730-b7a30b6cb1c0
+2025-06-12 19:44:44,693 [DEBUG] workflow.utils — Transition 90e6139e-f432-435f-9aa3-0b3ef8f1b6f1 initialized: True
+2025-06-12 19:44:44,693 [DEBUG] workflow.utils — Transition 9885e5f5-9cd5-40ce-bb06-84a62415bb92 initialized: True
+2025-06-12 19:44:44,693 [DEBUG] workflow.utils — Step 70438df8-4c78-4dc6-9730-b7a30b6cb1c0 is fully initialized.
+2025-06-12 19:44:44,693 [DEBUG] workflow.utils — Checking step: 78b65e4a-bdd8-41f4-b276-1f5b0d76f775
+2025-06-12 19:44:44,695 [DEBUG] workflow.utils — Transition 90e6139e-f432-435f-9aa3-0b3ef8f1b6f1 initialized: True
+2025-06-12 19:44:44,695 [DEBUG] workflow.utils — Step 78b65e4a-bdd8-41f4-b276-1f5b0d76f775 is fully initialized.
+2025-06-12 19:44:44,695 [DEBUG] workflow.utils — Checking step: 92e6dcdf-72d5-44c9-913e-994c7347e66d
+2025-06-12 19:44:44,695 [WARNING] workflow.utils — Step 92e6dcdf-72d5-44c9-913e-994c7347e66d has no transitions at all.
+2025-06-12 19:44:44,695 [WARNING] workflow.utils — Step 92e6dcdf-72d5-44c9-913e-994c7347e66d failed initialization check.
+2025-06-12 19:44:44,695 [INFO] workflow.utils — Setting workflow 'Technical Issue - Software' status to: draft
+2025-06-12 19:44:44,697 [INFO] workflow.utils — >>> Computing status for workflow_id: 6596dae4-d83d-4b8c-b3db-e3aa649111a8
+2025-06-12 19:44:44,698 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Software' (6596dae4-d83d-4b8c-b3db-e3aa649111a8)
+2025-06-12 19:44:44,698 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Software
+2025-06-12 19:44:44,699 [DEBUG] workflow.utils — Checking step: 70438df8-4c78-4dc6-9730-b7a30b6cb1c0
+2025-06-12 19:44:44,700 [DEBUG] workflow.utils — Transition 90e6139e-f432-435f-9aa3-0b3ef8f1b6f1 initialized: True
+2025-06-12 19:44:44,700 [DEBUG] workflow.utils — Transition 9885e5f5-9cd5-40ce-bb06-84a62415bb92 initialized: True
+2025-06-12 19:44:44,700 [DEBUG] workflow.utils — Step 70438df8-4c78-4dc6-9730-b7a30b6cb1c0 is fully initialized.
+2025-06-12 19:44:44,700 [DEBUG] workflow.utils — Checking step: 78b65e4a-bdd8-41f4-b276-1f5b0d76f775
+2025-06-12 19:44:44,702 [DEBUG] workflow.utils — Transition 1e849c2d-65c2-4c95-bcda-50516f58a1b1 initialized: True
+2025-06-12 19:44:44,702 [DEBUG] workflow.utils — Transition 90e6139e-f432-435f-9aa3-0b3ef8f1b6f1 initialized: True
+2025-06-12 19:44:44,702 [DEBUG] workflow.utils — Step 78b65e4a-bdd8-41f4-b276-1f5b0d76f775 is fully initialized.
+2025-06-12 19:44:44,702 [DEBUG] workflow.utils — Checking step: 92e6dcdf-72d5-44c9-913e-994c7347e66d
+2025-06-12 19:44:44,703 [DEBUG] workflow.utils — Transition 1e849c2d-65c2-4c95-bcda-50516f58a1b1 initialized: True
+2025-06-12 19:44:44,703 [DEBUG] workflow.utils — Step 92e6dcdf-72d5-44c9-913e-994c7347e66d is fully initialized.
+2025-06-12 19:44:44,703 [INFO] workflow.utils — Workflow 'Technical Issue - Software' is initialized.
+2025-06-12 19:44:44,703 [INFO] workflow.utils — Setting workflow 'Technical Issue - Software' status to: initialized
+2025-06-12 19:44:44,705 [INFO] workflow.signals — Workflow 6596dae4-d83d-4b8c-b3db-e3aa649111a8 is initialized. No external sync triggered.
+2025-06-12 19:44:44,708 [INFO] workflow.utils — >>> Computing status for workflow_id: 6596dae4-d83d-4b8c-b3db-e3aa649111a8
+2025-06-12 19:44:44,708 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Software' (6596dae4-d83d-4b8c-b3db-e3aa649111a8)
+2025-06-12 19:44:44,709 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Software
+2025-06-12 19:44:44,709 [DEBUG] workflow.utils — Checking step: 70438df8-4c78-4dc6-9730-b7a30b6cb1c0
+2025-06-12 19:44:44,711 [DEBUG] workflow.utils — Transition 90e6139e-f432-435f-9aa3-0b3ef8f1b6f1 initialized: True
+2025-06-12 19:44:44,712 [DEBUG] workflow.utils — Transition 9885e5f5-9cd5-40ce-bb06-84a62415bb92 initialized: True
+2025-06-12 19:44:44,712 [DEBUG] workflow.utils — Transition 1c64ba20-0460-4a73-884b-3900a333bbc4 initialized: True
+2025-06-12 19:44:44,712 [DEBUG] workflow.utils — Step 70438df8-4c78-4dc6-9730-b7a30b6cb1c0 is fully initialized.
+2025-06-12 19:44:44,712 [DEBUG] workflow.utils — Checking step: 78b65e4a-bdd8-41f4-b276-1f5b0d76f775
+2025-06-12 19:44:44,713 [DEBUG] workflow.utils — Transition 1e849c2d-65c2-4c95-bcda-50516f58a1b1 initialized: True
+2025-06-12 19:44:44,714 [DEBUG] workflow.utils — Transition 1c64ba20-0460-4a73-884b-3900a333bbc4 initialized: True
+2025-06-12 19:44:44,714 [DEBUG] workflow.utils — Transition 90e6139e-f432-435f-9aa3-0b3ef8f1b6f1 initialized: True
+2025-06-12 19:44:44,714 [DEBUG] workflow.utils — Step 78b65e4a-bdd8-41f4-b276-1f5b0d76f775 is fully initialized.
+2025-06-12 19:44:44,714 [DEBUG] workflow.utils — Checking step: 92e6dcdf-72d5-44c9-913e-994c7347e66d
+2025-06-12 19:44:44,716 [DEBUG] workflow.utils — Transition 1e849c2d-65c2-4c95-bcda-50516f58a1b1 initialized: True
+2025-06-12 19:44:44,716 [DEBUG] workflow.utils — Step 92e6dcdf-72d5-44c9-913e-994c7347e66d is fully initialized.
+2025-06-12 19:44:44,716 [INFO] workflow.utils — Workflow 'Technical Issue - Software' is initialized.
+2025-06-12 19:44:44,716 [INFO] workflow.utils — Setting workflow 'Technical Issue - Software' status to: initialized
+2025-06-12 19:44:44,718 [INFO] workflow.utils — >>> Computing status for workflow_id: 6596dae4-d83d-4b8c-b3db-e3aa649111a8
+2025-06-12 19:44:44,718 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Software' (6596dae4-d83d-4b8c-b3db-e3aa649111a8)
+2025-06-12 19:44:44,719 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Software
+2025-06-12 19:44:44,719 [DEBUG] workflow.utils — Checking step: 70438df8-4c78-4dc6-9730-b7a30b6cb1c0
+2025-06-12 19:44:44,721 [DEBUG] workflow.utils — Transition 90e6139e-f432-435f-9aa3-0b3ef8f1b6f1 initialized: True
+2025-06-12 19:44:44,721 [DEBUG] workflow.utils — Transition 9885e5f5-9cd5-40ce-bb06-84a62415bb92 initialized: True
+2025-06-12 19:44:44,722 [DEBUG] workflow.utils — Transition 1c64ba20-0460-4a73-884b-3900a333bbc4 initialized: True
+2025-06-12 19:44:44,722 [DEBUG] workflow.utils — Step 70438df8-4c78-4dc6-9730-b7a30b6cb1c0 is fully initialized.
+2025-06-12 19:44:44,722 [DEBUG] workflow.utils — Checking step: 78b65e4a-bdd8-41f4-b276-1f5b0d76f775
+2025-06-12 19:44:44,723 [DEBUG] workflow.utils — Transition 1e849c2d-65c2-4c95-bcda-50516f58a1b1 initialized: True
+2025-06-12 19:44:44,723 [DEBUG] workflow.utils — Transition 1c64ba20-0460-4a73-884b-3900a333bbc4 initialized: True
+2025-06-12 19:44:44,724 [DEBUG] workflow.utils — Transition 90e6139e-f432-435f-9aa3-0b3ef8f1b6f1 initialized: True
+2025-06-12 19:44:44,724 [DEBUG] workflow.utils — Step 78b65e4a-bdd8-41f4-b276-1f5b0d76f775 is fully initialized.
+2025-06-12 19:44:44,724 [DEBUG] workflow.utils — Checking step: 92e6dcdf-72d5-44c9-913e-994c7347e66d
+2025-06-12 19:44:44,725 [DEBUG] workflow.utils — Transition fc4e365a-f63a-41f2-be32-ee7ce754d5a1 initialized: True
+2025-06-12 19:44:44,726 [DEBUG] workflow.utils — Transition 1e849c2d-65c2-4c95-bcda-50516f58a1b1 initialized: True
+2025-06-12 19:44:44,726 [DEBUG] workflow.utils — Step 92e6dcdf-72d5-44c9-913e-994c7347e66d is fully initialized.
+2025-06-12 19:44:44,726 [INFO] workflow.utils — Workflow 'Technical Issue - Software' is initialized.
+2025-06-12 19:44:44,726 [INFO] workflow.utils — Setting workflow 'Technical Issue - Software' status to: initialized
+2025-06-12 19:44:44,730 [INFO] workflow.utils — >>> Computing status for workflow_id: 37726fa0-1fd0-41cf-8eb4-5fa733c549af
+2025-06-12 19:44:44,730 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Hardware' (37726fa0-1fd0-41cf-8eb4-5fa733c549af)
+2025-06-12 19:44:44,731 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Hardware
+2025-06-12 19:44:44,731 [DEBUG] workflow.utils — Checking step: 51befb1e-9a01-4644-9dce-e92472138883
+2025-06-12 19:44:44,732 [WARNING] workflow.utils — Step 51befb1e-9a01-4644-9dce-e92472138883 has no transitions at all.
+2025-06-12 19:44:44,732 [WARNING] workflow.utils — Step 51befb1e-9a01-4644-9dce-e92472138883 failed initialization check.
+2025-06-12 19:44:44,732 [INFO] workflow.utils — Setting workflow 'Technical Issue - Hardware' status to: draft
+2025-06-12 19:44:44,733 [INFO] workflow.utils — >>> Computing status for workflow_id: 37726fa0-1fd0-41cf-8eb4-5fa733c549af
+2025-06-12 19:44:44,733 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Hardware' (37726fa0-1fd0-41cf-8eb4-5fa733c549af)
+2025-06-12 19:44:44,733 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Hardware
+2025-06-12 19:44:44,734 [DEBUG] workflow.utils — Checking step: 51befb1e-9a01-4644-9dce-e92472138883
+2025-06-12 19:44:44,734 [WARNING] workflow.utils — Step 51befb1e-9a01-4644-9dce-e92472138883 has no transitions at all.
+2025-06-12 19:44:44,734 [WARNING] workflow.utils — Step 51befb1e-9a01-4644-9dce-e92472138883 failed initialization check.
+2025-06-12 19:44:44,735 [INFO] workflow.utils — Setting workflow 'Technical Issue - Hardware' status to: draft
+2025-06-12 19:44:44,735 [INFO] workflow.utils — >>> Computing status for workflow_id: 37726fa0-1fd0-41cf-8eb4-5fa733c549af
+2025-06-12 19:44:44,736 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Hardware' (37726fa0-1fd0-41cf-8eb4-5fa733c549af)
+2025-06-12 19:44:44,736 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Hardware
+2025-06-12 19:44:44,737 [DEBUG] workflow.utils — Checking step: 51befb1e-9a01-4644-9dce-e92472138883
+2025-06-12 19:44:44,737 [WARNING] workflow.utils — Step 51befb1e-9a01-4644-9dce-e92472138883 has no transitions at all.
+2025-06-12 19:44:44,737 [WARNING] workflow.utils — Step 51befb1e-9a01-4644-9dce-e92472138883 failed initialization check.
+2025-06-12 19:44:44,737 [INFO] workflow.utils — Setting workflow 'Technical Issue - Hardware' status to: draft
+2025-06-12 19:44:44,739 [INFO] workflow.utils — >>> Computing status for workflow_id: 37726fa0-1fd0-41cf-8eb4-5fa733c549af
+2025-06-12 19:44:44,740 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Hardware' (37726fa0-1fd0-41cf-8eb4-5fa733c549af)
+2025-06-12 19:44:44,740 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Hardware
+2025-06-12 19:44:44,741 [DEBUG] workflow.utils — Checking step: 51befb1e-9a01-4644-9dce-e92472138883
+2025-06-12 19:44:44,742 [DEBUG] workflow.utils — Transition cc088713-fb9b-4b09-b59c-cfcb8d860239 initialized: True
+2025-06-12 19:44:44,742 [DEBUG] workflow.utils — Step 51befb1e-9a01-4644-9dce-e92472138883 is fully initialized.
+2025-06-12 19:44:44,742 [DEBUG] workflow.utils — Checking step: 46437c1c-63ea-402d-8aa0-572964bc0c82
+2025-06-12 19:44:44,743 [WARNING] workflow.utils — Step 46437c1c-63ea-402d-8aa0-572964bc0c82 has no transitions at all.
+2025-06-12 19:44:44,743 [WARNING] workflow.utils — Step 46437c1c-63ea-402d-8aa0-572964bc0c82 failed initialization check.
+2025-06-12 19:44:44,743 [INFO] workflow.utils — Setting workflow 'Technical Issue - Hardware' status to: draft
+2025-06-12 19:44:44,745 [INFO] workflow.utils — >>> Computing status for workflow_id: 37726fa0-1fd0-41cf-8eb4-5fa733c549af
+2025-06-12 19:44:44,745 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Hardware' (37726fa0-1fd0-41cf-8eb4-5fa733c549af)
+2025-06-12 19:44:44,746 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Hardware
+2025-06-12 19:44:44,746 [DEBUG] workflow.utils — Checking step: 51befb1e-9a01-4644-9dce-e92472138883
+2025-06-12 19:44:44,747 [DEBUG] workflow.utils — Transition aa11f157-67e7-4dc7-a348-37b9c58f864e initialized: True
+2025-06-12 19:44:44,748 [DEBUG] workflow.utils — Transition cc088713-fb9b-4b09-b59c-cfcb8d860239 initialized: True
+2025-06-12 19:44:44,748 [DEBUG] workflow.utils — Step 51befb1e-9a01-4644-9dce-e92472138883 is fully initialized.
+2025-06-12 19:44:44,748 [DEBUG] workflow.utils — Checking step: 46437c1c-63ea-402d-8aa0-572964bc0c82
+2025-06-12 19:44:44,749 [DEBUG] workflow.utils — Transition aa11f157-67e7-4dc7-a348-37b9c58f864e initialized: True
+2025-06-12 19:44:44,749 [DEBUG] workflow.utils — Step 46437c1c-63ea-402d-8aa0-572964bc0c82 is fully initialized.
+2025-06-12 19:44:44,749 [DEBUG] workflow.utils — Checking step: 337e046d-9a46-493c-b366-61db5efbb15c
+2025-06-12 19:44:44,749 [WARNING] workflow.utils — Step 337e046d-9a46-493c-b366-61db5efbb15c has no transitions at all.
+2025-06-12 19:44:44,750 [WARNING] workflow.utils — Step 337e046d-9a46-493c-b366-61db5efbb15c failed initialization check.
+2025-06-12 19:44:44,750 [INFO] workflow.utils — Setting workflow 'Technical Issue - Hardware' status to: draft
+2025-06-12 19:44:44,752 [INFO] workflow.utils — >>> Computing status for workflow_id: 37726fa0-1fd0-41cf-8eb4-5fa733c549af
+2025-06-12 19:44:44,752 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Hardware' (37726fa0-1fd0-41cf-8eb4-5fa733c549af)
+2025-06-12 19:44:44,752 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Hardware
+2025-06-12 19:44:44,753 [DEBUG] workflow.utils — Checking step: 51befb1e-9a01-4644-9dce-e92472138883
+2025-06-12 19:44:44,754 [DEBUG] workflow.utils — Transition aa11f157-67e7-4dc7-a348-37b9c58f864e initialized: True
+2025-06-12 19:44:44,755 [DEBUG] workflow.utils — Transition cc088713-fb9b-4b09-b59c-cfcb8d860239 initialized: True
+2025-06-12 19:44:44,755 [DEBUG] workflow.utils — Step 51befb1e-9a01-4644-9dce-e92472138883 is fully initialized.
+2025-06-12 19:44:44,755 [DEBUG] workflow.utils — Checking step: 46437c1c-63ea-402d-8aa0-572964bc0c82
+2025-06-12 19:44:44,756 [DEBUG] workflow.utils — Transition dd157bc8-e200-4062-99b5-d7f2f8323855 initialized: True
+2025-06-12 19:44:44,756 [DEBUG] workflow.utils — Transition aa11f157-67e7-4dc7-a348-37b9c58f864e initialized: True
+2025-06-12 19:44:44,756 [DEBUG] workflow.utils — Step 46437c1c-63ea-402d-8aa0-572964bc0c82 is fully initialized.
+2025-06-12 19:44:44,756 [DEBUG] workflow.utils — Checking step: 337e046d-9a46-493c-b366-61db5efbb15c
+2025-06-12 19:44:44,758 [DEBUG] workflow.utils — Transition dd157bc8-e200-4062-99b5-d7f2f8323855 initialized: True
+2025-06-12 19:44:44,758 [DEBUG] workflow.utils — Step 337e046d-9a46-493c-b366-61db5efbb15c is fully initialized.
+2025-06-12 19:44:44,758 [INFO] workflow.utils — Workflow 'Technical Issue - Hardware' is initialized.
+2025-06-12 19:44:44,758 [INFO] workflow.utils — Setting workflow 'Technical Issue - Hardware' status to: initialized
+2025-06-12 19:44:44,760 [INFO] workflow.signals — Workflow 37726fa0-1fd0-41cf-8eb4-5fa733c549af is initialized. No external sync triggered.
+2025-06-12 19:44:44,763 [INFO] workflow.utils — >>> Computing status for workflow_id: 37726fa0-1fd0-41cf-8eb4-5fa733c549af
+2025-06-12 19:44:44,763 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Hardware' (37726fa0-1fd0-41cf-8eb4-5fa733c549af)
+2025-06-12 19:44:44,764 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Hardware
+2025-06-12 19:44:44,764 [DEBUG] workflow.utils — Checking step: 51befb1e-9a01-4644-9dce-e92472138883
+2025-06-12 19:44:44,765 [DEBUG] workflow.utils — Transition aa11f157-67e7-4dc7-a348-37b9c58f864e initialized: True
+2025-06-12 19:44:44,766 [DEBUG] workflow.utils — Transition cc088713-fb9b-4b09-b59c-cfcb8d860239 initialized: True
+2025-06-12 19:44:44,766 [DEBUG] workflow.utils — Transition 676f9ec3-ee62-4f74-a445-ae54b993360e initialized: True
+2025-06-12 19:44:44,766 [DEBUG] workflow.utils — Step 51befb1e-9a01-4644-9dce-e92472138883 is fully initialized.
+2025-06-12 19:44:44,766 [DEBUG] workflow.utils — Checking step: 46437c1c-63ea-402d-8aa0-572964bc0c82
+2025-06-12 19:44:44,768 [DEBUG] workflow.utils — Transition dd157bc8-e200-4062-99b5-d7f2f8323855 initialized: True
+2025-06-12 19:44:44,768 [DEBUG] workflow.utils — Transition 676f9ec3-ee62-4f74-a445-ae54b993360e initialized: True
+2025-06-12 19:44:44,769 [DEBUG] workflow.utils — Transition aa11f157-67e7-4dc7-a348-37b9c58f864e initialized: True
+2025-06-12 19:44:44,769 [DEBUG] workflow.utils — Step 46437c1c-63ea-402d-8aa0-572964bc0c82 is fully initialized.
+2025-06-12 19:44:44,769 [DEBUG] workflow.utils — Checking step: 337e046d-9a46-493c-b366-61db5efbb15c
+2025-06-12 19:44:44,770 [DEBUG] workflow.utils — Transition dd157bc8-e200-4062-99b5-d7f2f8323855 initialized: True
+2025-06-12 19:44:44,770 [DEBUG] workflow.utils — Step 337e046d-9a46-493c-b366-61db5efbb15c is fully initialized.
+2025-06-12 19:44:44,770 [INFO] workflow.utils — Workflow 'Technical Issue - Hardware' is initialized.
+2025-06-12 19:44:44,770 [INFO] workflow.utils — Setting workflow 'Technical Issue - Hardware' status to: initialized
+2025-06-12 19:44:44,772 [INFO] workflow.utils — >>> Computing status for workflow_id: 37726fa0-1fd0-41cf-8eb4-5fa733c549af
+2025-06-12 19:44:44,772 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Hardware' (37726fa0-1fd0-41cf-8eb4-5fa733c549af)
+2025-06-12 19:44:44,773 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Hardware
+2025-06-12 19:44:44,773 [DEBUG] workflow.utils — Checking step: 51befb1e-9a01-4644-9dce-e92472138883
+2025-06-12 19:44:44,774 [DEBUG] workflow.utils — Transition aa11f157-67e7-4dc7-a348-37b9c58f864e initialized: True
+2025-06-12 19:44:44,775 [DEBUG] workflow.utils — Transition cc088713-fb9b-4b09-b59c-cfcb8d860239 initialized: True
+2025-06-12 19:44:44,775 [DEBUG] workflow.utils — Transition 676f9ec3-ee62-4f74-a445-ae54b993360e initialized: True
+2025-06-12 19:44:44,775 [DEBUG] workflow.utils — Step 51befb1e-9a01-4644-9dce-e92472138883 is fully initialized.
+2025-06-12 19:44:44,775 [DEBUG] workflow.utils — Checking step: 46437c1c-63ea-402d-8aa0-572964bc0c82
+2025-06-12 19:44:44,777 [DEBUG] workflow.utils — Transition dd157bc8-e200-4062-99b5-d7f2f8323855 initialized: True
+2025-06-12 19:44:44,777 [DEBUG] workflow.utils — Transition 676f9ec3-ee62-4f74-a445-ae54b993360e initialized: True
+2025-06-12 19:44:44,778 [DEBUG] workflow.utils — Transition aa11f157-67e7-4dc7-a348-37b9c58f864e initialized: True
+2025-06-12 19:44:44,778 [DEBUG] workflow.utils — Step 46437c1c-63ea-402d-8aa0-572964bc0c82 is fully initialized.
+2025-06-12 19:44:44,778 [DEBUG] workflow.utils — Checking step: 337e046d-9a46-493c-b366-61db5efbb15c
+2025-06-12 19:44:44,779 [DEBUG] workflow.utils — Transition 5d025349-7e7d-4fc5-b348-516b4630d2b9 initialized: True
+2025-06-12 19:44:44,779 [DEBUG] workflow.utils — Transition dd157bc8-e200-4062-99b5-d7f2f8323855 initialized: True
+2025-06-12 19:44:44,779 [DEBUG] workflow.utils — Step 337e046d-9a46-493c-b366-61db5efbb15c is fully initialized.
+2025-06-12 19:44:44,779 [INFO] workflow.utils — Workflow 'Technical Issue - Hardware' is initialized.
+2025-06-12 19:44:44,779 [INFO] workflow.utils — Setting workflow 'Technical Issue - Hardware' status to: initialized
+2025-06-12 19:44:44,783 [INFO] workflow.utils — >>> Computing status for workflow_id: 0392f65a-5d63-410a-910b-43f45b1598d5
+2025-06-12 19:44:44,784 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Payment' (0392f65a-5d63-410a-910b-43f45b1598d5)
+2025-06-12 19:44:44,784 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Payment
+2025-06-12 19:44:44,785 [DEBUG] workflow.utils — Checking step: 9e231655-43b5-4ee6-9997-326f89176278
+2025-06-12 19:44:44,785 [WARNING] workflow.utils — Step 9e231655-43b5-4ee6-9997-326f89176278 has no transitions at all.
+2025-06-12 19:44:44,785 [WARNING] workflow.utils — Step 9e231655-43b5-4ee6-9997-326f89176278 failed initialization check.
+2025-06-12 19:44:44,785 [INFO] workflow.utils — Setting workflow 'Technical Issue - Payment' status to: draft
+2025-06-12 19:44:44,786 [INFO] workflow.utils — >>> Computing status for workflow_id: 0392f65a-5d63-410a-910b-43f45b1598d5
+2025-06-12 19:44:44,786 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Payment' (0392f65a-5d63-410a-910b-43f45b1598d5)
+2025-06-12 19:44:44,787 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Payment
+2025-06-12 19:44:44,787 [DEBUG] workflow.utils — Checking step: 9e231655-43b5-4ee6-9997-326f89176278
+2025-06-12 19:44:44,788 [WARNING] workflow.utils — Step 9e231655-43b5-4ee6-9997-326f89176278 has no transitions at all.
+2025-06-12 19:44:44,788 [WARNING] workflow.utils — Step 9e231655-43b5-4ee6-9997-326f89176278 failed initialization check.
+2025-06-12 19:44:44,788 [INFO] workflow.utils — Setting workflow 'Technical Issue - Payment' status to: draft
+2025-06-12 19:44:44,789 [INFO] workflow.utils — >>> Computing status for workflow_id: 0392f65a-5d63-410a-910b-43f45b1598d5
+2025-06-12 19:44:44,789 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Payment' (0392f65a-5d63-410a-910b-43f45b1598d5)
+2025-06-12 19:44:44,790 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Payment
+2025-06-12 19:44:44,790 [DEBUG] workflow.utils — Checking step: 9e231655-43b5-4ee6-9997-326f89176278
+2025-06-12 19:44:44,791 [WARNING] workflow.utils — Step 9e231655-43b5-4ee6-9997-326f89176278 has no transitions at all.
+2025-06-12 19:44:44,791 [WARNING] workflow.utils — Step 9e231655-43b5-4ee6-9997-326f89176278 failed initialization check.
+2025-06-12 19:44:44,791 [INFO] workflow.utils — Setting workflow 'Technical Issue - Payment' status to: draft
+2025-06-12 19:44:44,793 [INFO] workflow.utils — >>> Computing status for workflow_id: 0392f65a-5d63-410a-910b-43f45b1598d5
+2025-06-12 19:44:44,793 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Payment' (0392f65a-5d63-410a-910b-43f45b1598d5)
+2025-06-12 19:44:44,794 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Payment
+2025-06-12 19:44:44,794 [DEBUG] workflow.utils — Checking step: 9e231655-43b5-4ee6-9997-326f89176278
+2025-06-12 19:44:44,796 [DEBUG] workflow.utils — Transition bc3a0c8f-91de-4455-ad60-4c67ea12266c initialized: True
+2025-06-12 19:44:44,796 [DEBUG] workflow.utils — Step 9e231655-43b5-4ee6-9997-326f89176278 is fully initialized.
+2025-06-12 19:44:44,796 [DEBUG] workflow.utils — Checking step: 52f56b48-1692-49ba-b46f-0ccc607614e1
+2025-06-12 19:44:44,796 [WARNING] workflow.utils — Step 52f56b48-1692-49ba-b46f-0ccc607614e1 has no transitions at all.
+2025-06-12 19:44:44,796 [WARNING] workflow.utils — Step 52f56b48-1692-49ba-b46f-0ccc607614e1 failed initialization check.
+2025-06-12 19:44:44,796 [INFO] workflow.utils — Setting workflow 'Technical Issue - Payment' status to: draft
+2025-06-12 19:44:44,799 [INFO] workflow.utils — >>> Computing status for workflow_id: 0392f65a-5d63-410a-910b-43f45b1598d5
+2025-06-12 19:44:44,799 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Payment' (0392f65a-5d63-410a-910b-43f45b1598d5)
+2025-06-12 19:44:44,799 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Payment
+2025-06-12 19:44:44,800 [DEBUG] workflow.utils — Checking step: 9e231655-43b5-4ee6-9997-326f89176278
+2025-06-12 19:44:44,801 [DEBUG] workflow.utils — Transition 55707b6d-d459-412f-b3d3-004fc99fdde7 initialized: True
+2025-06-12 19:44:44,801 [DEBUG] workflow.utils — Transition bc3a0c8f-91de-4455-ad60-4c67ea12266c initialized: True
+2025-06-12 19:44:44,802 [DEBUG] workflow.utils — Step 9e231655-43b5-4ee6-9997-326f89176278 is fully initialized.
+2025-06-12 19:44:44,802 [DEBUG] workflow.utils — Checking step: 52f56b48-1692-49ba-b46f-0ccc607614e1
+2025-06-12 19:44:44,803 [DEBUG] workflow.utils — Transition 55707b6d-d459-412f-b3d3-004fc99fdde7 initialized: True
+2025-06-12 19:44:44,803 [DEBUG] workflow.utils — Step 52f56b48-1692-49ba-b46f-0ccc607614e1 is fully initialized.
+2025-06-12 19:44:44,803 [DEBUG] workflow.utils — Checking step: 8de1085f-eabb-4763-a981-0cb4c006d733
+2025-06-12 19:44:44,803 [WARNING] workflow.utils — Step 8de1085f-eabb-4763-a981-0cb4c006d733 has no transitions at all.
+2025-06-12 19:44:44,803 [WARNING] workflow.utils — Step 8de1085f-eabb-4763-a981-0cb4c006d733 failed initialization check.
+2025-06-12 19:44:44,803 [INFO] workflow.utils — Setting workflow 'Technical Issue - Payment' status to: draft
+2025-06-12 19:44:44,806 [INFO] workflow.utils — >>> Computing status for workflow_id: 0392f65a-5d63-410a-910b-43f45b1598d5
+2025-06-12 19:44:44,806 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Payment' (0392f65a-5d63-410a-910b-43f45b1598d5)
+2025-06-12 19:44:44,806 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Payment
+2025-06-12 19:44:44,807 [DEBUG] workflow.utils — Checking step: 9e231655-43b5-4ee6-9997-326f89176278
+2025-06-12 19:44:44,808 [DEBUG] workflow.utils — Transition 55707b6d-d459-412f-b3d3-004fc99fdde7 initialized: True
+2025-06-12 19:44:44,809 [DEBUG] workflow.utils — Transition bc3a0c8f-91de-4455-ad60-4c67ea12266c initialized: True
+2025-06-12 19:44:44,809 [DEBUG] workflow.utils — Step 9e231655-43b5-4ee6-9997-326f89176278 is fully initialized.
+2025-06-12 19:44:44,809 [DEBUG] workflow.utils — Checking step: 52f56b48-1692-49ba-b46f-0ccc607614e1
+2025-06-12 19:44:44,810 [DEBUG] workflow.utils — Transition d37b7d99-dd34-4be6-add2-4dabd2781c7e initialized: True
+2025-06-12 19:44:44,810 [DEBUG] workflow.utils — Transition 55707b6d-d459-412f-b3d3-004fc99fdde7 initialized: True
+2025-06-12 19:44:44,810 [DEBUG] workflow.utils — Step 52f56b48-1692-49ba-b46f-0ccc607614e1 is fully initialized.
+2025-06-12 19:44:44,810 [DEBUG] workflow.utils — Checking step: 8de1085f-eabb-4763-a981-0cb4c006d733
+2025-06-12 19:44:44,811 [DEBUG] workflow.utils — Transition d37b7d99-dd34-4be6-add2-4dabd2781c7e initialized: True
+2025-06-12 19:44:44,811 [DEBUG] workflow.utils — Step 8de1085f-eabb-4763-a981-0cb4c006d733 is fully initialized.
+2025-06-12 19:44:44,811 [INFO] workflow.utils — Workflow 'Technical Issue - Payment' is initialized.
+2025-06-12 19:44:44,812 [INFO] workflow.utils — Setting workflow 'Technical Issue - Payment' status to: initialized
+2025-06-12 19:44:44,813 [INFO] workflow.signals — Workflow 0392f65a-5d63-410a-910b-43f45b1598d5 is initialized. No external sync triggered.
+2025-06-12 19:44:44,816 [INFO] workflow.utils — >>> Computing status for workflow_id: 0392f65a-5d63-410a-910b-43f45b1598d5
+2025-06-12 19:44:44,816 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Payment' (0392f65a-5d63-410a-910b-43f45b1598d5)
+2025-06-12 19:44:44,817 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Payment
+2025-06-12 19:44:44,817 [DEBUG] workflow.utils — Checking step: 9e231655-43b5-4ee6-9997-326f89176278
+2025-06-12 19:44:44,819 [DEBUG] workflow.utils — Transition 55707b6d-d459-412f-b3d3-004fc99fdde7 initialized: True
+2025-06-12 19:44:44,819 [DEBUG] workflow.utils — Transition bc3a0c8f-91de-4455-ad60-4c67ea12266c initialized: True
+2025-06-12 19:44:44,820 [DEBUG] workflow.utils — Transition 97072280-7f15-4441-b7b6-36fa5bb9bbb5 initialized: True
+2025-06-12 19:44:44,820 [DEBUG] workflow.utils — Step 9e231655-43b5-4ee6-9997-326f89176278 is fully initialized.
+2025-06-12 19:44:44,820 [DEBUG] workflow.utils — Checking step: 52f56b48-1692-49ba-b46f-0ccc607614e1
+2025-06-12 19:44:44,821 [DEBUG] workflow.utils — Transition d37b7d99-dd34-4be6-add2-4dabd2781c7e initialized: True
+2025-06-12 19:44:44,821 [DEBUG] workflow.utils — Transition 97072280-7f15-4441-b7b6-36fa5bb9bbb5 initialized: True
+2025-06-12 19:44:44,822 [DEBUG] workflow.utils — Transition 55707b6d-d459-412f-b3d3-004fc99fdde7 initialized: True
+2025-06-12 19:44:44,822 [DEBUG] workflow.utils — Step 52f56b48-1692-49ba-b46f-0ccc607614e1 is fully initialized.
+2025-06-12 19:44:44,822 [DEBUG] workflow.utils — Checking step: 8de1085f-eabb-4763-a981-0cb4c006d733
+2025-06-12 19:44:44,823 [DEBUG] workflow.utils — Transition d37b7d99-dd34-4be6-add2-4dabd2781c7e initialized: True
+2025-06-12 19:44:44,823 [DEBUG] workflow.utils — Step 8de1085f-eabb-4763-a981-0cb4c006d733 is fully initialized.
+2025-06-12 19:44:44,823 [INFO] workflow.utils — Workflow 'Technical Issue - Payment' is initialized.
+2025-06-12 19:44:44,823 [INFO] workflow.utils — Setting workflow 'Technical Issue - Payment' status to: initialized
+2025-06-12 19:44:44,825 [INFO] workflow.utils — >>> Computing status for workflow_id: 0392f65a-5d63-410a-910b-43f45b1598d5
+2025-06-12 19:44:44,825 [INFO] workflow.utils — Evaluating workflow 'Technical Issue - Payment' (0392f65a-5d63-410a-910b-43f45b1598d5)
+2025-06-12 19:44:44,826 [DEBUG] workflow.utils — Category: Technical Issue, Sub-category: Payment
+2025-06-12 19:44:44,826 [DEBUG] workflow.utils — Checking step: 9e231655-43b5-4ee6-9997-326f89176278
+2025-06-12 19:44:44,828 [DEBUG] workflow.utils — Transition 55707b6d-d459-412f-b3d3-004fc99fdde7 initialized: True
+2025-06-12 19:44:44,828 [DEBUG] workflow.utils — Transition bc3a0c8f-91de-4455-ad60-4c67ea12266c initialized: True
+2025-06-12 19:44:44,829 [DEBUG] workflow.utils — Transition 97072280-7f15-4441-b7b6-36fa5bb9bbb5 initialized: True
+2025-06-12 19:44:44,829 [DEBUG] workflow.utils — Step 9e231655-43b5-4ee6-9997-326f89176278 is fully initialized.
+2025-06-12 19:44:44,829 [DEBUG] workflow.utils — Checking step: 52f56b48-1692-49ba-b46f-0ccc607614e1
+2025-06-12 19:44:44,830 [DEBUG] workflow.utils — Transition d37b7d99-dd34-4be6-add2-4dabd2781c7e initialized: True
+2025-06-12 19:44:44,830 [DEBUG] workflow.utils — Transition 97072280-7f15-4441-b7b6-36fa5bb9bbb5 initialized: True
+2025-06-12 19:44:44,831 [DEBUG] workflow.utils — Transition 55707b6d-d459-412f-b3d3-004fc99fdde7 initialized: True
+2025-06-12 19:44:44,831 [DEBUG] workflow.utils — Step 52f56b48-1692-49ba-b46f-0ccc607614e1 is fully initialized.
+2025-06-12 19:44:44,831 [DEBUG] workflow.utils — Checking step: 8de1085f-eabb-4763-a981-0cb4c006d733
+2025-06-12 19:44:44,832 [DEBUG] workflow.utils — Transition 57520ade-0f2f-42d0-a84a-13d86f93b831 initialized: True
+2025-06-12 19:44:44,832 [DEBUG] workflow.utils — Transition d37b7d99-dd34-4be6-add2-4dabd2781c7e initialized: True
+2025-06-12 19:44:44,832 [DEBUG] workflow.utils — Step 8de1085f-eabb-4763-a981-0cb4c006d733 is fully initialized.
+2025-06-12 19:44:44,833 [INFO] workflow.utils — Workflow 'Technical Issue - Payment' is initialized.
+2025-06-12 19:44:44,833 [INFO] workflow.utils — Setting workflow 'Technical Issue - Payment' status to: initialized
+2025-06-12 19:44:44,837 [INFO] workflow.utils — >>> Computing status for workflow_id: 7b182f9a-fe1e-4870-91e9-20fc7e05d722
+2025-06-12 19:44:44,837 [INFO] workflow.utils — Evaluating workflow 'Billing - Software' (7b182f9a-fe1e-4870-91e9-20fc7e05d722)
+2025-06-12 19:44:44,838 [DEBUG] workflow.utils — Category: Billing, Sub-category: Software
+2025-06-12 19:44:44,838 [DEBUG] workflow.utils — Checking step: 5094289c-8b68-4631-903c-00b0b030df5b
+2025-06-12 19:44:44,839 [WARNING] workflow.utils — Step 5094289c-8b68-4631-903c-00b0b030df5b has no transitions at all.
+2025-06-12 19:44:44,839 [WARNING] workflow.utils — Step 5094289c-8b68-4631-903c-00b0b030df5b failed initialization check.
+2025-06-12 19:44:44,839 [INFO] workflow.utils — Setting workflow 'Billing - Software' status to: draft
+2025-06-12 19:44:44,839 [INFO] workflow.utils — >>> Computing status for workflow_id: 7b182f9a-fe1e-4870-91e9-20fc7e05d722
+2025-06-12 19:44:44,840 [INFO] workflow.utils — Evaluating workflow 'Billing - Software' (7b182f9a-fe1e-4870-91e9-20fc7e05d722)
+2025-06-12 19:44:44,840 [DEBUG] workflow.utils — Category: Billing, Sub-category: Software
+2025-06-12 19:44:44,841 [DEBUG] workflow.utils — Checking step: 5094289c-8b68-4631-903c-00b0b030df5b
+2025-06-12 19:44:44,841 [WARNING] workflow.utils — Step 5094289c-8b68-4631-903c-00b0b030df5b has no transitions at all.
+2025-06-12 19:44:44,841 [WARNING] workflow.utils — Step 5094289c-8b68-4631-903c-00b0b030df5b failed initialization check.
+2025-06-12 19:44:44,841 [INFO] workflow.utils — Setting workflow 'Billing - Software' status to: draft
+2025-06-12 19:44:44,842 [INFO] workflow.utils — >>> Computing status for workflow_id: 7b182f9a-fe1e-4870-91e9-20fc7e05d722
+2025-06-12 19:44:44,842 [INFO] workflow.utils — Evaluating workflow 'Billing - Software' (7b182f9a-fe1e-4870-91e9-20fc7e05d722)
+2025-06-12 19:44:44,843 [DEBUG] workflow.utils — Category: Billing, Sub-category: Software
+2025-06-12 19:44:44,843 [DEBUG] workflow.utils — Checking step: 5094289c-8b68-4631-903c-00b0b030df5b
+2025-06-12 19:44:44,844 [WARNING] workflow.utils — Step 5094289c-8b68-4631-903c-00b0b030df5b has no transitions at all.
+2025-06-12 19:44:44,844 [WARNING] workflow.utils — Step 5094289c-8b68-4631-903c-00b0b030df5b failed initialization check.
+2025-06-12 19:44:44,844 [INFO] workflow.utils — Setting workflow 'Billing - Software' status to: draft
+2025-06-12 19:44:44,846 [INFO] workflow.utils — >>> Computing status for workflow_id: 7b182f9a-fe1e-4870-91e9-20fc7e05d722
+2025-06-12 19:44:44,846 [INFO] workflow.utils — Evaluating workflow 'Billing - Software' (7b182f9a-fe1e-4870-91e9-20fc7e05d722)
+2025-06-12 19:44:44,847 [DEBUG] workflow.utils — Category: Billing, Sub-category: Software
+2025-06-12 19:44:44,847 [DEBUG] workflow.utils — Checking step: 5094289c-8b68-4631-903c-00b0b030df5b
+2025-06-12 19:44:44,849 [DEBUG] workflow.utils — Transition ae0c4e8a-feb9-411b-b054-efa3e06c7008 initialized: True
+2025-06-12 19:44:44,849 [DEBUG] workflow.utils — Step 5094289c-8b68-4631-903c-00b0b030df5b is fully initialized.
+2025-06-12 19:44:44,849 [DEBUG] workflow.utils — Checking step: 6924179b-318b-482b-bb13-f3e2731b59f9
+2025-06-12 19:44:44,849 [WARNING] workflow.utils — Step 6924179b-318b-482b-bb13-f3e2731b59f9 has no transitions at all.
+2025-06-12 19:44:44,849 [WARNING] workflow.utils — Step 6924179b-318b-482b-bb13-f3e2731b59f9 failed initialization check.
+2025-06-12 19:44:44,849 [INFO] workflow.utils — Setting workflow 'Billing - Software' status to: draft
+2025-06-12 19:44:44,851 [INFO] workflow.utils — >>> Computing status for workflow_id: 7b182f9a-fe1e-4870-91e9-20fc7e05d722
+2025-06-12 19:44:44,852 [INFO] workflow.utils — Evaluating workflow 'Billing - Software' (7b182f9a-fe1e-4870-91e9-20fc7e05d722)
+2025-06-12 19:44:44,852 [DEBUG] workflow.utils — Category: Billing, Sub-category: Software
+2025-06-12 19:44:44,853 [DEBUG] workflow.utils — Checking step: 5094289c-8b68-4631-903c-00b0b030df5b
+2025-06-12 19:44:44,854 [DEBUG] workflow.utils — Transition 7990f3a1-7439-43f6-bc4a-f85dcab367ca initialized: True
+2025-06-12 19:44:44,854 [DEBUG] workflow.utils — Transition ae0c4e8a-feb9-411b-b054-efa3e06c7008 initialized: True
+2025-06-12 19:44:44,854 [DEBUG] workflow.utils — Step 5094289c-8b68-4631-903c-00b0b030df5b is fully initialized.
+2025-06-12 19:44:44,854 [DEBUG] workflow.utils — Checking step: 6924179b-318b-482b-bb13-f3e2731b59f9
+2025-06-12 19:44:44,856 [DEBUG] workflow.utils — Transition 7990f3a1-7439-43f6-bc4a-f85dcab367ca initialized: True
+2025-06-12 19:44:44,856 [DEBUG] workflow.utils — Step 6924179b-318b-482b-bb13-f3e2731b59f9 is fully initialized.
+2025-06-12 19:44:44,856 [DEBUG] workflow.utils — Checking step: 6be4ad41-2e0d-43b9-bc13-fda08165d546
+2025-06-12 19:44:44,856 [WARNING] workflow.utils — Step 6be4ad41-2e0d-43b9-bc13-fda08165d546 has no transitions at all.
+2025-06-12 19:44:44,856 [WARNING] workflow.utils — Step 6be4ad41-2e0d-43b9-bc13-fda08165d546 failed initialization check.
+2025-06-12 19:44:44,856 [INFO] workflow.utils — Setting workflow 'Billing - Software' status to: draft
+2025-06-12 19:44:44,859 [INFO] workflow.utils — >>> Computing status for workflow_id: 7b182f9a-fe1e-4870-91e9-20fc7e05d722
+2025-06-12 19:44:44,859 [INFO] workflow.utils — Evaluating workflow 'Billing - Software' (7b182f9a-fe1e-4870-91e9-20fc7e05d722)
+2025-06-12 19:44:44,859 [DEBUG] workflow.utils — Category: Billing, Sub-category: Software
+2025-06-12 19:44:44,860 [DEBUG] workflow.utils — Checking step: 5094289c-8b68-4631-903c-00b0b030df5b
+2025-06-12 19:44:44,861 [DEBUG] workflow.utils — Transition 7990f3a1-7439-43f6-bc4a-f85dcab367ca initialized: True
+2025-06-12 19:44:44,862 [DEBUG] workflow.utils — Transition ae0c4e8a-feb9-411b-b054-efa3e06c7008 initialized: True
+2025-06-12 19:44:44,862 [DEBUG] workflow.utils — Step 5094289c-8b68-4631-903c-00b0b030df5b is fully initialized.
+2025-06-12 19:44:44,862 [DEBUG] workflow.utils — Checking step: 6924179b-318b-482b-bb13-f3e2731b59f9
+2025-06-12 19:44:44,863 [DEBUG] workflow.utils — Transition 90520a7b-6f21-47df-a1e3-e66e3a951fcb initialized: True
+2025-06-12 19:44:44,864 [DEBUG] workflow.utils — Transition 7990f3a1-7439-43f6-bc4a-f85dcab367ca initialized: True
+2025-06-12 19:44:44,864 [DEBUG] workflow.utils — Step 6924179b-318b-482b-bb13-f3e2731b59f9 is fully initialized.
+2025-06-12 19:44:44,864 [DEBUG] workflow.utils — Checking step: 6be4ad41-2e0d-43b9-bc13-fda08165d546
+2025-06-12 19:44:44,865 [DEBUG] workflow.utils — Transition 90520a7b-6f21-47df-a1e3-e66e3a951fcb initialized: True
+2025-06-12 19:44:44,865 [DEBUG] workflow.utils — Step 6be4ad41-2e0d-43b9-bc13-fda08165d546 is fully initialized.
+2025-06-12 19:44:44,865 [INFO] workflow.utils — Workflow 'Billing - Software' is initialized.
+2025-06-12 19:44:44,865 [INFO] workflow.utils — Setting workflow 'Billing - Software' status to: initialized
+2025-06-12 19:44:44,867 [INFO] workflow.signals — Workflow 7b182f9a-fe1e-4870-91e9-20fc7e05d722 is initialized. No external sync triggered.
+2025-06-12 19:44:44,870 [INFO] workflow.utils — >>> Computing status for workflow_id: 7b182f9a-fe1e-4870-91e9-20fc7e05d722
+2025-06-12 19:44:44,870 [INFO] workflow.utils — Evaluating workflow 'Billing - Software' (7b182f9a-fe1e-4870-91e9-20fc7e05d722)
+2025-06-12 19:44:44,870 [DEBUG] workflow.utils — Category: Billing, Sub-category: Software
+2025-06-12 19:44:44,871 [DEBUG] workflow.utils — Checking step: 5094289c-8b68-4631-903c-00b0b030df5b
+2025-06-12 19:44:44,872 [DEBUG] workflow.utils — Transition 7990f3a1-7439-43f6-bc4a-f85dcab367ca initialized: True
+2025-06-12 19:44:44,873 [DEBUG] workflow.utils — Transition ae0c4e8a-feb9-411b-b054-efa3e06c7008 initialized: True
+2025-06-12 19:44:44,873 [DEBUG] workflow.utils — Transition 65e7e63e-4ff1-4056-a57a-599b23bb4c69 initialized: True
+2025-06-12 19:44:44,873 [DEBUG] workflow.utils — Step 5094289c-8b68-4631-903c-00b0b030df5b is fully initialized.
+2025-06-12 19:44:44,873 [DEBUG] workflow.utils — Checking step: 6924179b-318b-482b-bb13-f3e2731b59f9
+2025-06-12 19:44:44,874 [DEBUG] workflow.utils — Transition 90520a7b-6f21-47df-a1e3-e66e3a951fcb initialized: True
+2025-06-12 19:44:44,875 [DEBUG] workflow.utils — Transition 65e7e63e-4ff1-4056-a57a-599b23bb4c69 initialized: True
+2025-06-12 19:44:44,875 [DEBUG] workflow.utils — Transition 7990f3a1-7439-43f6-bc4a-f85dcab367ca initialized: True
+2025-06-12 19:44:44,876 [DEBUG] workflow.utils — Step 6924179b-318b-482b-bb13-f3e2731b59f9 is fully initialized.
+2025-06-12 19:44:44,876 [DEBUG] workflow.utils — Checking step: 6be4ad41-2e0d-43b9-bc13-fda08165d546
+2025-06-12 19:44:44,877 [DEBUG] workflow.utils — Transition 90520a7b-6f21-47df-a1e3-e66e3a951fcb initialized: True
+2025-06-12 19:44:44,877 [DEBUG] workflow.utils — Step 6be4ad41-2e0d-43b9-bc13-fda08165d546 is fully initialized.
+2025-06-12 19:44:44,877 [INFO] workflow.utils — Workflow 'Billing - Software' is initialized.
+2025-06-12 19:44:44,877 [INFO] workflow.utils — Setting workflow 'Billing - Software' status to: initialized
+2025-06-12 19:44:44,879 [INFO] workflow.utils — >>> Computing status for workflow_id: 7b182f9a-fe1e-4870-91e9-20fc7e05d722
+2025-06-12 19:44:44,879 [INFO] workflow.utils — Evaluating workflow 'Billing - Software' (7b182f9a-fe1e-4870-91e9-20fc7e05d722)
+2025-06-12 19:44:44,880 [DEBUG] workflow.utils — Category: Billing, Sub-category: Software
+2025-06-12 19:44:44,880 [DEBUG] workflow.utils — Checking step: 5094289c-8b68-4631-903c-00b0b030df5b
+2025-06-12 19:44:44,881 [DEBUG] workflow.utils — Transition 7990f3a1-7439-43f6-bc4a-f85dcab367ca initialized: True
+2025-06-12 19:44:44,882 [DEBUG] workflow.utils — Transition ae0c4e8a-feb9-411b-b054-efa3e06c7008 initialized: True
+2025-06-12 19:44:44,882 [DEBUG] workflow.utils — Transition 65e7e63e-4ff1-4056-a57a-599b23bb4c69 initialized: True
+2025-06-12 19:44:44,882 [DEBUG] workflow.utils — Step 5094289c-8b68-4631-903c-00b0b030df5b is fully initialized.
+2025-06-12 19:44:44,882 [DEBUG] workflow.utils — Checking step: 6924179b-318b-482b-bb13-f3e2731b59f9
+2025-06-12 19:44:44,884 [DEBUG] workflow.utils — Transition 90520a7b-6f21-47df-a1e3-e66e3a951fcb initialized: True
+2025-06-12 19:44:44,884 [DEBUG] workflow.utils — Transition 65e7e63e-4ff1-4056-a57a-599b23bb4c69 initialized: True
+2025-06-12 19:44:44,885 [DEBUG] workflow.utils — Transition 7990f3a1-7439-43f6-bc4a-f85dcab367ca initialized: True
+2025-06-12 19:44:44,885 [DEBUG] workflow.utils — Step 6924179b-318b-482b-bb13-f3e2731b59f9 is fully initialized.
+2025-06-12 19:44:44,885 [DEBUG] workflow.utils — Checking step: 6be4ad41-2e0d-43b9-bc13-fda08165d546
+2025-06-12 19:44:44,886 [DEBUG] workflow.utils — Transition 8ce064c9-2ca5-486e-927c-d8b997d5f8b6 initialized: True
+2025-06-12 19:44:44,886 [DEBUG] workflow.utils — Transition 90520a7b-6f21-47df-a1e3-e66e3a951fcb initialized: True
+2025-06-12 19:44:44,886 [DEBUG] workflow.utils — Step 6be4ad41-2e0d-43b9-bc13-fda08165d546 is fully initialized.
+2025-06-12 19:44:44,886 [INFO] workflow.utils — Workflow 'Billing - Software' is initialized.
+2025-06-12 19:44:44,886 [INFO] workflow.utils — Setting workflow 'Billing - Software' status to: initialized
+2025-06-12 19:44:44,890 [INFO] workflow.utils — >>> Computing status for workflow_id: e162f1a8-70d0-4d48-b292-e1cc990227ab
+2025-06-12 19:44:44,891 [INFO] workflow.utils — Evaluating workflow 'Billing - Hardware' (e162f1a8-70d0-4d48-b292-e1cc990227ab)
+2025-06-12 19:44:44,891 [DEBUG] workflow.utils — Category: Billing, Sub-category: Hardware
+2025-06-12 19:44:44,892 [DEBUG] workflow.utils — Checking step: e80170f9-118b-4f47-b9c9-3a09a527fd5c
+2025-06-12 19:44:44,892 [WARNING] workflow.utils — Step e80170f9-118b-4f47-b9c9-3a09a527fd5c has no transitions at all.
+2025-06-12 19:44:44,892 [WARNING] workflow.utils — Step e80170f9-118b-4f47-b9c9-3a09a527fd5c failed initialization check.
+2025-06-12 19:44:44,892 [INFO] workflow.utils — Setting workflow 'Billing - Hardware' status to: draft
+2025-06-12 19:44:44,893 [INFO] workflow.utils — >>> Computing status for workflow_id: e162f1a8-70d0-4d48-b292-e1cc990227ab
+2025-06-12 19:44:44,893 [INFO] workflow.utils — Evaluating workflow 'Billing - Hardware' (e162f1a8-70d0-4d48-b292-e1cc990227ab)
+2025-06-12 19:44:44,894 [DEBUG] workflow.utils — Category: Billing, Sub-category: Hardware
+2025-06-12 19:44:44,894 [DEBUG] workflow.utils — Checking step: e80170f9-118b-4f47-b9c9-3a09a527fd5c
+2025-06-12 19:44:44,895 [WARNING] workflow.utils — Step e80170f9-118b-4f47-b9c9-3a09a527fd5c has no transitions at all.
+2025-06-12 19:44:44,895 [WARNING] workflow.utils — Step e80170f9-118b-4f47-b9c9-3a09a527fd5c failed initialization check.
+2025-06-12 19:44:44,895 [INFO] workflow.utils — Setting workflow 'Billing - Hardware' status to: draft
+2025-06-12 19:44:44,896 [INFO] workflow.utils — >>> Computing status for workflow_id: e162f1a8-70d0-4d48-b292-e1cc990227ab
+2025-06-12 19:44:44,896 [INFO] workflow.utils — Evaluating workflow 'Billing - Hardware' (e162f1a8-70d0-4d48-b292-e1cc990227ab)
+2025-06-12 19:44:44,897 [DEBUG] workflow.utils — Category: Billing, Sub-category: Hardware
+2025-06-12 19:44:44,897 [DEBUG] workflow.utils — Checking step: e80170f9-118b-4f47-b9c9-3a09a527fd5c
+2025-06-12 19:44:44,898 [WARNING] workflow.utils — Step e80170f9-118b-4f47-b9c9-3a09a527fd5c has no transitions at all.
+2025-06-12 19:44:44,898 [WARNING] workflow.utils — Step e80170f9-118b-4f47-b9c9-3a09a527fd5c failed initialization check.
+2025-06-12 19:44:44,898 [INFO] workflow.utils — Setting workflow 'Billing - Hardware' status to: draft
+2025-06-12 19:44:44,900 [INFO] workflow.utils — >>> Computing status for workflow_id: e162f1a8-70d0-4d48-b292-e1cc990227ab
+2025-06-12 19:44:44,900 [INFO] workflow.utils — Evaluating workflow 'Billing - Hardware' (e162f1a8-70d0-4d48-b292-e1cc990227ab)
+2025-06-12 19:44:44,901 [DEBUG] workflow.utils — Category: Billing, Sub-category: Hardware
+2025-06-12 19:44:44,901 [DEBUG] workflow.utils — Checking step: e80170f9-118b-4f47-b9c9-3a09a527fd5c
+2025-06-12 19:44:44,903 [DEBUG] workflow.utils — Transition f834031d-b9cf-4a7a-a6ab-5efafb608c22 initialized: True
+2025-06-12 19:44:44,903 [DEBUG] workflow.utils — Step e80170f9-118b-4f47-b9c9-3a09a527fd5c is fully initialized.
+2025-06-12 19:44:44,903 [DEBUG] workflow.utils — Checking step: fa066191-48a1-41a8-80d4-9b2f52a166be
+2025-06-12 19:44:44,903 [WARNING] workflow.utils — Step fa066191-48a1-41a8-80d4-9b2f52a166be has no transitions at all.
+2025-06-12 19:44:44,903 [WARNING] workflow.utils — Step fa066191-48a1-41a8-80d4-9b2f52a166be failed initialization check.
+2025-06-12 19:44:44,903 [INFO] workflow.utils — Setting workflow 'Billing - Hardware' status to: draft
+2025-06-12 19:44:44,906 [INFO] workflow.utils — >>> Computing status for workflow_id: e162f1a8-70d0-4d48-b292-e1cc990227ab
+2025-06-12 19:44:44,906 [INFO] workflow.utils — Evaluating workflow 'Billing - Hardware' (e162f1a8-70d0-4d48-b292-e1cc990227ab)
+2025-06-12 19:44:44,907 [DEBUG] workflow.utils — Category: Billing, Sub-category: Hardware
+2025-06-12 19:44:44,908 [DEBUG] workflow.utils — Checking step: e80170f9-118b-4f47-b9c9-3a09a527fd5c
+2025-06-12 19:44:44,909 [DEBUG] workflow.utils — Transition 24244d37-d9a0-4568-b52c-f02683f61707 initialized: True
+2025-06-12 19:44:44,909 [DEBUG] workflow.utils — Transition f834031d-b9cf-4a7a-a6ab-5efafb608c22 initialized: True
+2025-06-12 19:44:44,909 [DEBUG] workflow.utils — Step e80170f9-118b-4f47-b9c9-3a09a527fd5c is fully initialized.
+2025-06-12 19:44:44,909 [DEBUG] workflow.utils — Checking step: fa066191-48a1-41a8-80d4-9b2f52a166be
+2025-06-12 19:44:44,910 [DEBUG] workflow.utils — Transition 24244d37-d9a0-4568-b52c-f02683f61707 initialized: True
+2025-06-12 19:44:44,911 [DEBUG] workflow.utils — Step fa066191-48a1-41a8-80d4-9b2f52a166be is fully initialized.
+2025-06-12 19:44:44,911 [DEBUG] workflow.utils — Checking step: eb9ff77f-862a-4113-8be3-ef10b01dc758
+2025-06-12 19:44:44,911 [WARNING] workflow.utils — Step eb9ff77f-862a-4113-8be3-ef10b01dc758 has no transitions at all.
+2025-06-12 19:44:44,911 [WARNING] workflow.utils — Step eb9ff77f-862a-4113-8be3-ef10b01dc758 failed initialization check.
+2025-06-12 19:44:44,911 [INFO] workflow.utils — Setting workflow 'Billing - Hardware' status to: draft
+2025-06-12 19:44:44,913 [INFO] workflow.utils — >>> Computing status for workflow_id: e162f1a8-70d0-4d48-b292-e1cc990227ab
+2025-06-12 19:44:44,914 [INFO] workflow.utils — Evaluating workflow 'Billing - Hardware' (e162f1a8-70d0-4d48-b292-e1cc990227ab)
+2025-06-12 19:44:44,914 [DEBUG] workflow.utils — Category: Billing, Sub-category: Hardware
+2025-06-12 19:44:44,915 [DEBUG] workflow.utils — Checking step: e80170f9-118b-4f47-b9c9-3a09a527fd5c
+2025-06-12 19:44:44,916 [DEBUG] workflow.utils — Transition 24244d37-d9a0-4568-b52c-f02683f61707 initialized: True
+2025-06-12 19:44:44,916 [DEBUG] workflow.utils — Transition f834031d-b9cf-4a7a-a6ab-5efafb608c22 initialized: True
+2025-06-12 19:44:44,917 [DEBUG] workflow.utils — Step e80170f9-118b-4f47-b9c9-3a09a527fd5c is fully initialized.
+2025-06-12 19:44:44,917 [DEBUG] workflow.utils — Checking step: fa066191-48a1-41a8-80d4-9b2f52a166be
+2025-06-12 19:44:44,918 [DEBUG] workflow.utils — Transition e95db96a-1e7f-4ec2-9ca0-3f795097bf80 initialized: True
+2025-06-12 19:44:44,918 [DEBUG] workflow.utils — Transition 24244d37-d9a0-4568-b52c-f02683f61707 initialized: True
+2025-06-12 19:44:44,918 [DEBUG] workflow.utils — Step fa066191-48a1-41a8-80d4-9b2f52a166be is fully initialized.
+2025-06-12 19:44:44,918 [DEBUG] workflow.utils — Checking step: eb9ff77f-862a-4113-8be3-ef10b01dc758
+2025-06-12 19:44:44,919 [DEBUG] workflow.utils — Transition e95db96a-1e7f-4ec2-9ca0-3f795097bf80 initialized: True
+2025-06-12 19:44:44,919 [DEBUG] workflow.utils — Step eb9ff77f-862a-4113-8be3-ef10b01dc758 is fully initialized.
+2025-06-12 19:44:44,919 [INFO] workflow.utils — Workflow 'Billing - Hardware' is initialized.
+2025-06-12 19:44:44,920 [INFO] workflow.utils — Setting workflow 'Billing - Hardware' status to: initialized
+2025-06-12 19:44:44,921 [INFO] workflow.signals — Workflow e162f1a8-70d0-4d48-b292-e1cc990227ab is initialized. No external sync triggered.
+2025-06-12 19:44:44,924 [INFO] workflow.utils — >>> Computing status for workflow_id: e162f1a8-70d0-4d48-b292-e1cc990227ab
+2025-06-12 19:44:44,925 [INFO] workflow.utils — Evaluating workflow 'Billing - Hardware' (e162f1a8-70d0-4d48-b292-e1cc990227ab)
+2025-06-12 19:44:44,925 [DEBUG] workflow.utils — Category: Billing, Sub-category: Hardware
+2025-06-12 19:44:44,926 [DEBUG] workflow.utils — Checking step: e80170f9-118b-4f47-b9c9-3a09a527fd5c
+2025-06-12 19:44:44,927 [DEBUG] workflow.utils — Transition 24244d37-d9a0-4568-b52c-f02683f61707 initialized: True
+2025-06-12 19:44:44,927 [DEBUG] workflow.utils — Transition f834031d-b9cf-4a7a-a6ab-5efafb608c22 initialized: True
+2025-06-12 19:44:44,928 [DEBUG] workflow.utils — Transition df1f833b-f1dc-4bcb-9cff-a76e1169978e initialized: True
+2025-06-12 19:44:44,928 [DEBUG] workflow.utils — Step e80170f9-118b-4f47-b9c9-3a09a527fd5c is fully initialized.
+2025-06-12 19:44:44,928 [DEBUG] workflow.utils — Checking step: fa066191-48a1-41a8-80d4-9b2f52a166be
+2025-06-12 19:44:44,929 [DEBUG] workflow.utils — Transition e95db96a-1e7f-4ec2-9ca0-3f795097bf80 initialized: True
+2025-06-12 19:44:44,930 [DEBUG] workflow.utils — Transition df1f833b-f1dc-4bcb-9cff-a76e1169978e initialized: True
+2025-06-12 19:44:44,930 [DEBUG] workflow.utils — Transition 24244d37-d9a0-4568-b52c-f02683f61707 initialized: True
+2025-06-12 19:44:44,930 [DEBUG] workflow.utils — Step fa066191-48a1-41a8-80d4-9b2f52a166be is fully initialized.
+2025-06-12 19:44:44,930 [DEBUG] workflow.utils — Checking step: eb9ff77f-862a-4113-8be3-ef10b01dc758
+2025-06-12 19:44:44,931 [DEBUG] workflow.utils — Transition e95db96a-1e7f-4ec2-9ca0-3f795097bf80 initialized: True
+2025-06-12 19:44:44,932 [DEBUG] workflow.utils — Step eb9ff77f-862a-4113-8be3-ef10b01dc758 is fully initialized.
+2025-06-12 19:44:44,932 [INFO] workflow.utils — Workflow 'Billing - Hardware' is initialized.
+2025-06-12 19:44:44,932 [INFO] workflow.utils — Setting workflow 'Billing - Hardware' status to: initialized
+2025-06-12 19:44:44,934 [INFO] workflow.utils — >>> Computing status for workflow_id: e162f1a8-70d0-4d48-b292-e1cc990227ab
+2025-06-12 19:44:44,934 [INFO] workflow.utils — Evaluating workflow 'Billing - Hardware' (e162f1a8-70d0-4d48-b292-e1cc990227ab)
+2025-06-12 19:44:44,935 [DEBUG] workflow.utils — Category: Billing, Sub-category: Hardware
+2025-06-12 19:44:44,935 [DEBUG] workflow.utils — Checking step: e80170f9-118b-4f47-b9c9-3a09a527fd5c
+2025-06-12 19:44:44,936 [DEBUG] workflow.utils — Transition 24244d37-d9a0-4568-b52c-f02683f61707 initialized: True
+2025-06-12 19:44:44,937 [DEBUG] workflow.utils — Transition f834031d-b9cf-4a7a-a6ab-5efafb608c22 initialized: True
+2025-06-12 19:44:44,937 [DEBUG] workflow.utils — Transition df1f833b-f1dc-4bcb-9cff-a76e1169978e initialized: True
+2025-06-12 19:44:44,937 [DEBUG] workflow.utils — Step e80170f9-118b-4f47-b9c9-3a09a527fd5c is fully initialized.
+2025-06-12 19:44:44,937 [DEBUG] workflow.utils — Checking step: fa066191-48a1-41a8-80d4-9b2f52a166be
+2025-06-12 19:44:44,938 [DEBUG] workflow.utils — Transition e95db96a-1e7f-4ec2-9ca0-3f795097bf80 initialized: True
+2025-06-12 19:44:44,939 [DEBUG] workflow.utils — Transition df1f833b-f1dc-4bcb-9cff-a76e1169978e initialized: True
+2025-06-12 19:44:44,939 [DEBUG] workflow.utils — Transition 24244d37-d9a0-4568-b52c-f02683f61707 initialized: True
+2025-06-12 19:44:44,940 [DEBUG] workflow.utils — Step fa066191-48a1-41a8-80d4-9b2f52a166be is fully initialized.
+2025-06-12 19:44:44,940 [DEBUG] workflow.utils — Checking step: eb9ff77f-862a-4113-8be3-ef10b01dc758
+2025-06-12 19:44:44,941 [DEBUG] workflow.utils — Transition 69cfe5a4-95e1-4ee5-8979-b60f9e652182 initialized: True
+2025-06-12 19:44:44,941 [DEBUG] workflow.utils — Transition e95db96a-1e7f-4ec2-9ca0-3f795097bf80 initialized: True
+2025-06-12 19:44:44,941 [DEBUG] workflow.utils — Step eb9ff77f-862a-4113-8be3-ef10b01dc758 is fully initialized.
+2025-06-12 19:44:44,941 [INFO] workflow.utils — Workflow 'Billing - Hardware' is initialized.
+2025-06-12 19:44:44,941 [INFO] workflow.utils — Setting workflow 'Billing - Hardware' status to: initialized
+2025-06-12 19:44:44,945 [INFO] workflow.utils — >>> Computing status for workflow_id: 6a27ad91-dea5-41f7-b382-d3ce7a8d1afc
+2025-06-12 19:44:44,946 [INFO] workflow.utils — Evaluating workflow 'Billing - Payment' (6a27ad91-dea5-41f7-b382-d3ce7a8d1afc)
+2025-06-12 19:44:44,946 [DEBUG] workflow.utils — Category: Billing, Sub-category: Payment
+2025-06-12 19:44:44,947 [DEBUG] workflow.utils — Checking step: 6e93db16-12df-4f92-85de-7a73c4f71604
+2025-06-12 19:44:44,947 [WARNING] workflow.utils — Step 6e93db16-12df-4f92-85de-7a73c4f71604 has no transitions at all.
+2025-06-12 19:44:44,947 [WARNING] workflow.utils — Step 6e93db16-12df-4f92-85de-7a73c4f71604 failed initialization check.
+2025-06-12 19:44:44,947 [INFO] workflow.utils — Setting workflow 'Billing - Payment' status to: draft
+2025-06-12 19:44:44,948 [INFO] workflow.utils — >>> Computing status for workflow_id: 6a27ad91-dea5-41f7-b382-d3ce7a8d1afc
+2025-06-12 19:44:44,948 [INFO] workflow.utils — Evaluating workflow 'Billing - Payment' (6a27ad91-dea5-41f7-b382-d3ce7a8d1afc)
+2025-06-12 19:44:44,949 [DEBUG] workflow.utils — Category: Billing, Sub-category: Payment
+2025-06-12 19:44:44,949 [DEBUG] workflow.utils — Checking step: 6e93db16-12df-4f92-85de-7a73c4f71604
+2025-06-12 19:44:44,950 [WARNING] workflow.utils — Step 6e93db16-12df-4f92-85de-7a73c4f71604 has no transitions at all.
+2025-06-12 19:44:44,950 [WARNING] workflow.utils — Step 6e93db16-12df-4f92-85de-7a73c4f71604 failed initialization check.
+2025-06-12 19:44:44,950 [INFO] workflow.utils — Setting workflow 'Billing - Payment' status to: draft
+2025-06-12 19:44:44,951 [INFO] workflow.utils — >>> Computing status for workflow_id: 6a27ad91-dea5-41f7-b382-d3ce7a8d1afc
+2025-06-12 19:44:44,951 [INFO] workflow.utils — Evaluating workflow 'Billing - Payment' (6a27ad91-dea5-41f7-b382-d3ce7a8d1afc)
+2025-06-12 19:44:44,952 [DEBUG] workflow.utils — Category: Billing, Sub-category: Payment
+2025-06-12 19:44:44,952 [DEBUG] workflow.utils — Checking step: 6e93db16-12df-4f92-85de-7a73c4f71604
+2025-06-12 19:44:44,953 [WARNING] workflow.utils — Step 6e93db16-12df-4f92-85de-7a73c4f71604 has no transitions at all.
+2025-06-12 19:44:44,953 [WARNING] workflow.utils — Step 6e93db16-12df-4f92-85de-7a73c4f71604 failed initialization check.
+2025-06-12 19:44:44,953 [INFO] workflow.utils — Setting workflow 'Billing - Payment' status to: draft
+2025-06-12 19:44:44,955 [INFO] workflow.utils — >>> Computing status for workflow_id: 6a27ad91-dea5-41f7-b382-d3ce7a8d1afc
+2025-06-12 19:44:44,955 [INFO] workflow.utils — Evaluating workflow 'Billing - Payment' (6a27ad91-dea5-41f7-b382-d3ce7a8d1afc)
+2025-06-12 19:44:44,956 [DEBUG] workflow.utils — Category: Billing, Sub-category: Payment
+2025-06-12 19:44:44,956 [DEBUG] workflow.utils — Checking step: 6e93db16-12df-4f92-85de-7a73c4f71604
+2025-06-12 19:44:44,957 [DEBUG] workflow.utils — Transition 6fb8f8aa-ce67-4775-9cf1-98ea8943a439 initialized: True
+2025-06-12 19:44:44,957 [DEBUG] workflow.utils — Step 6e93db16-12df-4f92-85de-7a73c4f71604 is fully initialized.
+2025-06-12 19:44:44,957 [DEBUG] workflow.utils — Checking step: 7d86c1f4-6c1b-4452-817c-190e93730912
+2025-06-12 19:44:44,958 [WARNING] workflow.utils — Step 7d86c1f4-6c1b-4452-817c-190e93730912 has no transitions at all.
+2025-06-12 19:44:44,958 [WARNING] workflow.utils — Step 7d86c1f4-6c1b-4452-817c-190e93730912 failed initialization check.
+2025-06-12 19:44:44,958 [INFO] workflow.utils — Setting workflow 'Billing - Payment' status to: draft
+2025-06-12 19:44:44,960 [INFO] workflow.utils — >>> Computing status for workflow_id: 6a27ad91-dea5-41f7-b382-d3ce7a8d1afc
+2025-06-12 19:44:44,961 [INFO] workflow.utils — Evaluating workflow 'Billing - Payment' (6a27ad91-dea5-41f7-b382-d3ce7a8d1afc)
+2025-06-12 19:44:44,961 [DEBUG] workflow.utils — Category: Billing, Sub-category: Payment
+2025-06-12 19:44:44,962 [DEBUG] workflow.utils — Checking step: 6e93db16-12df-4f92-85de-7a73c4f71604
+2025-06-12 19:44:44,963 [DEBUG] workflow.utils — Transition d2951698-29e1-43d8-bb27-7df9c9768e39 initialized: True
+2025-06-12 19:44:44,963 [DEBUG] workflow.utils — Transition 6fb8f8aa-ce67-4775-9cf1-98ea8943a439 initialized: True
+2025-06-12 19:44:44,963 [DEBUG] workflow.utils — Step 6e93db16-12df-4f92-85de-7a73c4f71604 is fully initialized.
+2025-06-12 19:44:44,963 [DEBUG] workflow.utils — Checking step: 7d86c1f4-6c1b-4452-817c-190e93730912
+2025-06-12 19:44:44,965 [DEBUG] workflow.utils — Transition d2951698-29e1-43d8-bb27-7df9c9768e39 initialized: True
+2025-06-12 19:44:44,965 [DEBUG] workflow.utils — Step 7d86c1f4-6c1b-4452-817c-190e93730912 is fully initialized.
+2025-06-12 19:44:44,965 [DEBUG] workflow.utils — Checking step: 20f79982-fbbc-4738-b8b3-966d216aef84
+2025-06-12 19:44:44,965 [WARNING] workflow.utils — Step 20f79982-fbbc-4738-b8b3-966d216aef84 has no transitions at all.
+2025-06-12 19:44:44,965 [WARNING] workflow.utils — Step 20f79982-fbbc-4738-b8b3-966d216aef84 failed initialization check.
+2025-06-12 19:44:44,965 [INFO] workflow.utils — Setting workflow 'Billing - Payment' status to: draft
+2025-06-12 19:44:44,968 [INFO] workflow.utils — >>> Computing status for workflow_id: 6a27ad91-dea5-41f7-b382-d3ce7a8d1afc
+2025-06-12 19:44:44,968 [INFO] workflow.utils — Evaluating workflow 'Billing - Payment' (6a27ad91-dea5-41f7-b382-d3ce7a8d1afc)
+2025-06-12 19:44:44,968 [DEBUG] workflow.utils — Category: Billing, Sub-category: Payment
+2025-06-12 19:44:44,969 [DEBUG] workflow.utils — Checking step: 6e93db16-12df-4f92-85de-7a73c4f71604
+2025-06-12 19:44:44,970 [DEBUG] workflow.utils — Transition d2951698-29e1-43d8-bb27-7df9c9768e39 initialized: True
+2025-06-12 19:44:44,971 [DEBUG] workflow.utils — Transition 6fb8f8aa-ce67-4775-9cf1-98ea8943a439 initialized: True
+2025-06-12 19:44:44,971 [DEBUG] workflow.utils — Step 6e93db16-12df-4f92-85de-7a73c4f71604 is fully initialized.
+2025-06-12 19:44:44,971 [DEBUG] workflow.utils — Checking step: 7d86c1f4-6c1b-4452-817c-190e93730912
+2025-06-12 19:44:44,972 [DEBUG] workflow.utils — Transition 30d7e230-5132-42ec-88bd-c4967a2bc328 initialized: True
+2025-06-12 19:44:44,973 [DEBUG] workflow.utils — Transition d2951698-29e1-43d8-bb27-7df9c9768e39 initialized: True
+2025-06-12 19:44:44,973 [DEBUG] workflow.utils — Step 7d86c1f4-6c1b-4452-817c-190e93730912 is fully initialized.
+2025-06-12 19:44:44,973 [DEBUG] workflow.utils — Checking step: 20f79982-fbbc-4738-b8b3-966d216aef84
+2025-06-12 19:44:44,974 [DEBUG] workflow.utils — Transition 30d7e230-5132-42ec-88bd-c4967a2bc328 initialized: True
+2025-06-12 19:44:44,974 [DEBUG] workflow.utils — Step 20f79982-fbbc-4738-b8b3-966d216aef84 is fully initialized.
+2025-06-12 19:44:44,974 [INFO] workflow.utils — Workflow 'Billing - Payment' is initialized.
+2025-06-12 19:44:44,974 [INFO] workflow.utils — Setting workflow 'Billing - Payment' status to: initialized
+2025-06-12 19:44:44,976 [INFO] workflow.signals — Workflow 6a27ad91-dea5-41f7-b382-d3ce7a8d1afc is initialized. No external sync triggered.
+2025-06-12 19:44:44,980 [INFO] workflow.utils — >>> Computing status for workflow_id: 6a27ad91-dea5-41f7-b382-d3ce7a8d1afc
+2025-06-12 19:44:44,980 [INFO] workflow.utils — Evaluating workflow 'Billing - Payment' (6a27ad91-dea5-41f7-b382-d3ce7a8d1afc)
+2025-06-12 19:44:44,981 [DEBUG] workflow.utils — Category: Billing, Sub-category: Payment
+2025-06-12 19:44:44,981 [DEBUG] workflow.utils — Checking step: 6e93db16-12df-4f92-85de-7a73c4f71604
+2025-06-12 19:44:44,982 [DEBUG] workflow.utils — Transition d2951698-29e1-43d8-bb27-7df9c9768e39 initialized: True
+2025-06-12 19:44:44,983 [DEBUG] workflow.utils — Transition 6fb8f8aa-ce67-4775-9cf1-98ea8943a439 initialized: True
+2025-06-12 19:44:44,983 [DEBUG] workflow.utils — Transition ea699f59-fa62-44d6-b126-d162a4a8c05c initialized: True
+2025-06-12 19:44:44,983 [DEBUG] workflow.utils — Step 6e93db16-12df-4f92-85de-7a73c4f71604 is fully initialized.
+2025-06-12 19:44:44,983 [DEBUG] workflow.utils — Checking step: 7d86c1f4-6c1b-4452-817c-190e93730912
+2025-06-12 19:44:44,985 [DEBUG] workflow.utils — Transition 30d7e230-5132-42ec-88bd-c4967a2bc328 initialized: True
+2025-06-12 19:44:44,985 [DEBUG] workflow.utils — Transition ea699f59-fa62-44d6-b126-d162a4a8c05c initialized: True
+2025-06-12 19:44:44,986 [DEBUG] workflow.utils — Transition d2951698-29e1-43d8-bb27-7df9c9768e39 initialized: True
+2025-06-12 19:44:44,986 [DEBUG] workflow.utils — Step 7d86c1f4-6c1b-4452-817c-190e93730912 is fully initialized.
+2025-06-12 19:44:44,986 [DEBUG] workflow.utils — Checking step: 20f79982-fbbc-4738-b8b3-966d216aef84
+2025-06-12 19:44:44,987 [DEBUG] workflow.utils — Transition 30d7e230-5132-42ec-88bd-c4967a2bc328 initialized: True
+2025-06-12 19:44:44,987 [DEBUG] workflow.utils — Step 20f79982-fbbc-4738-b8b3-966d216aef84 is fully initialized.
+2025-06-12 19:44:44,987 [INFO] workflow.utils — Workflow 'Billing - Payment' is initialized.
+2025-06-12 19:44:44,987 [INFO] workflow.utils — Setting workflow 'Billing - Payment' status to: initialized
+2025-06-12 19:44:44,989 [INFO] workflow.utils — >>> Computing status for workflow_id: 6a27ad91-dea5-41f7-b382-d3ce7a8d1afc
+2025-06-12 19:44:44,989 [INFO] workflow.utils — Evaluating workflow 'Billing - Payment' (6a27ad91-dea5-41f7-b382-d3ce7a8d1afc)
+2025-06-12 19:44:44,990 [DEBUG] workflow.utils — Category: Billing, Sub-category: Payment
+2025-06-12 19:44:44,990 [DEBUG] workflow.utils — Checking step: 6e93db16-12df-4f92-85de-7a73c4f71604
+2025-06-12 19:44:44,992 [DEBUG] workflow.utils — Transition d2951698-29e1-43d8-bb27-7df9c9768e39 initialized: True
+2025-06-12 19:44:44,992 [DEBUG] workflow.utils — Transition 6fb8f8aa-ce67-4775-9cf1-98ea8943a439 initialized: True
+2025-06-12 19:44:44,993 [DEBUG] workflow.utils — Transition ea699f59-fa62-44d6-b126-d162a4a8c05c initialized: True
+2025-06-12 19:44:44,993 [DEBUG] workflow.utils — Step 6e93db16-12df-4f92-85de-7a73c4f71604 is fully initialized.
+2025-06-12 19:44:44,993 [DEBUG] workflow.utils — Checking step: 7d86c1f4-6c1b-4452-817c-190e93730912
+2025-06-12 19:44:44,994 [DEBUG] workflow.utils — Transition 30d7e230-5132-42ec-88bd-c4967a2bc328 initialized: True
+2025-06-12 19:44:44,994 [DEBUG] workflow.utils — Transition ea699f59-fa62-44d6-b126-d162a4a8c05c initialized: True
+2025-06-12 19:44:44,995 [DEBUG] workflow.utils — Transition d2951698-29e1-43d8-bb27-7df9c9768e39 initialized: True
+2025-06-12 19:44:44,995 [DEBUG] workflow.utils — Step 7d86c1f4-6c1b-4452-817c-190e93730912 is fully initialized.
+2025-06-12 19:44:44,995 [DEBUG] workflow.utils — Checking step: 20f79982-fbbc-4738-b8b3-966d216aef84
+2025-06-12 19:44:44,996 [DEBUG] workflow.utils — Transition ea30d156-efd9-46d8-99d7-979018389cae initialized: True
+2025-06-12 19:44:44,997 [DEBUG] workflow.utils — Transition 30d7e230-5132-42ec-88bd-c4967a2bc328 initialized: True
+2025-06-12 19:44:44,997 [DEBUG] workflow.utils — Step 20f79982-fbbc-4738-b8b3-966d216aef84 is fully initialized.
+2025-06-12 19:44:44,997 [INFO] workflow.utils — Workflow 'Billing - Payment' is initialized.
+2025-06-12 19:44:44,997 [INFO] workflow.utils — Setting workflow 'Billing - Payment' status to: initialized
