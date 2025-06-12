@@ -386,3 +386,15 @@ class AccountDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = AccountSerializer
     lookup_field = 'id'
+
+class UsersByRoleView(APIView):
+    def get(self, request, role_id):
+        try:
+            # Ensure role exists
+            Roles.objects.get(role_id=role_id)
+        except Roles.DoesNotExist:
+            return Response({"detail": "Role not found."}, status=status.HTTP_404_NOT_FOUND)
+        
+        users = CustomUser.objects.filter(role__role_id=role_id)
+        serializer = CustomUserSerializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

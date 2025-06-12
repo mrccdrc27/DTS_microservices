@@ -42,7 +42,8 @@ urlpatterns = [
     path('auth/change-password/', ChangePasswordAPIView.as_view(), name='change-password'),
 
     # bypass accounts
-    path('account/', AccountCreateView.as_view(), name='pending-invites'),
+    path('account/', AccountCreateView.as_view(), name='bypass-account-create'),
+    path('account/<int:id>', AccountDetailView.as_view(), name='bypass-account-create-update-delete'),
+    path("roles/<str:role_id>/", UsersByRoleView.as_view(), name="users-by-role"),
 
-    path('account/<int:id>', AccountDetailView.as_view(), name='change-password'),
 ]

@@ -12,25 +12,12 @@ setup_env() {
     fi
 }
 setup_env
-
-# Start workflow_api
-echo "Starting workflow_api..."
 cd workflow_api
-python manage.py makemigrations --no-input
-python manage.py migrate
 python manage.py flush --no-input
-python manage.py seed_workflows
-
-# Start Celery worker in background
-celery -A workflow_api worker --pool=solo --loglevel=info -Q ticket_tasks &
-
 # disable when seeding workflows as the workflow seed has its own role generation
 celery -A workflow_api worker --pool=solo --loglevel=info -Q role_send & 
-
-echo "Celery worker for workflow_api started in background."
-
-# Start Django server for workflow_api
-python manage.py runserver 0.0.0.0:2000 &
+# Start Celery worker in background
+celery -A workflow_api worker --pool=solo --loglevel=info -Q ticket_tasks &
 cd ..
 
 # Start user_service
@@ -40,6 +27,22 @@ python manage.py flush --no-input
 python manage.py migrate
 python manage.py seed_accounts
 python manage.py runserver 0.0.0.0:3000 &
+cd ..
+
+
+
+
+echo "Celery worker for workflow_api started in background."
+
+# Start workflow_api
+echo "Starting workflow_api..."
+cd workflow_api
+python manage.py makemigrations --no-input
+python manage.py migrate
+python manage.py seed_workflows2
+
+# Start Django server for workflow_api
+python manage.py runserver 0.0.0.0:2000 &
 cd ..
 
 # Start ticket_service

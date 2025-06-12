@@ -13,12 +13,12 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         with transaction.atomic():
             # Seed Roles (previously Positions)
-            for name, uid in [('Requester', 1), ('Reviewer', 2), ('Approver', 3)]:
-                Roles.objects.get_or_create(
-                    name=name,
-                    defaults={'user_id': uid, 'description': f'{name} role'}
-                )
-            self.stdout.write(self.style.SUCCESS('Roles seeded.'))
+            # for name, uid in [('Requester', 1), ('Reviewer', 2), ('Approver', 3)]:
+            #     Roles.objects.get_or_create(
+            #         name=name,
+            #         defaults={'user_id': uid, 'description': f'{name} role'}
+            #     )
+            # self.stdout.write(self.style.SUCCESS('Roles seeded.'))
 
             main_names = ['General Inquiry', 'Technical Issue', 'Billing']
             sub_names = ['Software', 'Hardware', 'Payment']
