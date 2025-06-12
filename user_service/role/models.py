@@ -26,3 +26,14 @@ class Roles(models.Model):
     
     def __str__(self):
         return self.name  # 👈 This makes the dropdown and representation user-friendly
+    
+
+from .tasks import push_role
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=Roles)
+def send_ticket_to_workflow(sender, instance, created, **kwargs):
+    if created:
+        from .serializers import role_to_dict
+        push_role.delay(role_to_dict(instance))

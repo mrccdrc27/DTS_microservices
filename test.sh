@@ -23,6 +23,10 @@ python manage.py seed_workflows
 
 # Start Celery worker in background
 celery -A workflow_api worker --pool=solo --loglevel=info -Q ticket_tasks &
+
+# disable when seeding workflows as the workflow seed has its own role generation
+celery -A workflow_api worker --pool=solo --loglevel=info -Q role_send & 
+
 echo "Celery worker for workflow_api started in background."
 
 # Start Django server for workflow_api
@@ -32,7 +36,9 @@ cd ..
 # Start user_service
 echo "Starting user_service..."
 cd user_service
+python manage.py flush --no-input
 python manage.py migrate
+python manage.py seed_accounts
 python manage.py runserver 0.0.0.0:3000 &
 cd ..
 

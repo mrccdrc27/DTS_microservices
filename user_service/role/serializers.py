@@ -9,6 +9,15 @@ class RoleSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('role_id', 'createdAt', 'updatedAt')
 
+def role_to_dict(role):
+    return {
+        "role_id" : role.role_id,
+        "name": role.name,
+        "description": role.description,
+        "user_id": 1
+    }
+
+
 class PositionRegister(serializers.ModelSerializer):
     class Meta:
         model = Roles
