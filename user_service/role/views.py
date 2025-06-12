@@ -1,27 +1,27 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .models import Positions
-from .serializers import PositionRegister
+from .models import Roles
+from .serializers import RoleSerializer
 
 # Create new position
 class PositionCreateView(generics.CreateAPIView):
-    queryset = Positions.objects.all()
-    serializer_class = PositionRegister
+    queryset = Roles.objects.all()
+    serializer_class = RoleSerializer
 
 # Optionally list all positions
 class PositionListView(generics.ListAPIView):
-    queryset = Positions.objects.all()
-    serializer_class = PositionRegister
-class PositionListCreateView(generics.ListCreateAPIView):
-    serializer_class = PositionRegister
+    queryset = Roles.objects.all()
+    serializer_class = RoleSerializer
+class RoleListCreateView(generics.ListCreateAPIView):
+    serializer_class = RoleSerializer
 
     def get_queryset(self):
         position_id = self.request.query_params.get('id')
         if position_id:
-            return Positions.objects.filter(id=position_id)
-        return Positions.objects.all()
+            return Roles.objects.filter(id=position_id)
+        return Roles.objects.all()
     
-class PositionDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Positions.objects.all()
-    serializer_class = PositionRegister
+class RoleDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Roles.objects.all()
+    serializer_class = RoleSerializer
     lookup_field = 'id'

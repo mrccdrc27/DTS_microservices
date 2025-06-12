@@ -35,7 +35,18 @@ class StepInstance(models.Model):
     def get_task_id(self):
         from task.models import Task
         return Task.objects.first()
+class RoleRoundRobinPointer(models.Model):
+    """
+    Tracks the last‐used index in the list of users for each role.
+    """
+    role = models.OneToOneField(
+        'role.Roles',
+        on_delete=models.CASCADE,
+        to_field='role_id',
+        primary_key=True,
+    )
+    last_index = models.PositiveIntegerField(default=-1)
+    updated_at = models.DateTimeField(auto_now=True)
 
-
-
-
+    def __str__(self):
+        return f"{self.role.name}: idx={self.last_index}"

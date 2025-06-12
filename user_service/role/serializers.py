@@ -1,28 +1,28 @@
-from .models import Positions
+from .models import Roles
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
 #display class?
-class PositionSerializer(serializers.ModelSerializer):
+class RoleSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Positions
-        fields = ("id", "positionName", "description")
+        model = Roles
+        fields = ('__all__')
+        read_only_fields = ('role_id', 'createdAt', 'updatedAt')
 
 class PositionRegister(serializers.ModelSerializer):
     class Meta:
-        model = Positions
+        model = Roles
         fields = (
             "id",
-            "userID",
-            "positionName",
+            "name",
             "description"
         )
     
     # Validation logic
 
     def validate(self, attrs):
-        name = attrs.get("positionName") 
-        if len(name) < 8:
+        name = attrs.get("name") 
+        if len(name) < 4:
             raise serializers.ValidationError(
                 "name must be greater than 8 characters"
             )
@@ -30,4 +30,4 @@ class PositionRegister(serializers.ModelSerializer):
     
     # Create the model
     def create(self, validated_data):
-        return Positions.objects.create(**validated_data)
+        return Roles.objects.create(**validated_data)
