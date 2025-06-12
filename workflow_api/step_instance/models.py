@@ -20,7 +20,7 @@ class StepInstance(models.Model):
         null=True,
         to_field='task_id'  # Reference the UUID field
     )
-
+    has_acted = models.BooleanField(default=False)
     def save(self, *args, **kwargs):
         if not self.pk:  # Only enforce immutability on creation
             if not self.step_instance_id:

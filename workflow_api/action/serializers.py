@@ -5,6 +5,7 @@ class ActionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actions
         fields = (
+            "action_id",
             "id",
             "name",
             "description"
