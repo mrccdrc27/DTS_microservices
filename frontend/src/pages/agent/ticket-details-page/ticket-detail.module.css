@@ -39,9 +39,23 @@
   margin-bottom: 40px;
 }
 
-.tdTitle,
-.tdSubject {
+.tdTitle {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: var(--border-bottom);
+}
+
+.tdTitle h3 {
+  display: inline-block;
   font-size: var(--h1-font-size);
+  color: var(--background-color);
+  background-color: var(--primary-color);
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+.tdSubject {
+  font-size: var(--h2-font-size);
 }
 
 .tdMetaData {
@@ -338,8 +352,7 @@
   margin-bottom: 10px;
 }
 
-.tdInfoHeader
-h3,
+.tdInfoHeader h3,
 .tdArrow {
   font-size: var(--table-head-size);
   color: var(--text-color);

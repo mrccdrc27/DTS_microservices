@@ -47,11 +47,9 @@ export default function TicketAction({
       });
 
       await axios.post(activityLogURL, newActivity);
-
-      alert("Status updated and activity logged!");
       await refreshTicket();
-      await refreshLogs();
       closeTicketAction(false);
+      window.location.reload();
     } catch (error) {
       console.error(
         "Error updating status or logging activity:",

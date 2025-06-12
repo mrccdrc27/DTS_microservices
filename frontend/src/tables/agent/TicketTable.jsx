@@ -254,9 +254,6 @@ export default function TicketTable() {
                   <TicketItem key={ticket.ticket_id} ticket={ticket} />
                 ))
               )}
-              {/* {currentTickets.map((ticket) => (
-                <TicketItem key={ticket.ticket_id} ticket={ticket} />
-              ))} */}
             </tbody>
           </table>
         </div>
