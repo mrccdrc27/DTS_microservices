@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 set -e # Exit on any error
@@ -14,20 +13,19 @@ setup_env() {
 }
 setup_env
 
-# # Start task_service
-# echo "Starting task_service..."
-# cd task_service
-# python manage.py flush --no-input
-# python manage.py migrate
-# python manage.py runserver 0.0.0.0:4000 &
-# cd ..
-
 # Start workflow_api
 echo "Starting workflow_api..."
 cd workflow_api
+python manage.py makemigrations --no-input
 python manage.py migrate
 python manage.py flush --no-input
 python manage.py seed_workflows
+
+# Start Celery worker in background
+celery -A workflow_api worker --pool=solo --loglevel=info -Q ticket_tasks &
+echo "Celery worker for workflow_api started in background."
+
+# Start Django server for workflow_api
 python manage.py runserver 0.0.0.0:2000 &
 cd ..
 
@@ -37,7 +35,6 @@ cd user_service
 python manage.py migrate
 python manage.py runserver 0.0.0.0:3000 &
 cd ..
-
 
 # Start ticket_service
 echo "Starting ticket_service..."
@@ -49,5 +46,12 @@ python manage.py seed_tickets
 python manage.py runserver 0.0.0.0:8000 &
 cd ..
 
-cd ..
-echo "Starting workflow_service..."
+# Optionally start task_service
+# echo "Starting task_service..."
+# cd task_service
+# python manage.py flush --no-input
+# python manage.py migrate
+# python manage.py runserver 0.0.0.0:4000 &
+# cd ..
+
+echo "All services started."

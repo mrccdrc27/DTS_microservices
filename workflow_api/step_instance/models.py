@@ -6,12 +6,12 @@ from step.models import StepTransition
 
 class StepInstance(models.Model):
     step_instance_id = models.CharField(max_length=64, unique=True, null=True, blank=True)  # New UUID field
-    user_id = models.IntegerField(null=False)
+    user_id = models.IntegerField(null=True)
     step_transition_id = models.ForeignKey(
         StepTransition,
         on_delete=models.CASCADE,
         null=True,
-        unique=True,  # enforce one-to-one between Action and StepTransition
+        # unique=True,  # enforce one-to-one between Action and StepTransition
         to_field='transition_id'  # Reference the UUID field
     )
     task_id = models.ForeignKey(

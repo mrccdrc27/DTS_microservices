@@ -52,7 +52,7 @@ class StepTransitionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StepTransition
-        fields = ['id', 'from_step_id', 'to_step_id', 'action_id']
+        fields = ['id','workflow_id','transition_id','from_step_id', 'to_step_id', 'action_id']
         read_only_fields = ['id']
 
     def validate(self, attrs):

@@ -47,6 +47,7 @@ class Steps(models.Model):
 
 class StepTransition(models.Model):
     transition_id = models.CharField(max_length=64, unique=True, null=True, blank=True)  # New UUID field
+    workflow_id = models.ForeignKey('workflow.Workflows',  unique=False, on_delete=models.CASCADE, to_field='workflow_id', null=True)
     
     from_step_id = models.ForeignKey(
         Steps,
@@ -94,13 +95,25 @@ class StepTransition(models.Model):
             raise ValidationError("from_step and to_step must belong to the same workflow")
 
     def save(self, *args, **kwargs):
-        if not self.pk:  # Only enforce immutability on creation
+        if not self.pk:
             if not self.transition_id:
-                self.transition_id = str(uuid.uuid4())  # Assign a unique identifier if missing
+                self.transition_id = str(uuid.uuid4())
         else:
             if 'transition_id' in kwargs.get('update_fields', []):
-                raise ValidationError("transition_id cannot be modified after creation.")  # Prevent updates
-        
+                raise ValidationError("transition_id cannot be modified after creation.")
+
+        # Determine workflow_id from steps
+        if self.from_step_id and self.to_step_id:
+            if self.from_step_id.workflow_id != self.to_step_id.workflow_id:
+                raise ValidationError("from_step and to_step must belong to the same workflow")
+            self.workflow_id = self.from_step_id.workflow_id
+        elif self.from_step_id:
+            self.workflow_id = self.from_step_id.workflow_id
+        elif self.to_step_id:
+            self.workflow_id = self.to_step_id.workflow_id
+        else:
+            raise ValidationError("At least one of from_step or to_step must be set.")
+
         # ensure clean() runs on every save
         self.full_clean()
         super().save(*args, **kwargs)
