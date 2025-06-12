@@ -66,23 +66,7 @@ def is_workflow_initialized(workflow):
     logger.info(f"Workflow '{workflow.name}' is initialized.")
     return True
 
-
-# def compute_workflow_status(workflow_id):
-#     logger.info(f">>> Computing status for workflow_id: {workflow_id}")
-#     try:
-#         workflow = Workflows.objects.get(workflow_id=workflow_id)
-#     except Workflows.DoesNotExist:
-#         logger.error("Workflow not found.")
-#         return
-
-#     initialized = is_workflow_initialized(workflow)
-#     new_status = "initialized" if initialized else "draft"
-#     logger.info(f"Setting workflow '{workflow.name}' status to: {new_status}")
-#     workflow.status = new_status
-#     workflow.save(update_fields=["status"])
-
-# 
-from workflow.tasks import send_hello, send_to_consumer  # Import the Celery task
+from workflow.tasks import send_workflow_over_queue  # Import the Celery task
 
 def compute_workflow_status(workflow_id):
     logger.info(f">>> Computing status for workflow_id: {workflow_id}")
@@ -101,5 +85,8 @@ def compute_workflow_status(workflow_id):
         workflow.save(update_fields=["status"])
 
         if new_status == "initialized":
-            send_to_consumer.delay(workflow.workflow_id)  # Trigger Celery task
+            from workflow.serializers import FullWorkflowSerializer
+            workflow = Workflows.objects.get(workflow_id=workflow_id)
+            serialized = FullWorkflowSerializer(workflow).data
+            send_workflow_over_queue.delay(serialized)  # Trigger Celery task
             # send_hello()
