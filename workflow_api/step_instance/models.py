@@ -37,7 +37,8 @@ class StepInstance(models.Model):
         return Task.objects.first()
 class RoleRoundRobinPointer(models.Model):
     """
-    Tracks the last‐used index in the list of users for each role.
+    Tracks the last-used index in the list of users for each role,
+    used for round-robin user assignment.
     """
     role = models.OneToOneField(
         'role.Roles',
@@ -45,8 +46,8 @@ class RoleRoundRobinPointer(models.Model):
         to_field='role_id',
         primary_key=True,
     )
-    last_index = models.PositiveIntegerField(default=-1)
+    pointer = models.PositiveIntegerField(default=0)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.role.name}: idx={self.last_index}"
+        return f"{self.role.name}: idx={self.pointer}"
