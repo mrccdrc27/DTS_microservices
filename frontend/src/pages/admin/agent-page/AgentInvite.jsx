@@ -15,7 +15,7 @@ export default function AgentInvite() {
     <AdminNav />
     <main className={style.main}>
       <section>
-        <i className="fa-solid fa-angle-left"
+        <i class="fa-solid fa-angle-left"
         style={{
             fontSize:'30px',
             color:'blue'
@@ -28,9 +28,8 @@ export default function AgentInvite() {
           <TitleCard 
           title="Agent Invitation"
           name="jessa"/>
-          <button className={forms.button}
-          onClick={() => navigate("/admin/agent/position")}>
-            manage roles
+          <button className={forms.button}>
+            create new agent
           </button>
         </div>
 

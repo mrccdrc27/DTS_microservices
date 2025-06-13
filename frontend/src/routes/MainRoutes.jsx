@@ -20,15 +20,9 @@ import WorkflowEditor from '../pages/admin/workflow-page/WorkflowCreator';
 import ProtectedRoute from './ProtectedRoute';
 import Unauthorized from '../pages/error/Unauthorized';
 import NotFound from '../pages/error/NotFound';
-import AgentPosition from '../pages/admin/agent-page/AgentPosition';
 
 // test
 import Test from '../pages/agent/ticket-details-page/TicketDetail';
-import UserRegistration from '../pages/auth/UserRegistration';
-import ProtectedRegister from './ProtectedRegister';
-import Workflowinit from '../pages/admin/workflow-page/WorkflowCreate';
-import WorkflowCreate from '../pages/admin/workflow-page/WorkflowCreate';
-import WorkflowEdit from '../pages/admin/workflow-page/WorkflowEdit';
 
 function MainRoutes() {
   return (
@@ -83,7 +77,6 @@ function MainRoutes() {
       {/* Admin */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/agent/invite" element={<AgentInvite />} />
-        <Route path="/admin/agent/position" element={<AgentPosition />} />
         <Route path="/admin/agent" element={<Agent />} />
         <Route path="/admin/workflow" element={<Workflow />} />
         <Route path="/admin/workflow/create" element={<WorkflowEditor />} />
@@ -91,13 +84,8 @@ function MainRoutes() {
 
         {/* Test */}
         {/* <Route path="/test" element={<Test />} /> */}
-        <Route path="/test" element={<WorkflowCreate />} />
-        <Route path="/test/edit/:id" element={<WorkflowEdit />} />
-        <Route path="/test/step/edit/:id" element={<WorkflowEdit />} />
-
 
         <Route path="/unauthorized" element={<Unauthorized/>} />
-        <Route path="/register" element={<ProtectedRegister />} />
 
       {/* Not Found */}
       <Route path="*" element={<NotFound />} />

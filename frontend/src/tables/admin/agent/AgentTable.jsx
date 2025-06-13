@@ -13,66 +13,6 @@ const ticketURL = import.meta.env.VITE_AGENTS_API;
 import { Pagination } from "../../components/tableforms";
 import { SearchBar, Dropdown, AgentStatus } from "../../components/tableforms";
 
-// Modal Component
-function DisableAccountModal({ isOpen, onClose, agentName, onConfirm }) {
-  if (!isOpen) return null;
-
-  return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: 1000
-    }}>
-      <div style={{
-        backgroundColor: 'white',
-        padding: '2rem',
-        borderRadius: '8px',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-        maxWidth: '400px',
-        width: '90%'
-      }}>
-        <h3 style={{ marginTop: 0, marginBottom: '1rem' }}>Disable Account</h3>
-        <p style={{ marginBottom: '1.5rem' }}>
-          Are you sure you want to disable the account for <strong>{agentName}</strong>?
-        </p>
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
-          <button
-            onClick={onClose}
-            style={{
-              padding: '0.5rem 1rem',
-              border: '1px solid #ccc',
-              backgroundColor: 'white',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
-          >
-            Cancel
-          </button>
-          <button
-            onClick={onConfirm}
-            style={{
-              padding: '0.5rem 1rem',
-              border: 'none',
-              backgroundColor: '#dc3545',
-              color: 'white',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
-          >
-            Disable Account
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function TableHeader() {
   // Inline styles for the width of each rows
@@ -87,9 +27,9 @@ function TableHeader() {
         <th className={table.th} style={{ width: '20%' }}>Name</th>
         <th className={table.th} style={{ width: '20%' }}>Email</th>
         <th className={table.th} style={{ width: '10%' }}>Department</th>
-        <th className={table.th} style={{ width: '25%' }}>Role</th>
+        <th className={table.th} style={{ width: '10%' }}>Role</th>
         <th className={table.th} style={{ width: '15%' }}>Status</th>
-        {/* <th className={table.th} style={{ width: '15%' }}>Last Login</th> */}
+        <th className={table.th} style={{ width: '15%' }}>Last Login</th>
         <th className={table.th} style={{ width: '10%',
            display: 'table-cell', 
            textAlign: 'center', 
@@ -119,13 +59,9 @@ function TableRow(props) {
       <td className={table.td}>
         <AgentStatus status={props.Status}/>
       </td>
-      {/* <td className={table.td}>{formattedLastLogin}</td> */}
+      <td className={table.td}>{formattedLastLogin}</td>
       <td className={table.td} style={{ display: 'table-cell', textAlign: 'center' }}>
-        <i 
-          className="fa-solid fa-user-pen"
-          onClick={() => props.onActionClick(props.ID, props.Name)}
-          style={{ cursor: 'pointer', color: '#007bff' }}
-        ></i>
+        <i className="fa-solid fa-user-pen"></i>
       </td>
     </tr>
   );
@@ -147,8 +83,6 @@ function AgentTable() {
   const [agents, setAgents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [showFilters, setShowFilters] = useState(false); // toggle state
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedAgent, setSelectedAgent] = useState({ id: null, name: '' });
   const itemsPerPage = 7;
 
   useEffect(() => {
@@ -167,42 +101,8 @@ function AgentTable() {
   const start = (currentPage - 1) * itemsPerPage;
   const pagedAgents = agents.slice(start, start + itemsPerPage);
 
-  const handleActionClick = (id, agentName) => {
-    setSelectedAgent({ id: id, name: agentName });
-    setModalOpen(true);
-  };
-
-  const handleDisableAccount = async () => {
-    try {
-      // Make API call to disable the account
-      await axios.post(`http://localhost:3000/api/users/${selectedAgent.id}/activate`, {
-        is_active: false
-      }
-    );
-  
-      // Update the local state to reflect the change
-      setAgents(prevAgents => 
-        prevAgents.map(agent => 
-          agent.ID === selectedAgent.id 
-            ? { ...agent, Status: 'Disabled' }
-            : agent
-        )
-      );
-      
-      console.log(`Account disabled for agent ID: ${selectedAgent.id}`);
-    } catch (error) {
-      console.error("Failed to disable account", error);
-      // You might want to show an error message to the user here
-    } finally {
-      setModalOpen(false);
-      setSelectedAgent({ id: null, name: '' });
-    }
-  };
-  
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-    setSelectedAgent({ id: null, name: '' });
+  const handleManage = (id) => {
+    console.log("Manage agent", id);
   };
 
   return (
@@ -228,15 +128,15 @@ function AgentTable() {
             <tbody>
               {pagedAgents.map((agent) => (
                 <TableRow
-                  key={agent.id}
-                  ID={agent.id}
-                  Name={`${agent.first_name} ${agent.middle_name} ${agent.last_name}`}
-                  Email={agent.email}
-                  image={agent.profile_picture}
-                  Role={agent.role}
+                  key={agent.ID}
+                  ID={agent.ID}
+                  Name={agent.Name}
+                  Email={agent.Email}
+                  image={agent.ImageURL}
+                  Role={agent.Role}
                   Status={agent.Status}
                   LastLogin={agent.LastLogin}
-                  onActionClick={handleActionClick}
+                  onManage={handleManage}
                 />
               ))}
             </tbody>
@@ -248,14 +148,6 @@ function AgentTable() {
           setCurrentPage={setCurrentPage}
         />
       </div>
-
-      {/* Disable Account Modal */}
-      <DisableAccountModal
-        isOpen={modalOpen}
-        onClose={handleCloseModal}
-        agentName={selectedAgent.name}
-        onConfirm={handleDisableAccount}
-      />
     </div>
   );
 }

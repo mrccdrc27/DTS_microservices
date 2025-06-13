@@ -175,9 +175,20 @@ export default function ArchiveTicketTable() {
               <TicketHeader />
             </thead>
             <tbody>
-              {currentTickets.map((ticket) => (
+              {filteredTickets.length === 0 ? (
+                <tr>
+                  <td colSpan="8" className={general.noTicketsMessage}>
+                    There is no ticket on the list
+                  </td>
+                </tr>
+              ) : (
+                currentTickets.map((ticket) => (
+                  <TicketItem key={ticket.ticket_id} ticket={ticket} />
+                ))
+              )}
+              {/* {currentTickets.map((ticket) => (
                 <TicketItem key={ticket.ticket_id} ticket={ticket} />
-              ))}
+              ))} */}
             </tbody>
           </table>
         </div>

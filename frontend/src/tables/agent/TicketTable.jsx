@@ -87,7 +87,7 @@ export default function TicketTable() {
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 7; // Define how many items per page
+  const itemsPerPage = 5; // Define how many items per page
   const [totalPages, setTotalPages] = useState(1);
 
   // Filtered tickets based on search and filters
@@ -243,9 +243,17 @@ export default function TicketTable() {
               <TicketHeader />
             </thead>
             <tbody>
-              {currentTickets.map((ticket) => (
-                <TicketItem key={ticket.ticket_id} ticket={ticket} />
-              ))}
+              {filteredTickets.length === 0 ? (
+                <tr>
+                  <td colSpan="8" className={general.noTicketsMessage}>
+                    There is no ticket on the list
+                  </td>
+                </tr>
+              ) : (
+                currentTickets.map((ticket) => (
+                  <TicketItem key={ticket.ticket_id} ticket={ticket} />
+                ))
+              )}
             </tbody>
           </table>
         </div>

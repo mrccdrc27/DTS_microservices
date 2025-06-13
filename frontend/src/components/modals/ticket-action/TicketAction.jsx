@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import styles from "./ticket-action.module.css";
 import axios from "axios";
 
+// component
+import ConfirmAction from "../confirm-action/ConfirmAction";
+
 const ticketURL = import.meta.env.VITE_TICKET_API;
 const activityLogURL = import.meta.env.VITE_ACTIVITY_LOG_API;
 
@@ -11,12 +14,24 @@ export default function TicketAction({
   refreshTicket,
   refreshLogs,
 }) {
+  // open ticket action modal
+  const [openConfirmAction, setOpenConfirmAction] = useState(false);
+
   const [status, setStatus] = useState("");
+
+  //
+  const handleConfirm = () => {
+    handleUpdateStatus();
+  };
+
+    //
+  const handleCancel = () => {
+    setOpenConfirmAction(false);
+  };
 
   // update status
   const handleUpdateStatus = async () => {
     const timestamp = new Date().toISOString();
-    // const timestamp = new Date().toLocaleString();
 
     const newActivity = {
       task_id: ticket.id,
@@ -32,11 +47,9 @@ export default function TicketAction({
       });
 
       await axios.post(activityLogURL, newActivity);
-
-      alert("Status updated and activity logged!");
       await refreshTicket();
-      await refreshLogs();
       closeTicketAction(false);
+      window.location.reload();
     } catch (error) {
       console.error(
         "Error updating status or logging activity:",
@@ -53,6 +66,13 @@ export default function TicketAction({
 
   return (
     <main className={styles.ticketActionWrapper}>
+      {openConfirmAction && (
+        <ConfirmAction
+          message="Are you sure you want to push these changes?"
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+        />
+      )}
       <div className={styles.ticketActionOverlay}></div>
       <div className={styles.ticketActionPage}>
         <button onClick={() => closeTicketAction(false)}>X</button>
@@ -60,7 +80,15 @@ export default function TicketAction({
         <section className={styles.ticketActionHeader}>
           <div className={styles.ticketActionTitle}>
             <h1>Ticket No. {ticket?.ticket_id}</h1>
-            <button onClick={handleUpdateStatus}>PUSH</button>
+            {/* <button onClick={handleUpdateStatus}>PUSH</button> */}
+            <button
+              className={styles.actionButton}
+              onClick={() => {
+                setOpenConfirmAction(true);
+              }}
+            >
+              PUSH
+            </button>
           </div>
 
           <div className={styles.ticketActionSubject}>
