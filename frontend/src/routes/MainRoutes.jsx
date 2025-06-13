@@ -83,7 +83,7 @@ function MainRoutes() {
         <Route path="/admin/archive" element={<AdminArchive />} />
 
         {/* Test */}
-        {/* <Route path="/test" element={<Test />} /> */}
+        <Route path="/test" element={<Test />} />
 
         <Route path="/unauthorized" element={<Unauthorized/>} />
 

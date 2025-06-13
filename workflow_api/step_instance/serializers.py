@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import StepInstance
 from step.models import StepTransition
 from action.models import Actions
-
+from action_log.models import ActionLog
 class StepInstanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = StepInstance
@@ -36,10 +36,6 @@ class NextStepInstanceSerializer(serializers.Serializer):
             step_transition_id=validated_data['next_transition'],
             user_id=self.context['request'].user.id  # or pass from context
         )
-    
-from rest_framework import serializers
-
-from rest_framework import serializers
 
 class TriggerNextStepSerializer(serializers.Serializer):
     action_id = serializers.CharField()
@@ -84,11 +80,20 @@ class TriggerNextStepSerializer(serializers.Serializer):
         if not transition.to_step_id:
             raise serializers.ValidationError("This transition does not lead to another step (to_step_id is null)")
 
+        # Mark original as acted
         original_instance.has_acted = True
         original_instance.save(update_fields=['has_acted'])
 
-        return StepInstance.objects.create(
+        # Create the next step instance
+        new_step_instance = StepInstance.objects.create(
             task_id=original_instance.task_id,
             user_id=original_instance.user_id,
             step_transition_id=transition
         )
+
+        # 🔹 Create ActionLog linked to the original step and action
+        ActionLog.objects.create(
+            step_instance_id=original_instance,
+            action_id=action
+        )
+        return new_step_instance

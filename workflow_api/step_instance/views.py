@@ -3,11 +3,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import StepInstance
 from rest_framework.generics import CreateAPIView
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import TriggerNextStepSerializer
 from action.serializers import ActionSerializer  # You'll need to create this
 from step.models import StepTransition
+
 
 class AvailableActionsView(APIView):
     def get(self, request, step_instance_id):
@@ -28,10 +30,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import StepInstance, StepTransition
-from .serializers import TriggerNextStepSerializer
+from .serializers import TriggerNextStepSerializer, StepInstanceSerializer
 from rest_framework.generics import CreateAPIView
 from rest_framework.exceptions import NotFound
-
+from django_filters.rest_framework import DjangoFilterBackend
 class TriggerNextStepView(CreateAPIView):
     queryset = StepInstance.objects.all()
     serializer_class = TriggerNextStepSerializer
@@ -74,3 +76,20 @@ class TriggerNextStepView(CreateAPIView):
             'message': 'Step instance created',
             'step_instance_id': step_instance.step_instance_id
         }, status=status.HTTP_201_CREATED)
+    
+class StepInstanceView(ListAPIView):
+    serializer_class = StepInstanceSerializer
+
+    def get_queryset(self):
+        queryset = StepInstance.objects.all()
+
+        task_id = self.request.query_params.get('task_id')
+        user_id = self.request.query_params.get('user_id')
+
+        if task_id:
+            queryset = queryset.filter(task_id=task_id)
+
+        if user_id:
+            queryset = queryset.filter(user_id=user_id)
+
+        return queryset
