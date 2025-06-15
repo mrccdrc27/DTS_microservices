@@ -12,7 +12,7 @@ const ProtectedRegister = () => {
   useEffect(() => {
     const checkToken = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/api/validate-token/?token=${token}`);
+        const res = await axios.get(`http://localhost:3000/api/validate-token/?token=${token}`);
         console.log(res)
         if (res.data.valid) {
           setIsValid(true);

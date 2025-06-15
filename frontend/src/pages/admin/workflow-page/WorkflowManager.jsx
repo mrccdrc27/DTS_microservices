@@ -125,7 +125,7 @@ export default function WorkflowManager() {
     const [positions, setPositions] = useState([]);
   
     useEffect(() => {
-      axios.get('http://localhost:2000/position/list/')
+      axios.get('http://localhost:2000/workflow/roles/')
         .then(response => {
           setPositions(response.data);
         })
@@ -464,7 +464,7 @@ export default function WorkflowManager() {
                                 <option value="">Select a position</option>
                                 {positions.map(pos => (
                                     <option key={pos.id} value={pos.id}>
-                                        {pos.positionName}
+                                        {pos.name}
                                     </option>
                                 ))}
                             </select>

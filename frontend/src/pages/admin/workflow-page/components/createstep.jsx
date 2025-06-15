@@ -2,20 +2,22 @@ import { useState } from 'react';
 import styles from './createstep.module.css';
 
 
-function ActionRow() {
-    return (
-        <div className={styles.row}>
-            <div className={styles.form}>
-                <p>Action Name</p>
-                <input type="text" className={styles.input} />
-            </div>
-            <div className={styles.formDropdown}>
-                <p>Route</p>
-                <select className={styles.dropdown}></select>
-            </div>
-        </div>
-    );
-}
+// function ActionRow() {
+//     return (
+//         <div className={styles.row}>
+//             <div className={styles.form}>
+//                 <p>Action Name</p>
+//                 <select 
+//                 className={styles.dropdown}
+//                 name="" id=""></select>
+//             </div>
+//             <div className={styles.formDropdown}>
+//                 <p>Route</p>
+//                 <select className={styles.dropdown}></select>
+//             </div>
+//         </div>
+//     );
+// }
 
 
 export default function CreateStep() {
@@ -28,14 +30,23 @@ export default function CreateStep() {
     return (
         <>
             <div className={styles.steps}>
-                <h1>Configure Steps</h1>
+                <div
+                style={{
+                    display:'flex',
+                    justifyContent: 'space-between'
+                }}>
+                    <h3>Configure Steps</h3>
+                    <button>
+                        Save Step
+                    </button>
+                </div>
                 <div className={styles.row}>
                     <div className={styles.form}>
                         <p>Step Name</p>
                         <input type="text" className={styles.input} />
                     </div>
                     <div className={styles.formDropdown}>
-                        <p>Role</p>
+                        <p>Position</p>
                         <select className={styles.dropdown}></select>
                     </div>
                 </div>
@@ -63,6 +74,7 @@ export default function CreateStep() {
                         >
                             <i className="fa-solid fa-plus"></i> Add Another Action
                         </button>
+
                     </div>
                 </div>
             </div>

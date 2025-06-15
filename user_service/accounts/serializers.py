@@ -68,8 +68,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 
 class UserInfoSerializer(serializers.ModelSerializer):
+    
     profile_picture = serializers.ImageField(required=False, allow_null=True)
-
+    role = serializers.CharField(source="role.name", read_only=True)
     class Meta:
         model = CustomUser
         fields = (
@@ -82,6 +83,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
             "phone_number",
             "email",
             "is_staff",
+            "is_active",
             "profile_picture",
         )
         
@@ -112,6 +114,7 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
 
 
 class InviteUserSerializer(serializers.ModelSerializer):
+    # role = serializers.PrimaryKeyRelatedField(queryset=Roles.objects.all())
     class Meta:
         model = PendingRegistration
         fields = ['email', 'role']
@@ -122,18 +125,25 @@ class InviteUserSerializer(serializers.ModelSerializer):
     
 
 class CompleteRegistrationSerializer(serializers.ModelSerializer):
+    # declare phone_number as optional on the input side
+    phone_number = serializers.CharField(required=False, allow_null=True)
     token = serializers.UUIDField(write_only=True)
     password = serializers.CharField(write_only=True)
     password2 = serializers.CharField(write_only=True)
-    profile_picture = serializers.FileField(
-    required=False,
-    allow_null=True)
+    profile_picture = serializers.FileField(required=False, allow_null=True)
 
-    
     class Meta:
         model = User
-        fields = ['token', 'first_name', 'middle_name', 'last_name','phone_number', 'profile_picture', 'password', 'password2']
-    
+        fields = [
+            'token',
+            'first_name',
+            'middle_name',
+            'last_name',
+            'phone_number',
+            'profile_picture',
+            'password',
+            'password2',
+        ]
     def validate_token(self, token):
         try:
             invite = PendingRegistration.objects.get(token=token)
@@ -196,29 +206,48 @@ class CompleteRegistrationSerializer(serializers.ModelSerializer):
 
         invite = PendingRegistration.objects.get(token=token)
         
-        #with transaction.atomic():
+        # ✅ Convert role ID to Roles instance
+        try:
+            role_instance = Roles.objects.get(pk=invite.role)
+        except Roles.DoesNotExist:
+            raise serializers.ValidationError("Invalid role assigned in invitation.")
+
         user = User.objects.create_user(
             username=invite.email,
             email=invite.email,
-            role=invite.role,
+            role=role_instance,
             password=password,
             first_name=validated_data.get('first_name'),
             middle_name=middle_name,
             last_name=validated_data.get('last_name'),
             phone_number=phone_number,
-            is_staff=(invite.role == 'admin'),
+            is_staff=(role_instance.name.lower() == 'admin'),
             profile_picture=profile_picture
         )
-        # Delete the invite after successful registration
+
+        def to_representation(self, instance):
+            """
+            If `instance` is the dict we returned in create(),
+            just return it verbatim (so DRF will emit the 'refresh'
+            and 'access' keys instead of trying to pull out
+            phone_number, first_name, etc. from it).
+            """
+            if isinstance(instance, dict):
+                return instance
+            # otherwise fall back to the default behavior,
+            # as for a normal User instance
+            return super().to_representation(instance)
+
         invite.delete()
 
-        # Generate JWT tokens
         refresh = RefreshToken.for_user(user)
         return {
             'user': user,
             'refresh': str(refresh),
             'access': str(refresh.access_token),
         }
+    
+
 
 
 

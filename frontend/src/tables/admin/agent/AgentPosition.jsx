@@ -8,7 +8,7 @@ import layout from "./AgentInvitation.module.css";
 
 // Api Import
 const ticketURL = import.meta.env.VITE_POSITION_API;
-const createPositionURL = import.meta.env.VITE_POSITIONCREATE_API;
+const createPositionURL = import.meta.env.VITE_POSITION_API;
 
 // component import
 import { Pagination, SearchBar, AgentStatus } from "../../components/tableforms";
@@ -18,7 +18,6 @@ function TableHeader() {
     <tr className={table.tr}>
       <th className={table.th} style={{ width: '30%' }}>Name</th>
       <th className={table.th} style={{ width: '50%' }}>Description</th>
-      <th className={table.th} style={{ width: '10%' }}>Status</th>
       <th className={table.th} style={{ width: '10%',
         textAlign: "center" }}>Action</th>
     </tr>
@@ -30,7 +29,6 @@ function TableRow({ ID, Name, Description, Status, onManage }) {
     <tr className={table.tr}>
       <td className={table.td}>{Name}</td>
       <td className={table.td}>{Description}</td>
-      <td className={table.td}><AgentStatus status={Status} /></td>
       <td className={table.td} style={{ textAlign: "center" }}>
         <i className="fa-solid fa-user-pen" onClick={() => onManage(ID)} style={{ cursor: "pointer" }}></i>
       </td>
@@ -40,8 +38,8 @@ function TableRow({ ID, Name, Description, Status, onManage }) {
 
 function PositionForm({ onSuccess }) {
   const [formData, setFormData] = useState({
-    userID: 1,
-    positionName: "",
+    user_id: 1,
+    name: "",
     description: ""
   });
 
@@ -56,7 +54,7 @@ function PositionForm({ onSuccess }) {
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.positionName.trim()) newErrors.positionName = "Name is required.";
+    if (!formData.name.trim()) newErrors.name = "Name is required.";
     if (!formData.description.trim()) newErrors.description = "Description is required.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -71,7 +69,7 @@ function PositionForm({ onSuccess }) {
     try {
       const response = await axios.post(createPositionURL, formData);
       setMessage({ type: "success", content: "Position created successfully!" });
-      setFormData({ userID: 1, positionName: "", description: "" });
+      setFormData({ user_id: 1, name: "", description: "" });
       onSuccess(); // Refresh parent list
     } catch (error) {
       const msg = error.response?.data?.message || "An unexpected error occurred.";
@@ -91,12 +89,12 @@ function PositionForm({ onSuccess }) {
           <p>Name</p>
           <input
             type="text"
-            name="positionName"
-            value={formData.positionName}
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             className={layout.forminput}
           />
-          {errors.positionName && <span style={{ color: "red" }}>{errors.positionName}</span>}
+          {errors.name && <span style={{ color: "red" }}>{errors.name}</span>}
         </div>
 
         <div>
@@ -164,9 +162,8 @@ export default function AgentPosition() {
                     <TableRow
                       key={agent.id}
                       ID={agent.id}
-                      Name={agent.positionName}
+                      Name={agent.name}
                       Description={agent.description}
-                      Status={agent.Status}
                       onManage={() => console.log("Manage", agent.id)}
                     />
                   ))}

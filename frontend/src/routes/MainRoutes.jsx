@@ -23,6 +23,8 @@ import NotFound from '../pages/error/NotFound';
 
 // test
 import Test from '../pages/agent/ticket-details-page/TicketDetail';
+import AgentPositionView from '../pages/admin/agent-page/AgentPosition';
+import ProtectedRegister from './ProtectedRegister';
 
 function MainRoutes() {
   return (
@@ -76,11 +78,15 @@ function MainRoutes() {
 
       {/* Admin */}
         <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/agent/invite" element={<AgentInvite />} />
+        <Route path="/admin/agent/invite" element={<AgentInvite/>} />
         <Route path="/admin/agent" element={<Agent />} />
+        <Route path="/admin/agent/position" element={<AgentPositionView/>} />
         <Route path="/admin/workflow" element={<Workflow />} />
         <Route path="/admin/workflow/create" element={<WorkflowEditor />} />
         <Route path="/admin/archive" element={<AdminArchive />} />
+
+        <Route path="/register" element={<ProtectedRegister />} />
+
 
         {/* Test */}
         <Route path="/test" element={<Test />} />

@@ -12,6 +12,12 @@ setup_env() {
     fi
 }
 setup_env
+
+echo "Starting JSON server..."
+cd frontend
+npx json-server --watch db.json --port 5000 --host 0.0.0.0 &
+cd ..
+
 cd workflow_api
 python manage.py flush --no-input
 # disable when seeding workflows as the workflow seed has its own role generation
@@ -62,5 +68,14 @@ cd ..
 # python manage.py migrate
 # python manage.py runserver 0.0.0.0:4000 &
 # cd ..
+
+
+# Start React app
+echo "Starting React app..."
+cd frontend
+setup_env
+npm install
+npm run dev &
+
 
 echo "All services started."

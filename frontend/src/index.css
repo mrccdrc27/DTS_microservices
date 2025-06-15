@@ -44,8 +44,9 @@ body {
   --header-font-size: 1.8rem; 
 
   /* pages */
-  --mainpagewidth: 0 12vw;
-  --mainpageminWidth: 0 10vw;
+  /* --mainpagewidth: 0 12vw; */
+
+  --mainpageminWidth: 0 3vw;
 
   /* Design */
   --border-bottom: 1px solid var(--border-color);

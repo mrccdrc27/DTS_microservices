@@ -43,6 +43,11 @@ class UserListView(generics.ListAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserInfoSerializer#CompleteRegistrationSerializer 
 
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserInfoSerializer
+    lookup_field = "id"  # default is 'pk', change if your URL uses 'id'
+    
 class PendingRegistrationListView(generics.ListAPIView):
     serializer_class = PendingRegistrationSerializer
 
@@ -302,7 +307,8 @@ class InviteUserView(CreateAPIView):
         token = str(registration.token)
 
         # FRONTEND URL (change this to your production domain when deployed)
-        frontend_base_url = "http://localhost:3000/api/authapi/register/${token}/"
+        # frontend_base_url = "http://localhost:3000/api/authapi/register/${token}/"
+        frontend_base_url = "http://localhost:1000/register"
         query_string = urlencode({'token': token})
         url = f"{frontend_base_url}?{query_string}"
 
@@ -343,23 +349,23 @@ def validate_registration_token(request):
 class RegisterUserView(generics.CreateAPIView):
     serializer_class = CompleteRegistrationSerializer
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        result = serializer.save()
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     result = serializer.save()
 
-        user = result['user']
-        return Response({
-            'user': {
-                'id': user.id,
-                'email': user.email,
-                'first_name': user.first_name,
-                'last_name': user.last_name,
-                'role': user.role,
-            },
-            'refresh': result['refresh'],
-            'access': result['access'],
-        }, status=status.HTTP_201_CREATED)
+        # user = result['user']
+        # return Response({
+        #     'user': {
+        #         'id': user.id,
+        #         'email': user.email,
+        #         'first_name': user.first_name,
+        #         'last_name': user.last_name,
+        #         'role': user.role,
+        #     },
+        #     'refresh': result['refresh'],
+        #     'access': result['access'],
+        # }, status=status.HTTP_201_CREATED)
 
 class ChangePasswordAPIView(APIView):
     permission_classes = [IsAuthenticated]

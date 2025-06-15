@@ -4,9 +4,11 @@ import AdminNav from "../../../components/navigations/admin-nav/AdminNav";
 import TitleCard from "../../../components/TitleCard";
 
 import style from "./WorkflowCreator.module.css";
-import forms from "../../../forms.module.css";
-import CreateStep from "./components/createstep";
-import WorkflowSteps from "./components/stepcard";
+// import forms from "../../../forms.module.css";
+// import CreateStep from "./components/createstep";
+// import WorkflowSteps from "./components/stepcard";
+// import WorkflowManager from "./components/WorkflowManager.jsx";
+import WorkflowManager from "./workflowmanager";
 
 export default function WorkflowEditor() {
   const navigate = useNavigate();
@@ -32,12 +34,13 @@ export default function WorkflowEditor() {
           <hr />
         </section>
         <section className={style.whole}>
-          <div className={style.step}>
+          <WorkflowManager/>
+          {/* <div className={style.step}>
             <WorkflowSteps/>
           </div>
           <div className={style.configure}>
             <CreateStep/>
-          </div>
+          </div> */}
 
         </section>
       </main>

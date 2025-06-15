@@ -9,7 +9,7 @@ import style from "./Agent.module.css"
 import forms from "../../../forms.module.css"
 import AgentPosition from "../../../tables/admin/agent/AgentPosition";
 
-export default function AgentInvite() {
+export default function AgentPositionView() {
     const navigate = useNavigate();
   return(
     <>

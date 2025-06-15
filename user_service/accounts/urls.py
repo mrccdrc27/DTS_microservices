@@ -26,6 +26,7 @@ urlpatterns = [
 
     # List users
     path('users/', UserListView.as_view(), name='user-list'),
+    path('users/<int:id>/', UserDetailView.as_view(), name='user-detail'),
 
     #registration routes
     path('register/<uuid:token>/', RegisterUserView.as_view(), name='register-user'),
